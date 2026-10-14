@@ -13,27 +13,25 @@ const geistMono = Geist_Mono({
 });
 
 export const viewport: Viewport = {
-  themeColor: "#07080b",
-  colorScheme: "dark",
+  themeColor: "#ffffff",
+  colorScheme: "light",
   width: "device-width",
   initialScale: 1,
 };
 
 export const metadata: Metadata = {
-  title: "olmospace — Personal Atelier & Research Chambers",
+  title: "olmospace — Olmo Marchi | Portfolio & Laboratory",
   description:
-    "Laboratorio digitale e archivio delle sperimentazioni di Olmo Marchi: orologeria concettuale (CRAVED), creative systems (MIRROR STUDIO), finanza sistematica (QUANT LAB), intelligenza artificiale ed economie virtuali.",
+    "Atelier e laboratorio personale di Olmo Marchi: orologeria concettuale (CRAVED), creative systems (MIRROR STUDIO), finanza sistematica e tecnologie interattive.",
   keywords: [
     "Olmo Marchi",
     "olmospace",
     "CRAVED",
     "MIRROR STUDIO",
-    "Quant Lab",
-    "AI Lab",
-    "Creative Direction",
     "Conceptual Horology",
-    "Algorithmic Trading",
-    "Virtual Worlds"
+    "Quant Lab",
+    "Roblox Ventures",
+    "Creative Direction"
   ],
   authors: [{ name: "Olmo Marchi", url: "https://craved.ch" }],
   creator: "Olmo Marchi",
@@ -41,15 +39,15 @@ export const metadata: Metadata = {
     type: "website",
     locale: "it_IT",
     url: "https://olmospace.vercel.app",
-    title: "olmospace — Personal Atelier & Research Chambers",
+    title: "olmospace — Olmo Marchi",
     description:
-      "Laboratorio digitale e archivio progetti di Olmo Marchi. Orologeria concettuale, sistemi creativi AI, finanza quantitativa e mondi virtuali.",
+      "Atelier personale e archivio progetti di Olmo Marchi. CRAVED, MIRROR STUDIO, Quant Lab, AI Lab, Roblox Ventures.",
     siteName: "olmospace",
   },
   twitter: {
     card: "summary_large_image",
-    title: "olmospace — Personal Atelier & Research Chambers",
-    description: "Laboratorio digitale e archivio progetti di Olmo Marchi.",
+    title: "olmospace — Olmo Marchi",
+    description: "Atelier personale e archivio progetti di Olmo Marchi.",
   },
   robots: {
     index: true,
@@ -63,9 +61,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="it" className="dark">
+    <html lang="it" className="light">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} font-sans min-h-screen bg-[#07080b] text-[#f3f4f6] antialiased selection:bg-white/20 selection:text-white`}
+        className={`${geistSans.variable} ${geistMono.variable} font-sans min-h-screen bg-white text-zinc-900 antialiased selection:bg-zinc-900 selection:text-white`}
       >
         {children}
       </body>
