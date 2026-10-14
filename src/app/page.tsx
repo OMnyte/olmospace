@@ -20,6 +20,9 @@ interface Chamber {
   name: string;
   domain?: string;
   url?: string;
+  bannerImage?: string;
+  bannerAspect?: string;
+  bannerBg?: string;
   tagline: string;
   category: string;
   status: string;
@@ -37,6 +40,9 @@ const CHAMBERS: Chamber[] = [
     name: 'CRAVED',
     domain: 'craved.ch',
     url: 'https://craved.ch',
+    bannerImage: '/craved-banner.png',
+    bannerAspect: 'aspect-[3.6/1]',
+    bannerBg: 'bg-black border-zinc-900',
     tagline: 'Time doesn’t tick. It flows.',
     category: 'Maison di Orologeria Concettuale',
     status: 'Live & Operating',
@@ -54,9 +60,12 @@ const CHAMBERS: Chamber[] = [
   {
     index: '02',
     id: 'mirror-studio',
-    name: 'MIRROR STUDIO',
+    name: 'MIRR/OR STUDIO',
     domain: 'mirrorstudio.it',
     url: 'https://mirrorstudio.it',
+    bannerImage: '/mirror-logo.png',
+    bannerAspect: 'aspect-[3.6/1]',
+    bannerBg: 'bg-white border-zinc-200',
     tagline: 'AI Production Engines & Structured Creative Systems',
     category: 'Creative System & Art Direction',
     status: 'Live & Operating',
@@ -386,16 +395,44 @@ export default function OlmospaceDashboard() {
                     {/* Left Sub-column */}
                     <div className="md:col-span-5 flex flex-col justify-between">
                       <div>
-                        <h3 className="text-2xl font-normal tracking-tight text-zinc-950">
-                          {chamber.name}
-                        </h3>
-                        {chamber.domain && (
-                          <span className="text-xs font-mono text-zinc-400 block mt-0.5">
-                            {chamber.domain}
-                          </span>
+                        {chamber.bannerImage && (
+                          <a
+                            href={chamber.url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className={`group relative block w-full ${chamber.bannerAspect || 'aspect-[3.6/1]'} rounded-xl overflow-hidden mb-4 border ${chamber.bannerBg || 'bg-white border-zinc-200'} hover:border-zinc-500 transition-all shadow-xs`}
+                            title={`Visita ${chamber.domain}`}
+                          >
+                            <Image
+                              src={chamber.bannerImage}
+                              alt={chamber.name}
+                              fill
+                              className="object-contain p-3 group-hover:scale-[1.02] transition-transform duration-300"
+                            />
+                            <div className="absolute top-2 right-2 text-zinc-400 group-hover:text-zinc-900 transition-colors bg-white/80 backdrop-blur-xs rounded p-1 shadow-xs">
+                              <ArrowUpRight className="w-3.5 h-3.5" />
+                            </div>
+                          </a>
                         )}
 
-                        <div className="mt-4 p-3 rounded-xl border border-zinc-100 bg-[#fafafa]">
+                        <div className="flex items-baseline justify-between gap-2">
+                          <h3 className="text-2xl font-normal tracking-tight text-zinc-950">
+                            {chamber.name}
+                          </h3>
+                          {chamber.domain && (
+                            <a
+                              href={chamber.url}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="text-xs font-mono text-zinc-500 hover:text-zinc-900 transition-colors inline-flex items-center gap-1"
+                            >
+                              <span>{chamber.domain}</span>
+                              <ArrowUpRight className="w-3 h-3 text-zinc-400" />
+                            </a>
+                          )}
+                        </div>
+
+                        <div className="mt-4 p-3.5 rounded-xl border border-zinc-100 bg-[#fafafa]">
                           <span className="text-[10px] font-mono uppercase tracking-wider text-zinc-400 block mb-1">
                             Tesi & Filosofia
                           </span>
@@ -411,7 +448,7 @@ export default function OlmospaceDashboard() {
                             href={chamber.url}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-zinc-900 text-white text-xs font-mono font-medium hover:bg-zinc-800 transition-colors w-full sm:w-auto justify-center shadow-sm"
+                            className="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg bg-zinc-900 text-white text-xs font-mono font-medium hover:bg-zinc-800 transition-colors w-full sm:w-auto justify-center shadow-xs"
                           >
                             <span>Visita {chamber.domain}</span>
                             <ArrowUpRight className="w-3.5 h-3.5" />

@@ -21,7 +21,7 @@
 * **Focus:** Orologeria concettuale svizzera indipendente. Esplorazione del tempo vissuto attraverso estetica meccanica pura e filosofia tangibile.
 * *«Time doesn’t tick. It flows.»*
 
-### 02 | MIRROR STUDIO | Creative System & Art Direction
+### 02 | MIRR/OR STUDIO | Creative System & Art Direction
 * **Sito Live:** [mirrorstudio.it](https://mirrorstudio.it)
 * **Status:** Live & Operating | Milano [IT] | Remote
 * **Focus:** Studio di sistemi creativi, direzione artistica ed engine di produzione visiva potenziati da intelligenza artificiale per brand ad alto impatto (Reflect, Foundation, Operate).
