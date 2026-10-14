@@ -1,16 +1,16 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import Image from 'next/image';
 import {
   ArrowUpRight,
-  ArrowRight,
   Clock,
   Check,
   Copy,
   Mail,
-  Compass,
+  MapPin,
+  ExternalLink,
   Layers,
-  ChevronRight,
   Circle
 } from 'lucide-react';
 
@@ -60,7 +60,7 @@ const CHAMBERS: Chamber[] = [
     tagline: 'AI Production Engines & Structured Creative Systems',
     category: 'Creative System & Art Direction',
     status: 'Live & Operating',
-    location: 'Milano [IT] · Remote',
+    location: 'Milano [IT] | Remote',
     thesis: '«Scalare l’identità visiva senza compromessi sull’anima artistica.»',
     description:
       'Studio di sistemi visivi e motori di produzione sintetica per brand ad alto impatto. Supera i limiti dei set tradizionali trasformando l’AI in un motore operativo integrato (Reflect, Foundation, Operate), garantendo coerenza estetica e moltiplicazione dei formati visivi.',
@@ -127,10 +127,11 @@ const CHAMBERS: Chamber[] = [
   }
 ];
 
-export default function OlmospacePage() {
+export default function OlmospaceDashboard() {
   const [activeTab, setActiveTab] = useState<string>('all');
-  const [copiedEmail, setCopiedEmail] = useState<string | null>(null);
+  const [copied, setCopied] = useState<boolean>(false);
   const [time, setTime] = useState<string>('');
+  const email = 'OMnyte@users.noreply.github.com';
 
   useEffect(() => {
     const updateTime = () => {
@@ -150,10 +151,10 @@ export default function OlmospacePage() {
     return () => clearInterval(interval);
   }, []);
 
-  const copyToClipboard = (text: string, label: string) => {
-    navigator.clipboard.writeText(text);
-    setCopiedEmail(label);
-    setTimeout(() => setCopiedEmail(null), 2200);
+  const handleCopy = () => {
+    navigator.clipboard.writeText(email);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2200);
   };
 
   const displayedChambers =
@@ -162,329 +163,315 @@ export default function OlmospacePage() {
       : CHAMBERS.filter((c) => c.id === activeTab);
 
   return (
-    <div className="min-h-screen bg-white text-zinc-900 selection:bg-zinc-900 selection:text-white flex flex-col justify-between">
-      {/* Top Header / Navigation (Swiss Minimal) */}
-      <header className="sticky top-0 z-40 bg-white/90 backdrop-blur-md border-b border-zinc-200/80 transition-all">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 h-14 sm:h-16 flex items-center justify-between">
+    <div className="min-h-screen bg-[#fafafa] text-zinc-900 selection:bg-zinc-900 selection:text-white flex flex-col justify-between">
+      {/* Top Bar (Swiss Minimal) */}
+      <header className="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-zinc-200">
+        <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-10 h-14 sm:h-16 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <a
-              href="#"
-              className="text-sm font-semibold tracking-tight text-zinc-900 hover:text-zinc-600 transition-colors"
-            >
+            <span className="text-sm font-semibold tracking-tight text-zinc-900">
               OLMOSPACE
-            </a>
-            <span className="text-zinc-300">/</span>
+            </span>
+            <span className="text-zinc-300">|</span>
             <span className="text-xs font-mono text-zinc-500 uppercase tracking-widest hidden sm:inline">
-              Personal Atelier
+              Dashboard & Atelier
             </span>
           </div>
 
           <div className="flex items-center gap-4 text-xs font-mono text-zinc-500">
-            <div className="flex items-center gap-1.5">
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
-              <span className="text-zinc-700 font-medium">{time || '18:40:00'}</span>
-              <span className="text-zinc-400 hidden xs:inline">CET (CH/IT)</span>
+            <div className="flex items-center gap-2 px-2.5 py-1 rounded bg-zinc-100 border border-zinc-200">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+              <Clock className="w-3.5 h-3.5 text-zinc-400" />
+              <span className="text-zinc-800 font-medium">{time || '20:00:00'}</span>
+              <span className="text-zinc-400 hidden xs:inline">| CET</span>
             </div>
-            <span className="text-zinc-300 hidden sm:inline">|</span>
+
             <a
-              href="#contact"
-              className="hidden sm:inline text-zinc-900 font-medium hover:underline underline-offset-4"
+              href={`mailto:${email}`}
+              className="text-zinc-900 font-medium hover:underline underline-offset-4 hidden sm:inline"
             >
-              Contatto →
+              {email}
             </a>
           </div>
         </div>
       </header>
 
-      {/* Main Content Area */}
-      <main className="max-w-5xl mx-auto px-4 sm:px-6 py-10 sm:py-16 md:py-20 w-full flex-1">
-        {/* Profile & Manifesto Header (CRAVED aesthetic: clean, stark, generous typography) */}
-        <section className="mb-14 sm:mb-20 pb-12 sm:pb-16 border-b border-zinc-200">
-          <div className="max-w-3xl">
-            <span className="text-[11px] font-mono uppercase tracking-[0.2em] text-zinc-400 block mb-3">
-              Olmo Marchi · Portfolio & Laboratorio
-            </span>
+      {/* Expanded Widescreen Dashboard Body */}
+      <main className="max-w-[1440px] w-full mx-auto px-4 sm:px-6 lg:px-10 py-6 sm:py-10 flex-1">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-start">
+          {/* Left Column | Profile & Dossier (Sticky on Desktop) */}
+          <aside className="lg:col-span-4 lg:sticky lg:top-24 space-y-6">
+            {/* Identity Card */}
+            <div className="p-6 rounded-2xl border border-zinc-200 bg-white shadow-sm">
+              {/* Photo */}
+              <div className="relative w-full aspect-square rounded-xl overflow-hidden mb-5 border border-zinc-200 bg-zinc-100">
+                <Image
+                  src="/olmo.jpg"
+                  alt="Olmo Marchi"
+                  fill
+                  priority
+                  className="object-cover grayscale contrast-110"
+                />
+              </div>
 
-            <h1 className="text-3xl sm:text-4xl md:text-5xl font-light tracking-tight text-zinc-950 leading-[1.15]">
-              Materia, Codice & Sistemi. <br />
-              <span className="font-normal text-zinc-600">
-                L’archivio delle sperimentazioni.
-              </span>
-            </h1>
+              {/* Name & Title */}
+              <div className="space-y-1 pb-4 border-b border-zinc-100">
+                <span className="text-[10px] font-mono uppercase tracking-[0.2em] text-zinc-400 block">
+                  Fondatore | Ricercatore
+                </span>
+                <h1 className="text-2xl font-normal tracking-tight text-zinc-950">
+                  Olmo Marchi
+                </h1>
+                <p className="text-xs text-zinc-500 font-mono">
+                  Conceptual Design | Systems | Quantitative Research
+                </p>
+              </div>
 
-            <p className="mt-6 text-base sm:text-lg text-zinc-600 leading-relaxed font-light">
-              Ho vent’anni, studio fisica e costruisco progetti all’intersezione 
-              tra design concettuale, intelligenza sintetica, finanza quantitativa 
-              ed economie virtuali. 
-              <strong className="font-medium text-zinc-900"> olmospace</strong> è la sintesi 
-              del mio percorso: non progetti sconnessi, ma camere di uno stesso laboratorio.
-            </p>
+              {/* Bio / Manifesto */}
+              <p className="text-xs sm:text-sm text-zinc-600 leading-relaxed font-light mt-4">
+                Ho vent’anni, studio fisica e costruisco progetti all’intersezione 
+                tra materia (orologeria concettuale svizzera), intelligenza sintetica, 
+                finanza quantitativa ed economie virtuali.
+              </p>
 
-            {/* Quick action strip */}
-            <div className="mt-8 flex flex-wrap items-center gap-3 sm:gap-4 text-xs font-mono">
-              <a
-                href="#chambers"
-                className="px-4 py-2 rounded-full bg-zinc-900 text-white font-medium hover:bg-zinc-800 transition-colors inline-flex items-center gap-2"
-              >
-                <span>Esplora i Progetti</span>
-                <ArrowRight className="w-3.5 h-3.5" />
-              </a>
+              {/* Location & Status */}
+              <div className="mt-5 pt-4 border-t border-zinc-100 flex flex-col gap-2 text-xs font-mono text-zinc-500">
+                <div className="flex items-center justify-between">
+                  <span>Location</span>
+                  <span className="text-zinc-800 font-medium">Milano | Svizzera</span>
+                </div>
+                <div className="flex items-center justify-between">
+                  <span>Status</span>
+                  <span className="text-emerald-700 font-medium">Disponibile per Advisory</span>
+                </div>
+              </div>
 
-              <a
-                href="https://craved.ch"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="px-3.5 py-2 rounded-full border border-zinc-300 text-zinc-800 hover:border-zinc-900 transition-all inline-flex items-center gap-1.5"
-              >
-                <span>craved.ch</span>
-                <ArrowUpRight className="w-3.5 h-3.5 text-zinc-400" />
-              </a>
+              {/* Email Contact Actions */}
+              <div className="mt-6 pt-5 border-t border-zinc-100 space-y-2">
+                <a
+                  href={`mailto:${email}`}
+                  className="w-full py-2.5 px-4 rounded-lg bg-zinc-950 text-white text-xs font-mono font-medium hover:bg-zinc-800 transition-colors flex items-center justify-center gap-2"
+                >
+                  <Mail className="w-3.5 h-3.5" />
+                  <span>Invia Mail</span>
+                </a>
 
-              <a
-                href="https://mirrorstudio.it"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="px-3.5 py-2 rounded-full border border-zinc-300 text-zinc-800 hover:border-zinc-900 transition-all inline-flex items-center gap-1.5"
-              >
-                <span>mirrorstudio.it</span>
-                <ArrowUpRight className="w-3.5 h-3.5 text-zinc-400" />
-              </a>
-
-              <a
-                href="https://www.linkedin.com/in/olmomarchi/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="px-3.5 py-2 rounded-full border border-zinc-300 text-zinc-800 hover:border-zinc-900 transition-all inline-flex items-center gap-1.5"
-              >
-                <span>LinkedIn</span>
-                <ArrowUpRight className="w-3.5 h-3.5 text-zinc-400" />
-              </a>
-            </div>
-          </div>
-        </section>
-
-        {/* Chamber Selector Tabs (Mobile Touch Friendly & Interactive) */}
-        <section id="chambers" className="mb-10">
-          <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-3 mb-6">
-            <div>
-              <span className="text-[11px] font-mono uppercase tracking-[0.2em] text-zinc-400 block mb-1">
-                Indice Laboratori
-              </span>
-              <h2 className="text-xl sm:text-2xl font-normal tracking-tight text-zinc-900">
-                Le 5 Camere di Ricerca
-              </h2>
-            </div>
-
-            <span className="text-xs font-mono text-zinc-400">
-              {displayedChambers.length} di {CHAMBERS.length} {displayedChambers.length === 1 ? 'progetto selezionato' : 'progetti attivi'}
-            </span>
-          </div>
-
-          {/* Interactive Horizontal Switcher Bar (Mobile Scrollable) */}
-          <div className="flex items-center gap-1.5 overflow-x-auto pb-2 scrollbar-none border-b border-zinc-200">
-            <button
-              onClick={() => setActiveTab('all')}
-              className={`px-3.5 py-2 rounded-lg text-xs font-mono whitespace-nowrap transition-all ${
-                activeTab === 'all'
-                  ? 'bg-zinc-900 text-white font-medium'
-                  : 'text-zinc-600 hover:text-zinc-950 hover:bg-zinc-100'
-              }`}
-            >
-              [ TUTTI ]
-            </button>
-
-            {CHAMBERS.map((chamber) => {
-              const isActive = activeTab === chamber.id;
-              return (
                 <button
-                  key={chamber.id}
-                  onClick={() => setActiveTab(chamber.id)}
-                  className={`px-3 py-2 rounded-lg text-xs font-mono whitespace-nowrap transition-all flex items-center gap-1.5 ${
-                    isActive
-                      ? 'bg-zinc-900 text-white font-medium shadow-sm'
+                  onClick={handleCopy}
+                  className="w-full py-2 px-3 rounded-lg border border-zinc-200 text-zinc-700 text-xs font-mono hover:border-zinc-900 transition-colors flex items-center justify-center gap-2 bg-zinc-50"
+                >
+                  {copied ? (
+                    <>
+                      <Check className="w-3.5 h-3.5 text-emerald-600" />
+                      <span className="text-emerald-700 font-medium">Email Copiata</span>
+                    </>
+                  ) : (
+                    <>
+                      <Copy className="w-3.5 h-3.5 text-zinc-400" />
+                      <span>{email}</span>
+                    </>
+                  )}
+                </button>
+              </div>
+
+              {/* External Links */}
+              <div className="mt-5 pt-4 border-t border-zinc-100 flex flex-wrap items-center justify-between gap-3 text-xs font-mono text-zinc-500">
+                <a
+                  href="https://craved.ch"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-zinc-950 transition-colors"
+                >
+                  craved.ch ↗
+                </a>
+                <a
+                  href="https://mirrorstudio.it"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-zinc-950 transition-colors"
+                >
+                  mirrorstudio.it ↗
+                </a>
+                <a
+                  href="https://www.linkedin.com/in/olmomarchi/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-zinc-950 transition-colors"
+                >
+                  LinkedIn ↗
+                </a>
+                <a
+                  href="https://github.com/OMnyte"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-zinc-950 transition-colors"
+                >
+                  GitHub ↗
+                </a>
+              </div>
+            </div>
+          </aside>
+
+          {/* Right Column | Widescreen Chambers & Labs Workspace */}
+          <section className="lg:col-span-8 space-y-6">
+            {/* Filter Bar */}
+            <div className="p-4 sm:p-5 rounded-2xl border border-zinc-200 bg-white shadow-sm flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+              <div>
+                <span className="text-[10px] font-mono uppercase tracking-[0.2em] text-zinc-400 block">
+                  Indice Ecosistema
+                </span>
+                <h2 className="text-lg font-normal tracking-tight text-zinc-900">
+                  Le 5 Camere del Laboratorio
+                </h2>
+              </div>
+
+              {/* Tabs Switcher */}
+              <div className="flex items-center gap-1 overflow-x-auto pb-1 sm:pb-0 scrollbar-none">
+                <button
+                  onClick={() => setActiveTab('all')}
+                  className={`px-3 py-1.5 rounded-lg text-xs font-mono whitespace-nowrap transition-all ${
+                    activeTab === 'all'
+                      ? 'bg-zinc-950 text-white font-medium'
                       : 'text-zinc-600 hover:text-zinc-950 hover:bg-zinc-100'
                   }`}
                 >
-                  <span className={isActive ? 'text-zinc-400' : 'text-zinc-400'}>
-                    {chamber.index}
-                  </span>
-                  <span>{chamber.name}</span>
+                  [ TUTTI ]
                 </button>
-              );
-            })}
-          </div>
-        </section>
 
-        {/* Project Slates / Separate Chambers */}
-        <section className="space-y-12 sm:space-y-16">
-          {displayedChambers.map((chamber) => (
-            <article
-              key={chamber.id}
-              className="p-6 sm:p-8 md:p-10 rounded-2xl border border-zinc-200/90 bg-[#fafafa] hover:border-zinc-400 transition-all duration-300"
-            >
-              {/* Slate Header */}
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-6 border-b border-zinc-200">
-                <div className="flex items-center gap-3">
-                  <span className="text-xs font-mono px-2 py-0.5 rounded bg-zinc-200/70 text-zinc-700 font-medium">
-                    {chamber.index}
-                  </span>
-                  <span className="text-xs font-mono uppercase tracking-wider text-zinc-500">
-                    {chamber.category}
-                  </span>
-                </div>
-
-                <div className="flex items-center gap-3 text-xs font-mono text-zinc-500">
-                  <span>{chamber.location}</span>
-                  <span>·</span>
-                  <span className="px-2 py-0.5 rounded-full border border-zinc-300 text-zinc-700 bg-white">
-                    {chamber.status}
-                  </span>
-                </div>
+                {CHAMBERS.map((chamber) => {
+                  const isActive = activeTab === chamber.id;
+                  return (
+                    <button
+                      key={chamber.id}
+                      onClick={() => setActiveTab(chamber.id)}
+                      className={`px-3 py-1.5 rounded-lg text-xs font-mono whitespace-nowrap transition-all flex items-center gap-1.5 ${
+                        isActive
+                          ? 'bg-zinc-950 text-white font-medium shadow-sm'
+                          : 'text-zinc-600 hover:text-zinc-950 hover:bg-zinc-100'
+                      }`}
+                    >
+                      <span className={isActive ? 'text-zinc-400' : 'text-zinc-400'}>
+                        {chamber.index}
+                      </span>
+                      <span>{chamber.name}</span>
+                    </button>
+                  );
+                })}
               </div>
-
-              {/* Slate Body */}
-              <div className="grid grid-cols-1 md:grid-cols-12 gap-6 sm:gap-8 pt-6 sm:pt-8">
-                {/* Left: Name, Thesis & External Link */}
-                <div className="md:col-span-5 flex flex-col justify-between">
-                  <div>
-                    <h3 className="text-2xl sm:text-3xl font-normal tracking-tight text-zinc-950">
-                      {chamber.name}
-                    </h3>
-                    {chamber.domain && (
-                      <span className="text-xs font-mono text-zinc-400 block mt-0.5">
-                        {chamber.domain}
-                      </span>
-                    )}
-
-                    <div className="mt-4 p-3.5 rounded-xl border border-zinc-200 bg-white">
-                      <span className="text-[10px] font-mono uppercase tracking-wider text-zinc-400 block mb-1">
-                        Tesi & Filosofia
-                      </span>
-                      <p className="text-xs sm:text-sm font-medium text-zinc-800 italic leading-snug">
-                        {chamber.thesis}
-                      </p>
-                    </div>
-                  </div>
-
-                  {chamber.url && (
-                    <div className="mt-6 pt-4">
-                      <a
-                        href={chamber.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg bg-zinc-900 text-white text-xs font-mono font-medium hover:bg-zinc-800 transition-colors w-full sm:w-auto justify-center"
-                      >
-                        <span>Visita {chamber.domain}</span>
-                        <ArrowUpRight className="w-3.5 h-3.5" />
-                      </a>
-                    </div>
-                  )}
-                </div>
-
-                {/* Right: Narrative, Pillars & Stack */}
-                <div className="md:col-span-7 flex flex-col justify-between border-t md:border-t-0 md:border-l border-zinc-200 pt-6 md:pt-0 md:pl-8">
-                  <div>
-                    <p className="text-sm text-zinc-700 leading-relaxed font-light">
-                      {chamber.description}
-                    </p>
-
-                    <div className="mt-5">
-                      <span className="text-[11px] font-mono uppercase tracking-wider text-zinc-400 block mb-2">
-                        Punti di Rilievo
-                      </span>
-                      <ul className="space-y-2 text-xs text-zinc-600">
-                        {chamber.pillars.map((pillar, idx) => (
-                          <li key={idx} className="flex items-start gap-2">
-                            <span className="text-zinc-400 mt-0.5">—</span>
-                            <span>{pillar}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  </div>
-
-                  <div className="mt-6 pt-4 border-t border-zinc-200 flex flex-wrap gap-1.5">
-                    {chamber.stack.map((item, idx) => (
-                      <span
-                        key={idx}
-                        className="text-[11px] font-mono px-2 py-0.5 rounded border border-zinc-200 bg-white text-zinc-600"
-                      >
-                        {item}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            </article>
-          ))}
-        </section>
-
-        {/* Contact & Dialogue Section (Minimal Swiss Footer Block) */}
-        <section id="contact" className="mt-20 pt-16 border-t border-zinc-200">
-          <div className="max-w-2xl">
-            <span className="text-[11px] font-mono uppercase tracking-[0.2em] text-zinc-400 block mb-2">
-              Contatto Diretto
-            </span>
-            <h3 className="text-2xl font-light text-zinc-950 tracking-tight">
-              Dialogo & Collaborazioni
-            </h3>
-            <p className="mt-3 text-sm text-zinc-600 font-light leading-relaxed">
-              Il laboratorio è aperto a scambi intellettuali, progetti di ricerca, 
-              consulenza e nuove iniziative congiunte.
-            </p>
-
-            <div className="mt-6 flex flex-wrap items-center gap-3">
-              <a
-                href="mailto:olmo@craved.ch"
-                className="px-4 py-2.5 rounded-lg bg-zinc-900 text-white text-xs font-mono font-medium hover:bg-zinc-800 transition-colors inline-flex items-center gap-2"
-              >
-                <Mail className="w-3.5 h-3.5" />
-                <span>olmo@craved.ch</span>
-              </a>
-
-              <button
-                onClick={() => copyToClipboard('olmo@craved.ch', 'craved')}
-                className="px-3.5 py-2.5 rounded-lg border border-zinc-300 text-zinc-700 text-xs font-mono hover:border-zinc-900 transition-colors inline-flex items-center gap-1.5"
-              >
-                {copiedEmail === 'craved' ? (
-                  <>
-                    <Check className="w-3.5 h-3.5 text-emerald-600" />
-                    <span>Copiata</span>
-                  </>
-                ) : (
-                  <>
-                    <Copy className="w-3.5 h-3.5 text-zinc-400" />
-                    <span>Copia Email</span>
-                  </>
-                )}
-              </button>
-
-              <button
-                onClick={() => copyToClipboard('marchiolmo06@gmail.com', 'gmail')}
-                className="px-3.5 py-2.5 rounded-lg border border-zinc-300 text-zinc-700 text-xs font-mono hover:border-zinc-900 transition-colors inline-flex items-center gap-1.5"
-              >
-                {copiedEmail === 'gmail' ? (
-                  <>
-                    <Check className="w-3.5 h-3.5 text-emerald-600" />
-                    <span>Copiata</span>
-                  </>
-                ) : (
-                  <>
-                    <Copy className="w-3.5 h-3.5 text-zinc-400" />
-                    <span>marchiolmo06@gmail.com</span>
-                  </>
-                )}
-              </button>
             </div>
-          </div>
-        </section>
+
+            {/* Chambers Slates (Expansive & Distinct) */}
+            <div className="space-y-6">
+              {displayedChambers.map((chamber) => (
+                <article
+                  key={chamber.id}
+                  className="p-6 sm:p-8 rounded-2xl border border-zinc-200 bg-white shadow-sm hover:border-zinc-400 transition-all duration-200"
+                >
+                  {/* Header Strip with pipe separators */}
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-5 border-b border-zinc-100">
+                    <div className="flex items-center gap-2.5 text-xs font-mono">
+                      <span className="px-2 py-0.5 rounded bg-zinc-100 text-zinc-800 font-medium border border-zinc-200">
+                        {chamber.index}
+                      </span>
+                      <span className="text-zinc-300">|</span>
+                      <span className="uppercase tracking-wider text-zinc-600 font-medium">
+                        {chamber.category}
+                      </span>
+                    </div>
+
+                    <div className="flex items-center gap-2 text-xs font-mono text-zinc-500">
+                      <span>{chamber.location}</span>
+                      <span className="text-zinc-300">|</span>
+                      <span className="px-2.5 py-0.5 rounded-full border border-zinc-200 text-zinc-800 bg-zinc-50 font-medium">
+                        {chamber.status}
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* Body Content */}
+                  <div className="grid grid-cols-1 md:grid-cols-12 gap-6 pt-6">
+                    {/* Left Sub-column */}
+                    <div className="md:col-span-5 flex flex-col justify-between">
+                      <div>
+                        <h3 className="text-2xl font-normal tracking-tight text-zinc-950">
+                          {chamber.name}
+                        </h3>
+                        {chamber.domain && (
+                          <span className="text-xs font-mono text-zinc-400 block mt-0.5">
+                            {chamber.domain}
+                          </span>
+                        )}
+
+                        <div className="mt-4 p-3 rounded-xl border border-zinc-100 bg-[#fafafa]">
+                          <span className="text-[10px] font-mono uppercase tracking-wider text-zinc-400 block mb-1">
+                            Tesi & Filosofia
+                          </span>
+                          <p className="text-xs sm:text-sm font-medium text-zinc-800 italic leading-snug">
+                            {chamber.thesis}
+                          </p>
+                        </div>
+                      </div>
+
+                      {chamber.url && (
+                        <div className="mt-6">
+                          <a
+                            href={chamber.url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-zinc-900 text-white text-xs font-mono font-medium hover:bg-zinc-800 transition-colors w-full sm:w-auto justify-center shadow-sm"
+                          >
+                            <span>Visita {chamber.domain}</span>
+                            <ArrowUpRight className="w-3.5 h-3.5" />
+                          </a>
+                        </div>
+                      )}
+                    </div>
+
+                    {/* Right Sub-column */}
+                    <div className="md:col-span-7 flex flex-col justify-between border-t md:border-t-0 md:border-l border-zinc-100 pt-5 md:pt-0 md:pl-6">
+                      <div>
+                        <p className="text-xs sm:text-sm text-zinc-600 leading-relaxed font-light">
+                          {chamber.description}
+                        </p>
+
+                        <div className="mt-5">
+                          <span className="text-[10px] font-mono uppercase tracking-wider text-zinc-400 block mb-2">
+                            Punti di Rilievo
+                          </span>
+                          <ul className="space-y-1.5 text-xs text-zinc-600">
+                            {chamber.pillars.map((pillar, idx) => (
+                              <li key={idx} className="flex items-start gap-2">
+                                <span className="text-zinc-400 mt-0.5">|</span>
+                                <span>{pillar}</span>
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      </div>
+
+                      <div className="mt-6 pt-4 border-t border-zinc-100 flex flex-wrap gap-1.5">
+                        {chamber.stack.map((item, idx) => (
+                          <span
+                            key={idx}
+                            className="text-[10px] font-mono px-2 py-0.5 rounded border border-zinc-200 bg-zinc-50 text-zinc-600"
+                          >
+                            {item}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                </article>
+              ))}
+            </div>
+          </section>
+        </div>
       </main>
 
-      {/* Clean Minimalist Footer */}
-      <footer className="border-t border-zinc-200 py-8 bg-white">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-mono text-zinc-500">
+      {/* Minimal Footer */}
+      <footer className="border-t border-zinc-200 py-6 bg-white mt-12">
+        <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-10 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-mono text-zinc-500">
           <div>
-            <span className="font-medium text-zinc-900">OLMOSPACE</span> · Personal Atelier of Olmo Marchi · © 2026
+            <span className="font-medium text-zinc-900">OLMOSPACE</span> | Personal Atelier of Olmo Marchi | © 2026
           </div>
 
           <div className="flex items-center gap-5 text-zinc-600">
