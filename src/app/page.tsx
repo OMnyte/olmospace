@@ -40,8 +40,8 @@ const CHAMBERS: Chamber[] = [
     name: 'CRAVED',
     domain: 'craved.ch',
     url: 'https://craved.ch',
-    bannerImage: '/craved-banner.png',
-    bannerAspect: 'aspect-[3.6/1]',
+    bannerImage: '/craved-preview.jpg',
+    bannerAspect: 'aspect-[16/9]',
     bannerBg: 'bg-black border-zinc-900',
     tagline: 'Time doesn’t tick. It flows.',
     category: 'Maison di Orologeria Concettuale',
@@ -64,7 +64,7 @@ const CHAMBERS: Chamber[] = [
     domain: 'mirrorstudio.it',
     url: 'https://mirrorstudio.it',
     bannerImage: '/mirror-logo.png',
-    bannerAspect: 'aspect-[3.6/1]',
+    bannerAspect: 'aspect-[2.5/1]',
     bannerBg: 'bg-white border-zinc-200',
     tagline: 'AI Production Engines & Structured Creative Systems',
     category: 'Creative System & Art Direction',
@@ -424,10 +424,11 @@ export default function OlmospaceDashboard() {
                               src={chamber.bannerImage}
                               alt={chamber.name}
                               fill
-                              className="object-contain p-3 group-hover:scale-[1.02] transition-transform duration-300"
+                              className={`${chamber.id === 'craved' ? 'object-cover' : 'object-contain p-2 sm:p-3'} group-hover:scale-[1.02] transition-transform duration-300`}
                             />
-                            <div className="absolute top-2 right-2 text-zinc-400 group-hover:text-zinc-900 transition-colors bg-white/80 backdrop-blur-xs rounded p-1 shadow-xs">
-                              <ArrowUpRight className="w-3.5 h-3.5" />
+                            <div className="absolute top-2.5 right-2.5 text-zinc-900 bg-white/95 backdrop-blur-xs rounded-md px-2 py-0.5 text-[10px] font-mono shadow-xs flex items-center gap-1">
+                              <span>{chamber.domain}</span>
+                              <ArrowUpRight className="w-3 h-3 text-zinc-500" />
                             </div>
                           </a>
                         )}
@@ -535,8 +536,10 @@ export default function OlmospaceDashboard() {
                     : 'border-zinc-200 bg-zinc-50 text-zinc-700 hover:border-zinc-400'
                 }`}
               >
-                <img src="/favicon-pipe.svg" alt="O|M" className="w-4 h-4 rounded-xs" />
-                <span>O|M</span>
+                <span className="w-5 h-5 rounded flex items-center justify-center bg-zinc-200/80">
+                  <img src="/favicon-pipe.svg" alt="O|M" className="w-4 h-4 object-contain" />
+                </span>
+                <span>O|M (Senza Sfondo)</span>
               </button>
 
               <button
@@ -547,8 +550,10 @@ export default function OlmospaceDashboard() {
                     : 'border-zinc-200 bg-zinc-50 text-zinc-700 hover:border-zinc-400'
                 }`}
               >
-                <img src="/favicon-slash.svg" alt="O/M" className="w-4 h-4 rounded-xs" />
-                <span>O/M</span>
+                <span className="w-5 h-5 rounded flex items-center justify-center bg-zinc-200/80">
+                  <img src="/favicon-slash.svg" alt="O/M" className="w-4 h-4 object-contain" />
+                </span>
+                <span>O/M (Senza Sfondo)</span>
               </button>
 
               <button
@@ -559,8 +564,10 @@ export default function OlmospaceDashboard() {
                     : 'border-zinc-200 bg-zinc-50 text-zinc-700 hover:border-zinc-400'
                 }`}
               >
-                <img src="/favicon-ocut.svg" alt="O/" className="w-4 h-4 rounded-xs" />
-                <span>O/</span>
+                <span className="w-5 h-5 rounded flex items-center justify-center bg-zinc-200/80">
+                  <img src="/favicon-ocut.svg" alt="O/" className="w-4 h-4 object-contain" />
+                </span>
+                <span>O/ (Senza Sfondo)</span>
               </button>
             </div>
           </div>
