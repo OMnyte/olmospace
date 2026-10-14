@@ -41,7 +41,7 @@ const CHAMBERS: Chamber[] = [
     domain: 'craved.ch',
     url: 'https://craved.ch',
     bannerImage: '/craved-preview.jpg',
-    bannerAspect: 'aspect-[16/9]',
+    bannerAspect: 'aspect-[2.02/1]',
     bannerBg: 'bg-black border-zinc-900',
     tagline: 'Time doesn’t tick. It flows.',
     category: 'Maison di Orologeria Concettuale',
@@ -64,7 +64,7 @@ const CHAMBERS: Chamber[] = [
     domain: 'mirrorstudio.it',
     url: 'https://mirrorstudio.it',
     bannerImage: '/mirror-logo.png',
-    bannerAspect: 'aspect-[2.5/1]',
+    bannerAspect: 'aspect-[3.2/1]',
     bannerBg: 'bg-white border-zinc-200',
     tagline: 'AI Production Engines & Structured Creative Systems',
     category: 'Creative System & Art Direction',
@@ -140,15 +140,16 @@ export default function OlmospaceDashboard() {
   const [activeTab, setActiveTab] = useState<string>('all');
   const [copied, setCopied] = useState<boolean>(false);
   const [time, setTime] = useState<string>('');
-  const [activeFavicon, setActiveFavicon] = useState<'pipe' | 'slash' | 'ocut'>('pipe');
+  const [activeFavicon, setActiveFavicon] = useState<'dynamic' | 'ocut' | 'ocut_white' | 'slash'>('dynamic');
   const email = 'olmomarchi06@gmail.com';
 
-  const switchFavicon = (type: 'pipe' | 'slash' | 'ocut') => {
+  const switchFavicon = (type: 'dynamic' | 'ocut' | 'ocut_white' | 'slash') => {
     setActiveFavicon(type);
     const hrefMap = {
-      pipe: '/favicon-pipe.svg',
-      slash: '/favicon-slash.svg',
+      dynamic: '/favicon-ocut-dynamic.svg',
       ocut: '/favicon-ocut.svg',
+      ocut_white: '/favicon-ocut-white.svg',
+      slash: '/favicon-slash.svg',
     };
     let link: HTMLLinkElement | null = document.querySelector("link[rel*='icon']");
     if (!link) {
@@ -527,47 +528,61 @@ export default function OlmospaceDashboard() {
               </p>
             </div>
 
-            <div className="flex items-center gap-2">
+            <div className="flex flex-wrap items-center gap-2">
               <button
-                onClick={() => switchFavicon('pipe')}
-                className={`flex items-center gap-2.5 px-3.5 py-2 rounded-lg border text-xs font-mono transition-all ${
-                  activeFavicon === 'pipe'
+                onClick={() => switchFavicon('dynamic')}
+                className={`flex items-center gap-2 px-3 py-1.5 rounded-lg border text-xs font-mono transition-all ${
+                  activeFavicon === 'dynamic'
                     ? 'border-zinc-950 bg-zinc-950 text-white font-semibold shadow-xs'
                     : 'border-zinc-200 bg-zinc-50 text-zinc-700 hover:border-zinc-400'
                 }`}
               >
-                <span className="w-5 h-5 rounded flex items-center justify-center bg-zinc-200/80">
-                  <img src="/favicon-pipe.svg" alt="O|M" className="w-4 h-4 object-contain" />
+                <span className="w-4 h-4 rounded flex items-center justify-center bg-zinc-900 border border-zinc-700">
+                  <img src="/favicon-ocut-dynamic.svg" alt="O/" className="w-3.5 h-3.5 object-contain invert" />
                 </span>
-                <span>O|M (Senza Sfondo)</span>
-              </button>
-
-              <button
-                onClick={() => switchFavicon('slash')}
-                className={`flex items-center gap-2.5 px-3.5 py-2 rounded-lg border text-xs font-mono transition-all ${
-                  activeFavicon === 'slash'
-                    ? 'border-zinc-950 bg-zinc-950 text-white font-semibold shadow-xs'
-                    : 'border-zinc-200 bg-zinc-50 text-zinc-700 hover:border-zinc-400'
-                }`}
-              >
-                <span className="w-5 h-5 rounded flex items-center justify-center bg-zinc-200/80">
-                  <img src="/favicon-slash.svg" alt="O/M" className="w-4 h-4 object-contain" />
-                </span>
-                <span>O/M (Senza Sfondo)</span>
+                <span>O/ Dinamico (Auto Dark/Light)</span>
               </button>
 
               <button
                 onClick={() => switchFavicon('ocut')}
-                className={`flex items-center gap-2.5 px-3.5 py-2 rounded-lg border text-xs font-mono transition-all ${
+                className={`flex items-center gap-2 px-3 py-1.5 rounded-lg border text-xs font-mono transition-all ${
                   activeFavicon === 'ocut'
                     ? 'border-zinc-950 bg-zinc-950 text-white font-semibold shadow-xs'
                     : 'border-zinc-200 bg-zinc-50 text-zinc-700 hover:border-zinc-400'
                 }`}
               >
-                <span className="w-5 h-5 rounded flex items-center justify-center bg-zinc-200/80">
-                  <img src="/favicon-ocut.svg" alt="O/" className="w-4 h-4 object-contain" />
+                <span className="w-4 h-4 rounded flex items-center justify-center bg-zinc-900 border border-zinc-700">
+                  <img src="/favicon-ocut.svg" alt="O/" className="w-3.5 h-3.5 object-contain" />
                 </span>
-                <span>O/ (Senza Sfondo)</span>
+                <span>O/ Contrasto Bordo</span>
+              </button>
+
+              <button
+                onClick={() => switchFavicon('ocut_white')}
+                className={`flex items-center gap-2 px-3 py-1.5 rounded-lg border text-xs font-mono transition-all ${
+                  activeFavicon === 'ocut_white'
+                    ? 'border-zinc-950 bg-zinc-950 text-white font-semibold shadow-xs'
+                    : 'border-zinc-200 bg-zinc-50 text-zinc-700 hover:border-zinc-400'
+                }`}
+              >
+                <span className="w-4 h-4 rounded flex items-center justify-center bg-zinc-900 border border-zinc-700">
+                  <img src="/favicon-ocut-white.svg" alt="O/" className="w-3.5 h-3.5 object-contain" />
+                </span>
+                <span>O/ Bianco Puro</span>
+              </button>
+
+              <button
+                onClick={() => switchFavicon('slash')}
+                className={`flex items-center gap-2 px-3 py-1.5 rounded-lg border text-xs font-mono transition-all ${
+                  activeFavicon === 'slash'
+                    ? 'border-zinc-950 bg-zinc-950 text-white font-semibold shadow-xs'
+                    : 'border-zinc-200 bg-zinc-50 text-zinc-700 hover:border-zinc-400'
+                }`}
+              >
+                <span className="w-4 h-4 rounded flex items-center justify-center bg-zinc-900 border border-zinc-700">
+                  <img src="/favicon-slash.svg" alt="O/M" className="w-3.5 h-3.5 object-contain" />
+                </span>
+                <span>O/M Ingrandito</span>
               </button>
             </div>
           </div>
