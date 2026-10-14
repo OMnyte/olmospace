@@ -44,18 +44,18 @@ const CHAMBERS: Chamber[] = [
     bannerAspect: 'aspect-[2.02/1]',
     bannerBg: 'bg-black border-zinc-900',
     tagline: 'Time doesn’t tick. It flows.',
-    category: 'Maison di Orologeria Concettuale',
-    status: 'Live & Operating',
-    location: 'Svizzera [CH]',
+    category: 'Orologeria Concettuale',
+    status: 'In Sviluppo & Design',
+    location: 'Modena [IT] | Ambizione CH',
     thesis: '«La precisione è risolta. L’esperienza no.»',
     description:
-      'Maison indipendente di orologeria concettuale fondata in Svizzera. CRAVED nasce da una frattura: un mondo che misura il tempo in modo ossessivo ma fatica a viverlo. Esplorazione del tempo vissuto attraverso forme scultoree, architettura a clessidra e rottura con l’orologeria convenzionale di status.',
+      'Progetto indipendente di orologeria concettuale nato da una frattura: un mondo che misura il tempo in modo ossessivo ma fatica a viverlo. Con standard e ambizione costruttiva svizzera, CRAVED esplora la percezione della durata attraverso forme scultoree, architettura fluida a clessidra e un superamento dell’orologeria tradizionale di status.',
     pillars: [
-      'Inaugural Series & Sculpted Tonneau in sviluppo',
-      'Architettura Flow: espressione fisica e tangibile della durata',
-      'Fusione tra fisica classica, relatività e filosofia aristotelica del tempo'
+      'Studio e modellazione della cassa (Inaugural Series & Sculpted Tonneau)',
+      'Architettura Flow: dare forma fisica e continua alla durata',
+      'Fusione tra fisica classica, percezione del tempo e design industriale'
     ],
-    stack: ['Conceptual Horology', 'Industrial Design', 'Swiss Engineering', 'Temporal Sculpture']
+    stack: ['Conceptual Horology', 'Industrial Design', '3D Prototyping', 'Horological Architecture']
   },
   {
     index: '02',
@@ -67,18 +67,18 @@ const CHAMBERS: Chamber[] = [
     bannerAspect: 'aspect-[3.2/1]',
     bannerBg: 'bg-white border-zinc-200',
     tagline: 'AI Production Engines & Structured Creative Systems',
-    category: 'Creative System & Art Direction',
-    status: 'Live & Operating',
-    location: 'Milano [IT] | Remote',
-    thesis: '«Scalare l’identità visiva senza compromessi sull’anima artistica.»',
+    category: 'Creative Systems & Art Direction',
+    status: 'Attivo | In Produzione',
+    location: 'Modena [IT] | Remote',
+    thesis: '«Sistematizzare la produzione visiva senza compromessi sull’identità artistica.»',
     description:
-      'Studio di sistemi visivi e motori di produzione sintetica per brand ad alto impatto. Supera i limiti dei set tradizionali trasformando l’AI in un motore operativo integrato (Reflect, Foundation, Operate), garantendo coerenza estetica e moltiplicazione dei formati visivi.',
+      'Studio creativo basato a Modena dedicato alla progettazione di sistemi visivi e flussi di produzione basati su intelligenza artificiale. Aiutiamo brand e progetti a strutturare pipeline visive scalabili ed editoriali (fasi di ideazione, test di consistenza e produzione output), ottimizzando tempi e vincoli delle produzioni tradizionali.',
     pillars: [
-      'Pipeline generative proprietarie per campagne e lookbook ad alta definizione',
-      'Sistemi di direzione artistica strutturati e ripetibili',
-      'Abbattimento dei colli di bottiglia di produzione fisica'
+      'Pipeline generative strutturate per visual editoriali ad alta definizione',
+      'Direzione artistica coerente su cataloghi, lookbook e campagne',
+      'Ottimizzazione dei flussi creativi digitali'
     ],
-    stack: ['Generative AI', 'Art Direction', 'Visual Architecture', 'Brand Positioning', 'Synthetic Media']
+    stack: ['Generative AI', 'Art Direction', 'Visual Workflows', 'Brand Identity', 'Synthetic Media']
   },
   {
     index: '03',
@@ -86,53 +86,53 @@ const CHAMBERS: Chamber[] = [
     name: 'QUANT LAB',
     tagline: 'Systematic Trading & Market Microstructure',
     category: 'Finanza Quantitativa & Algoritmi',
-    status: 'Active Research',
+    status: 'Ricerca Personale',
     location: 'Quantitative Research Unit',
-    thesis: '«Rigore matematico per eliminare il rumore discrezionale.»',
+    thesis: '«Rigore statistico per eliminare il bias discrezionale.»',
     description:
-      'Laboratorio di ricerca sistematica e modellazione quantitativa sui mercati finanziari. Studio computazionale della microstruttura, pattern a candele e dinamiche frattali di liquidità. Backtesting rigoroso, gestione asimmetrica del rischio e test di robustezza Monte Carlo.',
+      'Spazio di studio e ricerca personale sulla modellazione quantitativa dei mercati finanziari. Focus sullo sviluppo di strategie sistematiche trend-following (come breakout di Donchian), analisi statistica della volatilità e backtesting rigoroso con parametri di rischio controllati.',
     pillars: [
-      'Strategie Donchian Breakout e sweep parametrici di volatilità su indici globali',
-      'Infrastruttura automatizzata per l’analisi di time series ad alta risoluzione',
-      'Modellazione statistica dell’edge e contenimento del drawdown'
+      'Sviluppo e backtesting di strategie breakout su serie storiche ad alta risoluzione',
+      'Analisi quantitativa dei drawdown e sizing controllato delle posizioni',
+      'Scripting di automazione e modellazione dati in Python e MQL5'
     ],
-    stack: ['Python', 'MQL5 / MetaTrader', 'Time Series Modeling', 'Stochastic Systems', 'Risk Architecture']
+    stack: ['Python', 'MQL5 / MetaTrader', 'Data Analysis', 'Time Series', 'Systematic Trading']
   },
   {
     index: '04',
     id: 'ai-lab',
     name: 'AI LAB & APPS',
     tagline: 'Autonomous Cognitive Agents & Custom Tooling',
-    category: 'Intelligenza Applicata & Software',
-    status: 'Incubating Lab',
-    location: 'Software Atelier',
-    thesis: '«Il software come estensione cognitiva e compagno di pensiero.»',
+    category: 'Sviluppo Software & Agenti AI',
+    status: 'Sperimentazione Attiva',
+    location: 'Software Lab',
+    thesis: '«Software agile costruito su misura per risolvere problemi reali.»',
     description:
-      'Spazio di prototipazione per agenti autonomi multi-step, interfacce generative e micro-applicazioni software verticali. Integrazioni avanzate con protocollo MCP (Model Context Protocol) e sperimentazioni ai confini delle capacità dei modelli fondazionali.',
+      'Laboratorio di sviluppo per esplorare l’integrazione pratica dell’intelligenza artificiale nei flussi quotidiani. Creazione di agenti autonomi mirati, implementazioni del Model Context Protocol (MCP) e interfacce web minimali costruite con Next.js e TypeScript.',
     pillars: [
-      'Agenti autonomi per workflow complessi di ricerca e codifica',
-      'Sviluppo di interfacce ultra-reattive con Next.js e TypeScript',
-      'Tooling su misura per connettere modelli AI a dati e sistemi locali'
+      'Configurazione e testing di agenti autonomi con integrazione MCP',
+      'Architetture web moderne, veloci e minimali (Next.js / Tailwind)',
+      'Tooling interno per automatizzare workflow di ricerca e sviluppo'
     ],
-    stack: ['Autonomous Agents', 'MCP Protocol', 'Next.js / TypeScript', 'Cognitive Architectures']
+    stack: ['Next.js / React', 'TypeScript', 'MCP Protocol', 'Agentic Workflows', 'Tailwind CSS']
   },
   {
     index: '05',
     id: 'roblox-ventures',
     name: 'ROBLOX VENTURES',
-    tagline: 'Virtual Worlds & Metaverse Gameplay Economies',
-    category: 'Mondi Virtuali & Spatial Gaming',
-    status: 'Prototyping Lab',
-    location: 'Interactive Environments',
-    thesis: '«Economie digitali e loop sistemici capaci di catturare l’attenzione.»',
+    tagline: 'Virtual Worlds & Gameplay Mechanics',
+    category: 'Sviluppo Giochi & Ambienti 3D',
+    status: 'Prototipazione',
+    location: 'Interactive Dev',
+    thesis: '«Meccaniche di gioco accessibili e sistemi di interazione immediati.»',
     description:
-      'Esplorazione e sviluppo di esperienze interattive multiplayer, ambienti 3D ed economie virtuali su scala globale. Prototipazione di titoli proprietari (Mutagen Labs, Sled Mail, Tycoon series) con focus su retention psicologica e architetture client-server in Luau.',
+      'Progettazione e sperimentazione di titoli e meccaniche di gioco per la piattaforma Roblox. Focus sullo sviluppo client-server in Luau, level design 3D, sistemi di progressione e prototipazione rapida di esperienze multiplayer per testare engagement e dinamiche di gioco.',
     pillars: [
-      'Game design sistemico e loop di gameplay orientati alla retention',
-      'Architettura di rete e scripting ottimizzato su motore Luau',
-      'Marketing OS dedicato e telemetria di gioco integrata'
+      'Scripting in Luau con architettura modulare client-server',
+      'Prototipazione rapida di loop di gameplay e progressione utente',
+      'Studio del feedback dei giocatori e ottimizzazione delle performance'
     ],
-    stack: ['Luau Engine', 'Game Design', 'Virtual Economies', 'Spatial Systems']
+    stack: ['Luau Engine', 'Roblox Studio', '3D Level Design', 'Game Logic', 'Multiplayer Mechanics']
   }
 ];
 
@@ -140,25 +140,7 @@ export default function OlmospaceDashboard() {
   const [activeTab, setActiveTab] = useState<string>('all');
   const [copied, setCopied] = useState<boolean>(false);
   const [time, setTime] = useState<string>('');
-  const [activeFavicon, setActiveFavicon] = useState<'dynamic' | 'ocut' | 'ocut_white' | 'slash'>('dynamic');
   const email = 'olmomarchi06@gmail.com';
-
-  const switchFavicon = (type: 'dynamic' | 'ocut' | 'ocut_white' | 'slash') => {
-    setActiveFavicon(type);
-    const hrefMap = {
-      dynamic: '/favicon-ocut-dynamic.svg',
-      ocut: '/favicon-ocut.svg',
-      ocut_white: '/favicon-ocut-white.svg',
-      slash: '/favicon-slash.svg',
-    };
-    let link: HTMLLinkElement | null = document.querySelector("link[rel*='icon']");
-    if (!link) {
-      link = document.createElement('link');
-      link.rel = 'icon';
-      document.head.appendChild(link);
-    }
-    link.href = hrefMap[type];
-  };
 
   useEffect(() => {
     const updateTime = () => {
@@ -255,9 +237,9 @@ export default function OlmospaceDashboard() {
 
               {/* Bio / Manifesto */}
               <p className="text-xs sm:text-sm text-zinc-600 leading-relaxed font-light mt-4">
-                Ho vent’anni, studio fisica e costruisco progetti all’intersezione 
-                tra materia (orologeria concettuale svizzera), intelligenza sintetica, 
-                finanza quantitativa ed economie virtuali.
+                Ho vent’anni, studio fisica e sviluppo progetti all’intersezione 
+                tra materia (orologeria concettuale), intelligenza artificiale, 
+                finanza quantitativa ed ambienti virtuali.
               </p>
 
               {/* Location */}
@@ -514,78 +496,6 @@ export default function OlmospaceDashboard() {
               ))}
             </div>
           </section>
-        </div>
-
-        {/* Favicon Testing Lab · Pure Black #000000 & Pure White #FFFFFF */}
-        <div className="mt-12 p-4 sm:p-5 rounded-2xl border border-zinc-200 bg-white shadow-xs">
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-            <div>
-              <span className="text-[10px] font-mono uppercase tracking-[0.2em] text-zinc-400 block mb-1">
-                Favicon Testing Lab | Pure #000000 &amp; #FFFFFF
-              </span>
-              <p className="text-xs text-zinc-600 font-mono">
-                Clicca su una variante per provarla in tempo reale nella scheda del tuo browser:
-              </p>
-            </div>
-
-            <div className="flex flex-wrap items-center gap-2">
-              <button
-                onClick={() => switchFavicon('dynamic')}
-                className={`flex items-center gap-2 px-3 py-1.5 rounded-lg border text-xs font-mono transition-all ${
-                  activeFavicon === 'dynamic'
-                    ? 'border-zinc-950 bg-zinc-950 text-white font-semibold shadow-xs'
-                    : 'border-zinc-200 bg-zinc-50 text-zinc-700 hover:border-zinc-400'
-                }`}
-              >
-                <span className="w-4 h-4 rounded flex items-center justify-center bg-zinc-900 border border-zinc-700">
-                  <img src="/favicon-ocut-dynamic.svg" alt="O/" className="w-3.5 h-3.5 object-contain invert" />
-                </span>
-                <span>O/ Dinamico (Auto Dark/Light)</span>
-              </button>
-
-              <button
-                onClick={() => switchFavicon('ocut')}
-                className={`flex items-center gap-2 px-3 py-1.5 rounded-lg border text-xs font-mono transition-all ${
-                  activeFavicon === 'ocut'
-                    ? 'border-zinc-950 bg-zinc-950 text-white font-semibold shadow-xs'
-                    : 'border-zinc-200 bg-zinc-50 text-zinc-700 hover:border-zinc-400'
-                }`}
-              >
-                <span className="w-4 h-4 rounded flex items-center justify-center bg-zinc-900 border border-zinc-700">
-                  <img src="/favicon-ocut.svg" alt="O/" className="w-3.5 h-3.5 object-contain" />
-                </span>
-                <span>O/ Contrasto Bordo</span>
-              </button>
-
-              <button
-                onClick={() => switchFavicon('ocut_white')}
-                className={`flex items-center gap-2 px-3 py-1.5 rounded-lg border text-xs font-mono transition-all ${
-                  activeFavicon === 'ocut_white'
-                    ? 'border-zinc-950 bg-zinc-950 text-white font-semibold shadow-xs'
-                    : 'border-zinc-200 bg-zinc-50 text-zinc-700 hover:border-zinc-400'
-                }`}
-              >
-                <span className="w-4 h-4 rounded flex items-center justify-center bg-zinc-900 border border-zinc-700">
-                  <img src="/favicon-ocut-white.svg" alt="O/" className="w-3.5 h-3.5 object-contain" />
-                </span>
-                <span>O/ Bianco Puro</span>
-              </button>
-
-              <button
-                onClick={() => switchFavicon('slash')}
-                className={`flex items-center gap-2 px-3 py-1.5 rounded-lg border text-xs font-mono transition-all ${
-                  activeFavicon === 'slash'
-                    ? 'border-zinc-950 bg-zinc-950 text-white font-semibold shadow-xs'
-                    : 'border-zinc-200 bg-zinc-50 text-zinc-700 hover:border-zinc-400'
-                }`}
-              >
-                <span className="w-4 h-4 rounded flex items-center justify-center bg-zinc-900 border border-zinc-700">
-                  <img src="/favicon-slash.svg" alt="O/M" className="w-3.5 h-3.5 object-contain" />
-                </span>
-                <span>O/M Ingrandito</span>
-              </button>
-            </div>
-          </div>
         </div>
       </main>
 

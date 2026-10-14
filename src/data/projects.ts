@@ -4,7 +4,7 @@ export interface Project {
   subtitle: string;
   category: 'maison' | 'studio' | 'quant' | 'ai' | 'ventures';
   categoryLabel: string;
-  status: 'Live & Operating' | 'Studio System' | 'Active Research' | 'Experimental Lab' | 'World Building';
+  status: string;
   badgeColor: string;
   glowColor: string;
   externalUrl?: string;
@@ -25,37 +25,37 @@ export const PROJECTS: Project[] = [
     subtitle: 'Independent Conceptual Horology',
     category: 'maison',
     categoryLabel: '01 / MAISON & DESIGN',
-    status: 'Live & Operating',
+    status: 'In Sviluppo & Design',
     badgeColor: 'border-amber-500/40 text-amber-300 bg-amber-950/20',
     glowColor: 'from-amber-500/10 via-transparent to-transparent',
     externalUrl: 'https://craved.ch',
     isExternal: true,
     year: '2024 — Present',
-    location: 'Switzerland [CH]',
-    shortDesc: 'Maison di orologeria concettuale indipendente fondata in Svizzera. Esplorazione del tempo vissuto attraverso estetica meccanica pura e filosofia tangibile.',
+    location: 'Modena [IT] | Ambizione CH',
+    shortDesc: 'Progetto di orologeria concettuale indipendente con standard e ambizione costruttiva svizzera. Esplorazione del tempo vissuto attraverso estetica meccanica pura e architettura scultorea.',
     philosophy: '«Time doesn’t tick. It flows.» Il tempo non come scansione meccanica convenzionale, ma come continuum di esperienza e percezione materica.',
     highlights: [
       'Progettazione e direzione concettuale indipendente',
       'Filosofia di manifattura orologiera svizzera contemporanea',
       'Esplorazione di forme, texture e architetture temporali non convenzionali'
     ],
-    stack: ['Conceptual Horology', 'Industrial Design', 'Swiss Craft', 'Philosophy of Time'],
+    stack: ['Conceptual Horology', 'Industrial Design', '3D Prototyping', 'Philosophy of Time'],
     extendedNotes: 'CRAVED è il pilastro dedicato alla materia e alla lentezza: contrappone all’accelerazione digitale un oggetto fisico che interroga la nostra relazione fondamentale con il tempo.'
   },
   {
     id: 'mirror-studio',
-    title: 'MIRROR STUDIO',
+    title: 'MIRR/OR STUDIO',
     subtitle: 'Creative System Studio & AI Production Engine',
     category: 'studio',
     categoryLabel: '02 / CREATIVE STUDIO',
-    status: 'Live & Operating',
+    status: 'Attivo | In Produzione',
     badgeColor: 'border-violet-500/40 text-violet-300 bg-violet-950/20',
     glowColor: 'from-violet-500/10 via-transparent to-transparent',
     externalUrl: 'https://mirrorstudio.it',
     isExternal: true,
     year: '2024 — Present',
-    location: 'Italy [IT] & Remote',
-    shortDesc: 'Studio di sistemi creativi, direzione artistica ed engine di produzione visiva potenziati da intelligenza artificiale per brand ad alto impatto.',
+    location: 'Modena [IT] & Remote',
+    shortDesc: 'Studio creativo basato a Modena: direzione artistica e sistemi di produzione visiva generativi per brand ad alto impatto.',
     philosophy: 'Superare i pacchetti una-tantum attraverso sistemi visivi generativi e continui, capaci di scalare identità complesse senza compromessi sull’anima artistica.',
     highlights: [
       'Framework operativi a livelli (Reflect, Foundation, Operate)',
