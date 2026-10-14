@@ -2,28 +2,135 @@
 
 import { useState, useEffect } from 'react';
 import {
-  ExternalLink,
-  Mail,
-  Copy,
-  Check,
-  Clock,
   ArrowUpRight,
-  Sparkles,
-  TrendingUp,
-  Cpu,
+  ArrowRight,
+  Clock,
+  Check,
+  Copy,
+  Mail,
+  Compass,
   Layers,
-  Gamepad2,
-  Watch,
-  Terminal,
-  MapPin,
-  Briefcase,
-  Code2
+  ChevronRight,
+  Circle
 } from 'lucide-react';
 
-export default function DashboardCV() {
-  const [copied, setCopied] = useState(false);
+interface Chamber {
+  index: string;
+  id: string;
+  name: string;
+  domain?: string;
+  url?: string;
+  tagline: string;
+  category: string;
+  status: string;
+  location: string;
+  thesis: string;
+  description: string;
+  pillars: string[];
+  stack: string[];
+}
+
+const CHAMBERS: Chamber[] = [
+  {
+    index: '01',
+    id: 'craved',
+    name: 'CRAVED',
+    domain: 'craved.ch',
+    url: 'https://craved.ch',
+    tagline: 'Time doesn’t tick. It flows.',
+    category: 'Maison di Orologeria Concettuale',
+    status: 'Live & Operating',
+    location: 'Svizzera [CH]',
+    thesis: '«La precisione è risolta. L’esperienza no.»',
+    description:
+      'Maison indipendente di orologeria concettuale fondata in Svizzera. CRAVED nasce da una frattura: un mondo che misura il tempo in modo ossessivo ma fatica a viverlo. Esplorazione del tempo vissuto attraverso forme scultoree, architettura a clessidra e rottura con l’orologeria convenzionale di status.',
+    pillars: [
+      'Inaugural Series & Sculpted Tonneau in sviluppo',
+      'Architettura Flow: espressione fisica e tangibile della durata',
+      'Fusione tra fisica classica, relatività e filosofia aristotelica del tempo'
+    ],
+    stack: ['Conceptual Horology', 'Industrial Design', 'Swiss Engineering', 'Temporal Sculpture']
+  },
+  {
+    index: '02',
+    id: 'mirror-studio',
+    name: 'MIRROR STUDIO',
+    domain: 'mirrorstudio.it',
+    url: 'https://mirrorstudio.it',
+    tagline: 'AI Production Engines & Structured Creative Systems',
+    category: 'Creative System & Art Direction',
+    status: 'Live & Operating',
+    location: 'Milano [IT] · Remote',
+    thesis: '«Scalare l’identità visiva senza compromessi sull’anima artistica.»',
+    description:
+      'Studio di sistemi visivi e motori di produzione sintetica per brand ad alto impatto. Supera i limiti dei set tradizionali trasformando l’AI in un motore operativo integrato (Reflect, Foundation, Operate), garantendo coerenza estetica e moltiplicazione dei formati visivi.',
+    pillars: [
+      'Pipeline generative proprietarie per campagne e lookbook ad alta definizione',
+      'Sistemi di direzione artistica strutturati e ripetibili',
+      'Abbattimento dei colli di bottiglia di produzione fisica'
+    ],
+    stack: ['Generative AI', 'Art Direction', 'Visual Architecture', 'Brand Positioning', 'Synthetic Media']
+  },
+  {
+    index: '03',
+    id: 'quant-lab',
+    name: 'QUANT LAB',
+    tagline: 'Systematic Trading & Market Microstructure',
+    category: 'Finanza Quantitativa & Algoritmi',
+    status: 'Active Research',
+    location: 'Quantitative Research Unit',
+    thesis: '«Rigore matematico per eliminare il rumore discrezionale.»',
+    description:
+      'Laboratorio di ricerca sistematica e modellazione quantitativa sui mercati finanziari. Studio computazionale della microstruttura, pattern a candele e dinamiche frattali di liquidità. Backtesting rigoroso, gestione asimmetrica del rischio e test di robustezza Monte Carlo.',
+    pillars: [
+      'Strategie Donchian Breakout e sweep parametrici di volatilità su indici globali',
+      'Infrastruttura automatizzata per l’analisi di time series ad alta risoluzione',
+      'Modellazione statistica dell’edge e contenimento del drawdown'
+    ],
+    stack: ['Python', 'MQL5 / MetaTrader', 'Time Series Modeling', 'Stochastic Systems', 'Risk Architecture']
+  },
+  {
+    index: '04',
+    id: 'ai-lab',
+    name: 'AI LAB & APPS',
+    tagline: 'Autonomous Cognitive Agents & Custom Tooling',
+    category: 'Intelligenza Applicata & Software',
+    status: 'Incubating Lab',
+    location: 'Software Atelier',
+    thesis: '«Il software come estensione cognitiva e compagno di pensiero.»',
+    description:
+      'Spazio di prototipazione per agenti autonomi multi-step, interfacce generative e micro-applicazioni software verticali. Integrazioni avanzate con protocollo MCP (Model Context Protocol) e sperimentazioni ai confini delle capacità dei modelli fondazionali.',
+    pillars: [
+      'Agenti autonomi per workflow complessi di ricerca e codifica',
+      'Sviluppo di interfacce ultra-reattive con Next.js e TypeScript',
+      'Tooling su misura per connettere modelli AI a dati e sistemi locali'
+    ],
+    stack: ['Autonomous Agents', 'MCP Protocol', 'Next.js / TypeScript', 'Cognitive Architectures']
+  },
+  {
+    index: '05',
+    id: 'roblox-ventures',
+    name: 'ROBLOX VENTURES',
+    tagline: 'Virtual Worlds & Metaverse Gameplay Economies',
+    category: 'Mondi Virtuali & Spatial Gaming',
+    status: 'Prototyping Lab',
+    location: 'Interactive Environments',
+    thesis: '«Economie digitali e loop sistemici capaci di catturare l’attenzione.»',
+    description:
+      'Esplorazione e sviluppo di esperienze interattive multiplayer, ambienti 3D ed economie virtuali su scala globale. Prototipazione di titoli proprietari (Mutagen Labs, Sled Mail, Tycoon series) con focus su retention psicologica e architetture client-server in Luau.',
+    pillars: [
+      'Game design sistemico e loop di gameplay orientati alla retention',
+      'Architettura di rete e scripting ottimizzato su motore Luau',
+      'Marketing OS dedicato e telemetria di gioco integrata'
+    ],
+    stack: ['Luau Engine', 'Game Design', 'Virtual Economies', 'Spatial Systems']
+  }
+];
+
+export default function OlmospacePage() {
+  const [activeTab, setActiveTab] = useState<string>('all');
+  const [copiedEmail, setCopiedEmail] = useState<string | null>(null);
   const [time, setTime] = useState<string>('');
-  const email = 'marchiolmo06@gmail.com';
 
   useEffect(() => {
     const updateTime = () => {
@@ -39,462 +146,381 @@ export default function DashboardCV() {
       );
     };
     updateTime();
-    const timer = setInterval(updateTime, 1000);
-    return () => clearInterval(timer);
+    const interval = setInterval(updateTime, 1000);
+    return () => clearInterval(interval);
   }, []);
 
-  const handleCopyEmail = () => {
-    navigator.clipboard.writeText(email);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
+  const copyToClipboard = (text: string, label: string) => {
+    navigator.clipboard.writeText(text);
+    setCopiedEmail(label);
+    setTimeout(() => setCopiedEmail(null), 2200);
   };
 
+  const displayedChambers =
+    activeTab === 'all'
+      ? CHAMBERS
+      : CHAMBERS.filter((c) => c.id === activeTab);
+
   return (
-    <div className="min-h-screen bg-[#08090d] text-zinc-100 antialiased p-3 sm:p-6 md:p-8 flex flex-col justify-between selection:bg-white/20 selection:text-white">
-      {/* Top Console Bar */}
-      <div className="max-w-6xl w-full mx-auto mb-6 flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-white/[0.08]">
-        <div className="flex items-center gap-3">
-          <div className="flex items-center gap-2">
-            <span className="relative flex h-2.5 w-2.5">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
-            </span>
-            <span className="font-semibold tracking-tight text-white text-sm">
-              olmospace
-            </span>
-          </div>
-          <span className="text-[11px] font-mono px-2 py-0.5 rounded bg-white/[0.04] border border-white/10 text-zinc-400">
-            DASHBOARD / CV
-          </span>
-        </div>
-
-        <div className="flex items-center gap-4 text-xs font-mono text-zinc-400">
-          <div className="flex items-center gap-1.5 px-2.5 py-1 rounded bg-white/[0.03] border border-white/[0.06]">
-            <Clock className="w-3.5 h-3.5 text-zinc-400" />
-            <span className="text-zinc-200">{time || '18:30:00'}</span>
-            <span className="text-zinc-500">CET (CH/IT)</span>
-          </div>
-
-          <a
-            href="https://github.com/OMnyte"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="hidden sm:inline-flex items-center gap-1 hover:text-white transition-colors"
-          >
-            <span>GitHub</span>
-            <ArrowUpRight className="w-3 h-3 text-zinc-500" />
-          </a>
-        </div>
-      </div>
-
-      {/* Main Bento Dashboard Grid */}
-      <main className="max-w-6xl w-full mx-auto flex-1 grid grid-cols-1 md:grid-cols-12 gap-4">
-        {/* Profile Card / Executive CV Summary (Cols 1-8) */}
-        <div className="md:col-span-8 rounded-2xl border border-white/10 bg-gradient-to-b from-white/[0.04] to-white/[0.01] p-5 sm:p-7 backdrop-blur-md flex flex-col justify-between">
-          <div>
-            <div className="flex items-center justify-between gap-3 mb-3">
-              <span className="text-xs font-mono uppercase tracking-wider text-emerald-400 flex items-center gap-1.5">
-                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
-                Profilo & Visione
-              </span>
-              <span className="text-xs font-mono text-zinc-500">
-                Milano • Zurigo • Remoto
-              </span>
-            </div>
-
-            <h1 className="text-2xl sm:text-3xl font-semibold tracking-tight text-white">
-              Olmo Marchi
-            </h1>
-            <p className="text-sm font-medium text-zinc-400 mt-1">
-              Founder • Creative Systems & Conceptual Design • Quantitative Research
-            </p>
-
-            <p className="mt-4 text-sm text-zinc-300 leading-relaxed max-w-2xl">
-              Costruisco all’intersezione tra materia, algoritmi e sistemi digitali. 
-              Questo spazio raccoglie le mie realtà attive e i miei laboratori di sperimentazione: 
-              dall’orologeria concettuale svizzera con <strong className="text-white font-medium">CRAVED</strong> alla 
-              direzione artistica ed engine AI con <strong className="text-white font-medium">MIRROR STUDIO</strong>, 
-              fino alla finanza sistematica e ai mondi virtuali.
-            </p>
-          </div>
-
-          {/* Quick Actions & Contact */}
-          <div className="mt-6 pt-5 border-t border-white/[0.08] flex flex-wrap items-center gap-2.5">
+    <div className="min-h-screen bg-white text-zinc-900 selection:bg-zinc-900 selection:text-white flex flex-col justify-between">
+      {/* Top Header / Navigation (Swiss Minimal) */}
+      <header className="sticky top-0 z-40 bg-white/90 backdrop-blur-md border-b border-zinc-200/80 transition-all">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 h-14 sm:h-16 flex items-center justify-between">
+          <div className="flex items-center gap-3">
             <a
-              href={`mailto:${email}`}
-              className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-lg bg-white text-zinc-950 font-medium text-xs hover:bg-zinc-200 transition-all shadow-sm"
+              href="#"
+              className="text-sm font-semibold tracking-tight text-zinc-900 hover:text-zinc-600 transition-colors"
             >
-              <Mail className="w-3.5 h-3.5" />
-              <span>Contattami</span>
+              OLMOSPACE
             </a>
+            <span className="text-zinc-300">/</span>
+            <span className="text-xs font-mono text-zinc-500 uppercase tracking-widest hidden sm:inline">
+              Personal Atelier
+            </span>
+          </div>
 
-            <button
-              onClick={handleCopyEmail}
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-white/10 bg-white/[0.03] text-zinc-300 text-xs hover:bg-white/[0.08] hover:text-white transition-all font-mono"
+          <div className="flex items-center gap-4 text-xs font-mono text-zinc-500">
+            <div className="flex items-center gap-1.5">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+              <span className="text-zinc-700 font-medium">{time || '18:40:00'}</span>
+              <span className="text-zinc-400 hidden xs:inline">CET (CH/IT)</span>
+            </div>
+            <span className="text-zinc-300 hidden sm:inline">|</span>
+            <a
+              href="#contact"
+              className="hidden sm:inline text-zinc-900 font-medium hover:underline underline-offset-4"
             >
-              {copied ? (
-                <>
-                  <Check className="w-3.5 h-3.5 text-emerald-400" />
-                  <span className="text-emerald-300">Copiata!</span>
-                </>
-              ) : (
-                <>
-                  <Copy className="w-3.5 h-3.5 text-zinc-400" />
-                  <span>{email}</span>
-                </>
-              )}
-            </button>
+              Contatto →
+            </a>
           </div>
         </div>
+      </header>
 
-        {/* Quick Numbers / Status Matrix (Cols 9-12) */}
-        <div className="md:col-span-4 rounded-2xl border border-white/10 bg-white/[0.02] p-5 sm:p-7 flex flex-col justify-between">
-          <span className="text-xs font-mono uppercase tracking-wider text-zinc-400 block mb-4">
-            Stato Ecosistema
-          </span>
+      {/* Main Content Area */}
+      <main className="max-w-5xl mx-auto px-4 sm:px-6 py-10 sm:py-16 md:py-20 w-full flex-1">
+        {/* Profile & Manifesto Header (CRAVED aesthetic: clean, stark, generous typography) */}
+        <section className="mb-14 sm:mb-20 pb-12 sm:pb-16 border-b border-zinc-200">
+          <div className="max-w-3xl">
+            <span className="text-[11px] font-mono uppercase tracking-[0.2em] text-zinc-400 block mb-3">
+              Olmo Marchi · Portfolio & Laboratorio
+            </span>
 
-          <div className="space-y-4">
-            <div className="flex items-center justify-between border-b border-white/[0.06] pb-2.5">
-              <span className="text-xs text-zinc-400 font-mono">Realtà Live</span>
-              <span className="text-sm font-semibold text-white">2 Flagship</span>
-            </div>
-            <div className="flex items-center justify-between border-b border-white/[0.06] pb-2.5">
-              <span className="text-xs text-zinc-400 font-mono">Chambers di Ricerca</span>
-              <span className="text-sm font-semibold text-white">3 Laboratori</span>
-            </div>
-            <div className="flex items-center justify-between border-b border-white/[0.06] pb-2.5">
-              <span className="text-xs text-zinc-400 font-mono">Disponibilità</span>
-              <span className="text-xs font-mono text-emerald-400">Consulenza / Progetti</span>
-            </div>
-            <div className="flex items-center justify-between">
-              <span className="text-xs text-zinc-400 font-mono">Location Base</span>
-              <span className="text-xs font-mono text-zinc-300">Milano & Svizzera</span>
-            </div>
-          </div>
-
-          <div className="mt-5 pt-4 border-t border-white/[0.06] text-[11px] font-mono text-zinc-500">
-            Console aggiornata in tempo reale
-          </div>
-        </div>
-
-        {/* --- PROJECTS / LABS BENTO SECTION --- */}
-
-        {/* 01. CRAVED (Cols 1-6) */}
-        <div className="md:col-span-6 rounded-2xl border border-amber-500/30 bg-gradient-to-b from-amber-950/20 to-black/30 p-5 sm:p-6 transition-all hover:border-amber-500/50 flex flex-col justify-between">
-          <div>
-            <div className="flex items-center justify-between gap-3 mb-3">
-              <div className="flex items-center gap-2">
-                <span className="p-1.5 rounded-md bg-amber-500/10 text-amber-300">
-                  <Watch className="w-4 h-4" />
-                </span>
-                <span className="text-[11px] font-mono uppercase tracking-wider text-amber-400/90 font-medium">
-                  01 / MAISON
-                </span>
-              </div>
-              <span className="text-[10px] font-mono px-2 py-0.5 rounded-full border border-amber-500/30 text-amber-300 bg-amber-950/40">
-                Live & Operating
+            <h1 className="text-3xl sm:text-4xl md:text-5xl font-light tracking-tight text-zinc-950 leading-[1.15]">
+              Materia, Codice & Sistemi. <br />
+              <span className="font-normal text-zinc-600">
+                L’archivio delle sperimentazioni.
               </span>
-            </div>
+            </h1>
 
-            <div className="flex items-baseline justify-between gap-2">
-              <h2 className="text-xl font-semibold text-white tracking-tight">
-                CRAVED
+            <p className="mt-6 text-base sm:text-lg text-zinc-600 leading-relaxed font-light">
+              Ho vent’anni, studio fisica e costruisco progetti all’intersezione 
+              tra design concettuale, intelligenza sintetica, finanza quantitativa 
+              ed economie virtuali. 
+              <strong className="font-medium text-zinc-900"> olmospace</strong> è la sintesi 
+              del mio percorso: non progetti sconnessi, ma camere di uno stesso laboratorio.
+            </p>
+
+            {/* Quick action strip */}
+            <div className="mt-8 flex flex-wrap items-center gap-3 sm:gap-4 text-xs font-mono">
+              <a
+                href="#chambers"
+                className="px-4 py-2 rounded-full bg-zinc-900 text-white font-medium hover:bg-zinc-800 transition-colors inline-flex items-center gap-2"
+              >
+                <span>Esplora i Progetti</span>
+                <ArrowRight className="w-3.5 h-3.5" />
+              </a>
+
+              <a
+                href="https://craved.ch"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="px-3.5 py-2 rounded-full border border-zinc-300 text-zinc-800 hover:border-zinc-900 transition-all inline-flex items-center gap-1.5"
+              >
+                <span>craved.ch</span>
+                <ArrowUpRight className="w-3.5 h-3.5 text-zinc-400" />
+              </a>
+
+              <a
+                href="https://mirrorstudio.it"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="px-3.5 py-2 rounded-full border border-zinc-300 text-zinc-800 hover:border-zinc-900 transition-all inline-flex items-center gap-1.5"
+              >
+                <span>mirrorstudio.it</span>
+                <ArrowUpRight className="w-3.5 h-3.5 text-zinc-400" />
+              </a>
+
+              <a
+                href="https://www.linkedin.com/in/olmomarchi/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="px-3.5 py-2 rounded-full border border-zinc-300 text-zinc-800 hover:border-zinc-900 transition-all inline-flex items-center gap-1.5"
+              >
+                <span>LinkedIn</span>
+                <ArrowUpRight className="w-3.5 h-3.5 text-zinc-400" />
+              </a>
+            </div>
+          </div>
+        </section>
+
+        {/* Chamber Selector Tabs (Mobile Touch Friendly & Interactive) */}
+        <section id="chambers" className="mb-10">
+          <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-3 mb-6">
+            <div>
+              <span className="text-[11px] font-mono uppercase tracking-[0.2em] text-zinc-400 block mb-1">
+                Indice Laboratori
+              </span>
+              <h2 className="text-xl sm:text-2xl font-normal tracking-tight text-zinc-900">
+                Le 5 Camere di Ricerca
               </h2>
-              <span className="text-xs font-mono text-zinc-400">craved.ch</span>
             </div>
 
-            <p className="text-xs text-amber-200/70 font-mono italic mt-1">
-              «Time doesn’t tick. It flows.»
-            </p>
-
-            <p className="mt-3 text-xs sm:text-sm text-zinc-300 leading-relaxed">
-              Maison di orologeria concettuale indipendente fondata in Svizzera. 
-              Esplorazione del tempo vissuto attraverso architetture meccaniche pure, 
-              filosofia tangibile e design scultoreo non convenzionale.
-            </p>
+            <span className="text-xs font-mono text-zinc-400">
+              {displayedChambers.length} di {CHAMBERS.length} {displayedChambers.length === 1 ? 'progetto selezionato' : 'progetti attivi'}
+            </span>
           </div>
 
-          <div className="mt-5 pt-4 border-t border-white/[0.08] flex items-center justify-between">
-            <div className="flex flex-wrap gap-1.5">
-              <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-white/[0.04] text-zinc-400 border border-white/[0.06]">
-                Horology
-              </span>
-              <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-white/[0.04] text-zinc-400 border border-white/[0.06]">
-                Swiss Craft
-              </span>
-              <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-white/[0.04] text-zinc-400 border border-white/[0.06]">
-                Design
-              </span>
-            </div>
+          {/* Interactive Horizontal Switcher Bar (Mobile Scrollable) */}
+          <div className="flex items-center gap-1.5 overflow-x-auto pb-2 scrollbar-none border-b border-zinc-200">
+            <button
+              onClick={() => setActiveTab('all')}
+              className={`px-3.5 py-2 rounded-lg text-xs font-mono whitespace-nowrap transition-all ${
+                activeTab === 'all'
+                  ? 'bg-zinc-900 text-white font-medium'
+                  : 'text-zinc-600 hover:text-zinc-950 hover:bg-zinc-100'
+              }`}
+            >
+              [ TUTTI ]
+            </button>
 
+            {CHAMBERS.map((chamber) => {
+              const isActive = activeTab === chamber.id;
+              return (
+                <button
+                  key={chamber.id}
+                  onClick={() => setActiveTab(chamber.id)}
+                  className={`px-3 py-2 rounded-lg text-xs font-mono whitespace-nowrap transition-all flex items-center gap-1.5 ${
+                    isActive
+                      ? 'bg-zinc-900 text-white font-medium shadow-sm'
+                      : 'text-zinc-600 hover:text-zinc-950 hover:bg-zinc-100'
+                  }`}
+                >
+                  <span className={isActive ? 'text-zinc-400' : 'text-zinc-400'}>
+                    {chamber.index}
+                  </span>
+                  <span>{chamber.name}</span>
+                </button>
+              );
+            })}
+          </div>
+        </section>
+
+        {/* Project Slates / Separate Chambers */}
+        <section className="space-y-12 sm:space-y-16">
+          {displayedChambers.map((chamber) => (
+            <article
+              key={chamber.id}
+              className="p-6 sm:p-8 md:p-10 rounded-2xl border border-zinc-200/90 bg-[#fafafa] hover:border-zinc-400 transition-all duration-300"
+            >
+              {/* Slate Header */}
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-6 border-b border-zinc-200">
+                <div className="flex items-center gap-3">
+                  <span className="text-xs font-mono px-2 py-0.5 rounded bg-zinc-200/70 text-zinc-700 font-medium">
+                    {chamber.index}
+                  </span>
+                  <span className="text-xs font-mono uppercase tracking-wider text-zinc-500">
+                    {chamber.category}
+                  </span>
+                </div>
+
+                <div className="flex items-center gap-3 text-xs font-mono text-zinc-500">
+                  <span>{chamber.location}</span>
+                  <span>·</span>
+                  <span className="px-2 py-0.5 rounded-full border border-zinc-300 text-zinc-700 bg-white">
+                    {chamber.status}
+                  </span>
+                </div>
+              </div>
+
+              {/* Slate Body */}
+              <div className="grid grid-cols-1 md:grid-cols-12 gap-6 sm:gap-8 pt-6 sm:pt-8">
+                {/* Left: Name, Thesis & External Link */}
+                <div className="md:col-span-5 flex flex-col justify-between">
+                  <div>
+                    <h3 className="text-2xl sm:text-3xl font-normal tracking-tight text-zinc-950">
+                      {chamber.name}
+                    </h3>
+                    {chamber.domain && (
+                      <span className="text-xs font-mono text-zinc-400 block mt-0.5">
+                        {chamber.domain}
+                      </span>
+                    )}
+
+                    <div className="mt-4 p-3.5 rounded-xl border border-zinc-200 bg-white">
+                      <span className="text-[10px] font-mono uppercase tracking-wider text-zinc-400 block mb-1">
+                        Tesi & Filosofia
+                      </span>
+                      <p className="text-xs sm:text-sm font-medium text-zinc-800 italic leading-snug">
+                        {chamber.thesis}
+                      </p>
+                    </div>
+                  </div>
+
+                  {chamber.url && (
+                    <div className="mt-6 pt-4">
+                      <a
+                        href={chamber.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg bg-zinc-900 text-white text-xs font-mono font-medium hover:bg-zinc-800 transition-colors w-full sm:w-auto justify-center"
+                      >
+                        <span>Visita {chamber.domain}</span>
+                        <ArrowUpRight className="w-3.5 h-3.5" />
+                      </a>
+                    </div>
+                  )}
+                </div>
+
+                {/* Right: Narrative, Pillars & Stack */}
+                <div className="md:col-span-7 flex flex-col justify-between border-t md:border-t-0 md:border-l border-zinc-200 pt-6 md:pt-0 md:pl-8">
+                  <div>
+                    <p className="text-sm text-zinc-700 leading-relaxed font-light">
+                      {chamber.description}
+                    </p>
+
+                    <div className="mt-5">
+                      <span className="text-[11px] font-mono uppercase tracking-wider text-zinc-400 block mb-2">
+                        Punti di Rilievo
+                      </span>
+                      <ul className="space-y-2 text-xs text-zinc-600">
+                        {chamber.pillars.map((pillar, idx) => (
+                          <li key={idx} className="flex items-start gap-2">
+                            <span className="text-zinc-400 mt-0.5">—</span>
+                            <span>{pillar}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  </div>
+
+                  <div className="mt-6 pt-4 border-t border-zinc-200 flex flex-wrap gap-1.5">
+                    {chamber.stack.map((item, idx) => (
+                      <span
+                        key={idx}
+                        className="text-[11px] font-mono px-2 py-0.5 rounded border border-zinc-200 bg-white text-zinc-600"
+                      >
+                        {item}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </article>
+          ))}
+        </section>
+
+        {/* Contact & Dialogue Section (Minimal Swiss Footer Block) */}
+        <section id="contact" className="mt-20 pt-16 border-t border-zinc-200">
+          <div className="max-w-2xl">
+            <span className="text-[11px] font-mono uppercase tracking-[0.2em] text-zinc-400 block mb-2">
+              Contatto Diretto
+            </span>
+            <h3 className="text-2xl font-light text-zinc-950 tracking-tight">
+              Dialogo & Collaborazioni
+            </h3>
+            <p className="mt-3 text-sm text-zinc-600 font-light leading-relaxed">
+              Il laboratorio è aperto a scambi intellettuali, progetti di ricerca, 
+              consulenza e nuove iniziative congiunte.
+            </p>
+
+            <div className="mt-6 flex flex-wrap items-center gap-3">
+              <a
+                href="mailto:olmo@craved.ch"
+                className="px-4 py-2.5 rounded-lg bg-zinc-900 text-white text-xs font-mono font-medium hover:bg-zinc-800 transition-colors inline-flex items-center gap-2"
+              >
+                <Mail className="w-3.5 h-3.5" />
+                <span>olmo@craved.ch</span>
+              </a>
+
+              <button
+                onClick={() => copyToClipboard('olmo@craved.ch', 'craved')}
+                className="px-3.5 py-2.5 rounded-lg border border-zinc-300 text-zinc-700 text-xs font-mono hover:border-zinc-900 transition-colors inline-flex items-center gap-1.5"
+              >
+                {copiedEmail === 'craved' ? (
+                  <>
+                    <Check className="w-3.5 h-3.5 text-emerald-600" />
+                    <span>Copiata</span>
+                  </>
+                ) : (
+                  <>
+                    <Copy className="w-3.5 h-3.5 text-zinc-400" />
+                    <span>Copia Email</span>
+                  </>
+                )}
+              </button>
+
+              <button
+                onClick={() => copyToClipboard('marchiolmo06@gmail.com', 'gmail')}
+                className="px-3.5 py-2.5 rounded-lg border border-zinc-300 text-zinc-700 text-xs font-mono hover:border-zinc-900 transition-colors inline-flex items-center gap-1.5"
+              >
+                {copiedEmail === 'gmail' ? (
+                  <>
+                    <Check className="w-3.5 h-3.5 text-emerald-600" />
+                    <span>Copiata</span>
+                  </>
+                ) : (
+                  <>
+                    <Copy className="w-3.5 h-3.5 text-zinc-400" />
+                    <span>marchiolmo06@gmail.com</span>
+                  </>
+                )}
+              </button>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      {/* Clean Minimalist Footer */}
+      <footer className="border-t border-zinc-200 py-8 bg-white">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-mono text-zinc-500">
+          <div>
+            <span className="font-medium text-zinc-900">OLMOSPACE</span> · Personal Atelier of Olmo Marchi · © 2026
+          </div>
+
+          <div className="flex items-center gap-5 text-zinc-600">
             <a
               href="https://craved.ch"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md bg-amber-400 text-zinc-950 text-xs font-semibold hover:bg-amber-300 transition-all shadow-sm"
+              className="hover:text-zinc-950 transition-colors"
             >
-              <span>craved.ch</span>
-              <ExternalLink className="w-3.5 h-3.5" />
+              craved.ch ↗
             </a>
-          </div>
-        </div>
-
-        {/* 02. MIRROR STUDIO (Cols 7-12) */}
-        <div className="md:col-span-6 rounded-2xl border border-violet-500/30 bg-gradient-to-b from-violet-950/20 to-black/30 p-5 sm:p-6 transition-all hover:border-violet-500/50 flex flex-col justify-between">
-          <div>
-            <div className="flex items-center justify-between gap-3 mb-3">
-              <div className="flex items-center gap-2">
-                <span className="p-1.5 rounded-md bg-violet-500/10 text-violet-300">
-                  <Sparkles className="w-4 h-4" />
-                </span>
-                <span className="text-[11px] font-mono uppercase tracking-wider text-violet-400/90 font-medium">
-                  02 / CREATIVE STUDIO
-                </span>
-              </div>
-              <span className="text-[10px] font-mono px-2 py-0.5 rounded-full border border-violet-500/30 text-violet-300 bg-violet-950/40">
-                Live & Operating
-              </span>
-            </div>
-
-            <div className="flex items-baseline justify-between gap-2">
-              <h2 className="text-xl font-semibold text-white tracking-tight">
-                MIRROR STUDIO
-              </h2>
-              <span className="text-xs font-mono text-zinc-400">mirrorstudio.it</span>
-            </div>
-
-            <p className="text-xs text-violet-200/70 font-mono italic mt-1">
-              AI Production Engines & Brand Systems
-            </p>
-
-            <p className="mt-3 text-xs sm:text-sm text-zinc-300 leading-relaxed">
-              Studio di sistemi visivi, direzione artistica ed engine di produzione 
-              sintetica per brand ad alto impatto. Framework operativi (Reflect, Foundation, Operate) 
-              per scalare l’identità senza colli di bottiglia tradizionali.
-            </p>
-          </div>
-
-          <div className="mt-5 pt-4 border-t border-white/[0.08] flex items-center justify-between">
-            <div className="flex flex-wrap gap-1.5">
-              <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-white/[0.04] text-zinc-400 border border-white/[0.06]">
-                Generative AI
-              </span>
-              <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-white/[0.04] text-zinc-400 border border-white/[0.06]">
-                Art Direction
-              </span>
-              <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-white/[0.04] text-zinc-400 border border-white/[0.06]">
-                Visual Systems
-              </span>
-            </div>
-
             <a
               href="https://mirrorstudio.it"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md bg-violet-400 text-zinc-950 text-xs font-semibold hover:bg-violet-300 transition-all shadow-sm"
+              className="hover:text-zinc-950 transition-colors"
             >
-              <span>mirrorstudio.it</span>
-              <ExternalLink className="w-3.5 h-3.5" />
+              mirrorstudio.it ↗
+            </a>
+            <a
+              href="https://www.linkedin.com/in/olmomarchi/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-zinc-950 transition-colors"
+            >
+              LinkedIn ↗
+            </a>
+            <a
+              href="https://github.com/OMnyte"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-zinc-950 transition-colors"
+            >
+              GitHub ↗
             </a>
           </div>
-        </div>
-
-        {/* 03. QUANT LAB (Cols 1-4) */}
-        <div className="md:col-span-4 rounded-2xl border border-emerald-500/20 bg-[#0c0e14] p-5 transition-all hover:border-emerald-500/40 flex flex-col justify-between">
-          <div>
-            <div className="flex items-center justify-between gap-2 mb-3">
-              <div className="flex items-center gap-2">
-                <span className="p-1 rounded bg-emerald-500/10 text-emerald-400">
-                  <TrendingUp className="w-3.5 h-3.5" />
-                </span>
-                <span className="text-[11px] font-mono uppercase tracking-wider text-emerald-400">
-                  03 / FINANCE
-                </span>
-              </div>
-              <span className="text-[10px] font-mono px-2 py-0.5 rounded-full border border-emerald-500/30 text-emerald-300 bg-emerald-950/20">
-                Active Research
-              </span>
-            </div>
-
-            <h3 className="text-base font-semibold text-white">QUANT LAB</h3>
-            <p className="text-xs font-mono text-zinc-400 mt-0.5">
-              Systematic Trading & Microstructure
-            </p>
-
-            <p className="mt-3 text-xs text-zinc-400 leading-relaxed">
-              Ricerca sistematica sui mercati finanziari: algoritmi di breakout Donchian, 
-              analisi frattale della liquidità, sweep di volatilità e pipeline di backtest su indici globali.
-            </p>
-          </div>
-
-          <div className="mt-4 pt-3 border-t border-white/[0.06] flex flex-wrap gap-1">
-            <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-white/[0.03] text-zinc-400">
-              MQL5
-            </span>
-            <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-white/[0.03] text-zinc-400">
-              Python
-            </span>
-            <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-white/[0.03] text-zinc-400">
-              Time Series
-            </span>
-          </div>
-        </div>
-
-        {/* 04. AI LAB & EXPERIMENTS (Cols 5-8) */}
-        <div className="md:col-span-4 rounded-2xl border border-cyan-500/20 bg-[#0c0e14] p-5 transition-all hover:border-cyan-500/40 flex flex-col justify-between">
-          <div>
-            <div className="flex items-center justify-between gap-2 mb-3">
-              <div className="flex items-center gap-2">
-                <span className="p-1 rounded bg-cyan-500/10 text-cyan-400">
-                  <Cpu className="w-3.5 h-3.5" />
-                </span>
-                <span className="text-[11px] font-mono uppercase tracking-wider text-cyan-400">
-                  04 / INTELLIGENCE
-                </span>
-              </div>
-              <span className="text-[10px] font-mono px-2 py-0.5 rounded-full border border-cyan-500/30 text-cyan-300 bg-cyan-950/20">
-                Incubating
-              </span>
-            </div>
-
-            <h3 className="text-base font-semibold text-white">AI LAB & APPS</h3>
-            <p className="text-xs font-mono text-zinc-400 mt-0.5">
-              Autonomous Agents & Custom Tooling
-            </p>
-
-            <p className="mt-3 text-xs text-zinc-400 leading-relaxed">
-              Sperimentazioni su modelli fondazionali, agenti cognitivi multi-step, 
-              integrazioni con protocollo MCP e prototipazione rapida di micro-applicazioni software.
-            </p>
-          </div>
-
-          <div className="mt-4 pt-3 border-t border-white/[0.06] flex flex-wrap gap-1">
-            <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-white/[0.03] text-zinc-400">
-              LLMs
-            </span>
-            <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-white/[0.03] text-zinc-400">
-              MCP
-            </span>
-            <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-white/[0.03] text-zinc-400">
-              Next.js
-            </span>
-          </div>
-        </div>
-
-        {/* 05. ROBLOX VENTURES (Cols 9-12) */}
-        <div className="md:col-span-4 rounded-2xl border border-orange-500/20 bg-[#0c0e14] p-5 transition-all hover:border-orange-500/40 flex flex-col justify-between">
-          <div>
-            <div className="flex items-center justify-between gap-2 mb-3">
-              <div className="flex items-center gap-2">
-                <span className="p-1 rounded bg-orange-500/10 text-orange-400">
-                  <Gamepad2 className="w-3.5 h-3.5" />
-                </span>
-                <span className="text-[11px] font-mono uppercase tracking-wider text-orange-400">
-                  05 / METAVERSE
-                </span>
-              </div>
-              <span className="text-[10px] font-mono px-2 py-0.5 rounded-full border border-orange-500/30 text-orange-300 bg-orange-950/20">
-                Prototyping
-              </span>
-            </div>
-
-            <h3 className="text-base font-semibold text-white">ROBLOX VENTURES</h3>
-            <p className="text-xs font-mono text-zinc-400 mt-0.5">
-              Virtual Worlds & Game Economies
-            </p>
-
-            <p className="mt-3 text-xs text-zinc-400 leading-relaxed">
-              Esplorazione e sviluppo di esperienze interattive 3D, retention loops, 
-              meccaniche multiplayer in Luau ed economie virtuali su scala globale.
-            </p>
-          </div>
-
-          <div className="mt-4 pt-3 border-t border-white/[0.06] flex flex-wrap gap-1">
-            <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-white/[0.03] text-zinc-400">
-              Luau
-            </span>
-            <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-white/[0.03] text-zinc-400">
-              Game Design
-            </span>
-            <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-white/[0.03] text-zinc-400">
-              Economies
-            </span>
-          </div>
-        </div>
-
-        {/* Skills & Disciplines Matrix (CV Matrix - Cols 1-12) */}
-        <div className="md:col-span-12 rounded-2xl border border-white/10 bg-white/[0.02] p-5 sm:p-6">
-          <div className="flex items-center justify-between mb-4">
-            <span className="text-xs font-mono uppercase tracking-wider text-zinc-400 flex items-center gap-2">
-              <Briefcase className="w-3.5 h-3.5 text-zinc-400" />
-              <span>Competenze Chiave & Ambiti d’Azione</span>
-            </span>
-            <span className="text-xs font-mono text-zinc-500">
-              Curriculum & Toolkit
-            </span>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
-            <div className="p-3.5 rounded-xl border border-white/[0.06] bg-white/[0.01]">
-              <span className="font-semibold text-white block mb-1">
-                Design Concettuale & Brand
-              </span>
-              <p className="text-zinc-400 leading-relaxed">
-                Conceptual Horology, Industrial Design, Luxury Brand Positioning, Visual Production Systems, Creative Direction.
-              </p>
-            </div>
-
-            <div className="p-3.5 rounded-xl border border-white/[0.06] bg-white/[0.01]">
-              <span className="font-semibold text-white block mb-1">
-                Software & Intelligenza Sintetica
-              </span>
-              <p className="text-zinc-400 leading-relaxed">
-                Autonomous LLM Agents, MCP (Model Context Protocol), Next.js / React, Python, Luau 3D Architecture, Prompt Engineering.
-              </p>
-            </div>
-
-            <div className="p-3.5 rounded-xl border border-white/[0.06] bg-white/[0.01]">
-              <span className="font-semibold text-white block mb-1">
-                Finanza Quantitativa & Mercati
-              </span>
-              <p className="text-zinc-400 leading-relaxed">
-                Systematic Trading, Donchian Breakout Models, Volatility Sweeps, Risk/Drawdown Architecture, High-Resolution Backtesting.
-              </p>
-            </div>
-          </div>
-        </div>
-      </main>
-
-      {/* Footer */}
-      <footer className="max-w-6xl w-full mx-auto mt-6 pt-4 border-t border-white/[0.06] flex flex-col sm:flex-row items-center justify-between gap-3 text-xs font-mono text-zinc-500">
-        <div>
-          <span>olmospace</span> • <span>© 2026 Olmo Marchi</span>
-        </div>
-        <div className="flex items-center gap-4 text-zinc-400">
-          <a
-            href="https://craved.ch"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="hover:text-white transition-colors"
-          >
-            craved.ch ↗
-          </a>
-          <a
-            href="https://mirrorstudio.it"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="hover:text-white transition-colors"
-          >
-            mirrorstudio.it ↗
-          </a>
-          <a
-            href="https://github.com/OMnyte"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="hover:text-white transition-colors"
-          >
-            github.com/OMnyte ↗
-          </a>
         </div>
       </footer>
     </div>
