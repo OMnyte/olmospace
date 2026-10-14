@@ -20,7 +20,7 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-  title: "olmospace — Olmo Marchi | Portfolio & Laboratory",
+  title: "olmospace | Olmo Marchi | Projects & Labs",
   description:
     "Atelier e laboratorio personale di Olmo Marchi: orologeria concettuale (CRAVED), creative systems (MIRROR STUDIO), finanza sistematica e tecnologie interattive.",
   keywords: [
@@ -39,14 +39,14 @@ export const metadata: Metadata = {
     type: "website",
     locale: "it_IT",
     url: "https://olmospace.vercel.app",
-    title: "olmospace — Olmo Marchi",
+    title: "olmospace | Olmo Marchi",
     description:
       "Atelier personale e archivio progetti di Olmo Marchi. CRAVED, MIRROR STUDIO, Quant Lab, AI Lab, Roblox Ventures.",
     siteName: "olmospace",
   },
   twitter: {
     card: "summary_large_image",
-    title: "olmospace — Olmo Marchi",
+    title: "olmospace | Olmo Marchi",
     description: "Atelier personale e archivio progetti di Olmo Marchi.",
   },
   robots: {

@@ -173,7 +173,7 @@ export default function OlmospaceDashboard() {
             </span>
             <span className="text-zinc-300">|</span>
             <span className="text-xs font-mono text-zinc-500 uppercase tracking-widest hidden sm:inline">
-              Dashboard & Atelier
+              Dashboard & Labs
             </span>
           </div>
 
@@ -233,16 +233,10 @@ export default function OlmospaceDashboard() {
                 finanza quantitativa ed economie virtuali.
               </p>
 
-              {/* Location & Status */}
-              <div className="mt-5 pt-4 border-t border-zinc-100 flex flex-col gap-2 text-xs font-mono text-zinc-500">
-                <div className="flex items-center justify-between">
-                  <span>Location</span>
-                  <span className="text-zinc-800 font-medium">Milano | Svizzera</span>
-                </div>
-                <div className="flex items-center justify-between">
-                  <span>Status</span>
-                  <span className="text-emerald-700 font-medium">Disponibile per Advisory</span>
-                </div>
+              {/* Location */}
+              <div className="mt-5 pt-4 border-t border-zinc-100 flex items-center justify-between text-xs font-mono text-zinc-500">
+                <span>Location</span>
+                <span className="text-zinc-800 font-medium">Modena</span>
               </div>
 
               {/* Email Contact Actions */}
