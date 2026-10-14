@@ -140,7 +140,24 @@ export default function OlmospaceDashboard() {
   const [activeTab, setActiveTab] = useState<string>('all');
   const [copied, setCopied] = useState<boolean>(false);
   const [time, setTime] = useState<string>('');
+  const [activeFavicon, setActiveFavicon] = useState<'pipe' | 'slash' | 'ocut'>('pipe');
   const email = 'olmomarchi06@gmail.com';
+
+  const switchFavicon = (type: 'pipe' | 'slash' | 'ocut') => {
+    setActiveFavicon(type);
+    const hrefMap = {
+      pipe: '/favicon-pipe.svg',
+      slash: '/favicon-slash.svg',
+      ocut: '/favicon-ocut.svg',
+    };
+    let link: HTMLLinkElement | null = document.querySelector("link[rel*='icon']");
+    if (!link) {
+      link = document.createElement('link');
+      link.rel = 'icon';
+      document.head.appendChild(link);
+    }
+    link.href = hrefMap[type];
+  };
 
   useEffect(() => {
     const updateTime = () => {
@@ -495,6 +512,58 @@ export default function OlmospaceDashboard() {
               ))}
             </div>
           </section>
+        </div>
+
+        {/* Favicon Testing Lab · Pure Black #000000 & Pure White #FFFFFF */}
+        <div className="mt-12 p-4 sm:p-5 rounded-2xl border border-zinc-200 bg-white shadow-xs">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div>
+              <span className="text-[10px] font-mono uppercase tracking-[0.2em] text-zinc-400 block mb-1">
+                Favicon Testing Lab | Pure #000000 &amp; #FFFFFF
+              </span>
+              <p className="text-xs text-zinc-600 font-mono">
+                Clicca su una variante per provarla in tempo reale nella scheda del tuo browser:
+              </p>
+            </div>
+
+            <div className="flex items-center gap-2">
+              <button
+                onClick={() => switchFavicon('pipe')}
+                className={`flex items-center gap-2.5 px-3.5 py-2 rounded-lg border text-xs font-mono transition-all ${
+                  activeFavicon === 'pipe'
+                    ? 'border-zinc-950 bg-zinc-950 text-white font-semibold shadow-xs'
+                    : 'border-zinc-200 bg-zinc-50 text-zinc-700 hover:border-zinc-400'
+                }`}
+              >
+                <img src="/favicon-pipe.svg" alt="O|M" className="w-4 h-4 rounded-xs" />
+                <span>O|M</span>
+              </button>
+
+              <button
+                onClick={() => switchFavicon('slash')}
+                className={`flex items-center gap-2.5 px-3.5 py-2 rounded-lg border text-xs font-mono transition-all ${
+                  activeFavicon === 'slash'
+                    ? 'border-zinc-950 bg-zinc-950 text-white font-semibold shadow-xs'
+                    : 'border-zinc-200 bg-zinc-50 text-zinc-700 hover:border-zinc-400'
+                }`}
+              >
+                <img src="/favicon-slash.svg" alt="O/M" className="w-4 h-4 rounded-xs" />
+                <span>O/M</span>
+              </button>
+
+              <button
+                onClick={() => switchFavicon('ocut')}
+                className={`flex items-center gap-2.5 px-3.5 py-2 rounded-lg border text-xs font-mono transition-all ${
+                  activeFavicon === 'ocut'
+                    ? 'border-zinc-950 bg-zinc-950 text-white font-semibold shadow-xs'
+                    : 'border-zinc-200 bg-zinc-50 text-zinc-700 hover:border-zinc-400'
+                }`}
+              >
+                <img src="/favicon-ocut.svg" alt="O/" className="w-4 h-4 rounded-xs" />
+                <span>O/</span>
+              </button>
+            </div>
+          </div>
         </div>
       </main>
 
