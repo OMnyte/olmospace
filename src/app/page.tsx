@@ -237,15 +237,23 @@ export default function OlmospaceDashboard() {
 
               {/* Bio / Manifesto */}
               <p className="text-xs sm:text-sm text-zinc-600 leading-relaxed font-light mt-4">
-                Ho vent’anni, studio fisica e sviluppo progetti all’intersezione 
-                tra materia (orologeria concettuale), intelligenza artificiale, 
-                finanza quantitativa ed ambienti virtuali.
+                Classe 2006, frequento la facoltà di Fisica presso l’Università degli Studi di Modena e Reggio Emilia (UNIMORE). Sviluppo progetti all’intersezione tra materia (orologeria concettuale), intelligenza artificiale, finanza quantitativa ed ambienti virtuali.
               </p>
 
-              {/* Location */}
-              <div className="mt-5 pt-4 border-t border-zinc-100 flex items-center justify-between text-xs font-mono text-zinc-500">
-                <span>Location</span>
-                <span className="text-zinc-800 font-medium">Modena</span>
+              {/* Dossier Structured Metadata */}
+              <div className="mt-5 pt-4 border-t border-zinc-100 space-y-2 text-xs font-mono">
+                <div className="flex items-center justify-between text-zinc-500">
+                  <span>Anno</span>
+                  <span className="text-zinc-800 font-medium">2006</span>
+                </div>
+                <div className="flex items-center justify-between text-zinc-500">
+                  <span>Università</span>
+                  <span className="text-zinc-800 font-medium">Fisica | UNIMORE</span>
+                </div>
+                <div className="flex items-center justify-between text-zinc-500">
+                  <span>Location</span>
+                  <span className="text-zinc-800 font-medium">Modena</span>
+                </div>
               </div>
 
               {/* Email Contact Actions */}
