@@ -84,8 +84,8 @@ const CHAMBERS: Chamber[] = [
     index: '03',
     id: 'neverhalt',
     name: 'NEVERHALT',
-    domain: 'neverhalt.run',
-    url: 'https://neverhalt.run',
+    domain: 'neverhalt.pages.dev',
+    url: 'https://neverhalt.pages.dev',
     bannerImage: '/neverhalt-banner.svg',
     bannerAspect: 'aspect-[3.2/1]',
     bannerBg: 'bg-[#08090C] border-zinc-900',
@@ -107,6 +107,9 @@ const CHAMBERS: Chamber[] = [
     index: '04',
     id: 'quant-lab',
     name: 'QUANT LAB',
+    bannerImage: '/quant-banner.svg',
+    bannerAspect: 'aspect-[3.2/1]',
+    bannerBg: 'bg-[#090A0D] border-zinc-900',
     tagline: 'Systematic Trading & Market Microstructure',
     category: 'Finanza Quantitativa & Algoritmi',
     status: 'Ricerca Personale',
@@ -326,12 +329,12 @@ export default function OlmospaceDashboard() {
                   mirrorstudio.it ↗
                 </a>
                 <a
-                  href="https://neverhalt.run"
+                  href="https://neverhalt.pages.dev"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="hover:text-zinc-950 transition-colors"
                 >
-                  neverhalt.run ↗
+                  neverhalt.pages.dev ↗
                 </a>
                 <a
                   href="https://www.linkedin.com/in/olmomarchi/"
@@ -435,24 +438,39 @@ export default function OlmospaceDashboard() {
                     <div className="md:col-span-5 flex flex-col justify-between">
                       <div>
                         {chamber.bannerImage && (
-                          <a
-                            href={chamber.url}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className={`group relative block w-full ${chamber.bannerAspect || 'aspect-[3.6/1]'} rounded-xl overflow-hidden mb-4 border ${chamber.bannerBg || 'bg-white border-zinc-200'} hover:border-zinc-500 transition-all shadow-xs`}
-                            title={`Visita ${chamber.domain}`}
-                          >
-                            <Image
-                              src={chamber.bannerImage}
-                              alt={chamber.name}
-                              fill
-                              className={`${chamber.id === 'craved' ? 'object-cover' : 'object-contain p-2 sm:p-3'} group-hover:scale-[1.02] transition-transform duration-300`}
-                            />
-                            <div className="absolute top-2.5 right-2.5 text-zinc-900 bg-white/95 backdrop-blur-xs rounded-md px-2 py-0.5 text-[10px] font-mono shadow-xs flex items-center gap-1">
-                              <span>{chamber.domain}</span>
-                              <ArrowUpRight className="w-3 h-3 text-zinc-500" />
+                          chamber.url ? (
+                            <a
+                              href={chamber.url}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className={`group relative block w-full ${chamber.bannerAspect || 'aspect-[3.6/1]'} rounded-xl overflow-hidden mb-4 border ${chamber.bannerBg || 'bg-white border-zinc-200'} hover:border-zinc-500 transition-all shadow-xs`}
+                              title={`Visita ${chamber.domain}`}
+                            >
+                              <Image
+                                src={chamber.bannerImage}
+                                alt={chamber.name}
+                                fill
+                                className={`${chamber.id === 'craved' ? 'object-cover' : 'object-contain p-2 sm:p-3'} group-hover:scale-[1.02] transition-transform duration-300`}
+                              />
+                              {chamber.domain && (
+                                <div className="absolute top-2.5 right-2.5 text-zinc-900 bg-white/95 backdrop-blur-xs rounded-md px-2 py-0.5 text-[10px] font-mono shadow-xs flex items-center gap-1">
+                                  <span>{chamber.domain}</span>
+                                  <ArrowUpRight className="w-3 h-3 text-zinc-500" />
+                                </div>
+                              )}
+                            </a>
+                          ) : (
+                            <div
+                              className={`relative block w-full ${chamber.bannerAspect || 'aspect-[3.6/1]'} rounded-xl overflow-hidden mb-4 border ${chamber.bannerBg || 'bg-white border-zinc-200'} shadow-xs`}
+                            >
+                              <Image
+                                src={chamber.bannerImage}
+                                alt={chamber.name}
+                                fill
+                                className="object-contain p-2 sm:p-3"
+                              />
                             </div>
-                          </a>
+                          )
                         )}
 
                         <div className="flex items-baseline justify-between gap-2">
@@ -563,12 +581,12 @@ export default function OlmospaceDashboard() {
               mirrorstudio.it ↗
             </a>
             <a
-              href="https://neverhalt.run"
+              href="https://neverhalt.pages.dev"
               target="_blank"
               rel="noopener noreferrer"
               className="hover:text-zinc-950 transition-colors"
             >
-              neverhalt.run ↗
+              neverhalt.pages.dev ↗
             </a>
             <a
               href="https://www.linkedin.com/in/olmomarchi/"

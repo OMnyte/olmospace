@@ -1,0 +1,108 @@
+<svg viewBox="0 0 800 240" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="quant-glow" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#10B981" stop-opacity="0.15" />
+      <stop offset="100%" stop-color="#000000" stop-opacity="0" />
+    </linearGradient>
+    <linearGradient id="channel-fill" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#10B981" stop-opacity="0.08" />
+      <stop offset="100%" stop-color="#10B981" stop-opacity="0.01" />
+    </linearGradient>
+  </defs>
+
+  <!-- Deep Technical Background -->
+  <rect width="800" height="240" fill="#090A0D" />
+  <rect x="1" y="1" width="798" height="238" fill="none" stroke="rgba(255, 255, 255, 0.08)" stroke-width="1" />
+
+  <!-- Background Technical Grid -->
+  <g stroke="rgba(255, 255, 255, 0.04)" stroke-width="1">
+    <line x1="0" y1="48" x2="800" y2="48" />
+    <line x1="0" y1="96" x2="800" y2="96" />
+    <line x1="0" y1="144" x2="800" y2="144" />
+    <line x1="0" y1="192" x2="800" y2="192" />
+    <line x1="160" y1="0" x2="160" y2="240" />
+    <line x1="320" y1="0" x2="320" y2="240" />
+    <line x1="480" y1="0" x2="480" y2="240" />
+    <line x1="640" y1="0" x2="640" y2="240" />
+  </g>
+
+  <!-- Donchian Channel Ribbon Area -->
+  <polygon points="340,62 380,62 430,55 480,55 530,48 580,48 640,42 700,42 760,38 760,185 700,185 640,178 580,178 530,172 480,172 430,165 380,165 340,165" fill="url(#channel-fill)" />
+
+  <!-- Donchian Upper & Lower Envelope Bands -->
+  <polyline points="340,62 380,62 430,55 480,55 530,48 580,48 640,42 700,42 760,38" stroke="#10B981" stroke-width="1.6" stroke-dasharray="4 3" opacity="0.8" />
+  <polyline points="340,165 380,165 430,165 480,172 530,172 580,178 640,178 700,185 760,185" stroke="#71717A" stroke-width="1.2" stroke-dasharray="3 3" opacity="0.6" />
+
+  <!-- Midpoint Baseline -->
+  <line x1="340" y1="114" x2="760" y2="114" stroke="rgba(255, 255, 255, 0.08)" stroke-dasharray="2 4" />
+
+  <!-- Quantitative Candlesticks Series (Donchian Breakout Curve) -->
+  <!-- Candle 1 -->
+  <line x1="360" y1="95" x2="360" y2="135" stroke="#71717A" stroke-width="1.2" />
+  <rect x="356" y="102" width="8" height="22" rx="1" fill="#27272A" stroke="#71717A" stroke-width="1" />
+
+  <!-- Candle 2 (Up) -->
+  <line x1="395" y1="88" x2="395" y2="128" stroke="#10B981" stroke-width="1.2" />
+  <rect x="391" y="94" width="8" height="24" rx="1" fill="#10B981" />
+
+  <!-- Candle 3 (Pullback) -->
+  <line x1="430" y1="84" x2="430" y2="122" stroke="#71717A" stroke-width="1.2" />
+  <rect x="426" y="90" width="8" height="18" rx="1" fill="#27272A" stroke="#71717A" stroke-width="1" />
+
+  <!-- Candle 4 (Consolidation) -->
+  <line x1="465" y1="78" x2="465" y2="115" stroke="#10B981" stroke-width="1.2" />
+  <rect x="461" y="82" width="8" height="22" rx="1" fill="#10B981" />
+
+  <!-- Candle 5 (Compression) -->
+  <line x1="500" y1="72" x2="500" y2="108" stroke="#71717A" stroke-width="1.2" />
+  <rect x="496" y="75" width="8" height="16" rx="1" fill="#27272A" stroke="#71717A" stroke-width="1" />
+
+  <!-- Candle 6 (Breakout Candle - Sweeping Donchian Upper Band) -->
+  <line x1="535" y1="46" x2="535" y2="92" stroke="#10B981" stroke-width="1.4" />
+  <rect x="530" y="52" width="10" height="34" rx="1.5" fill="#10B981" filter="drop-shadow(0 0 6px rgba(16,185,129,0.4))" />
+
+  <!-- Candle 7 (Continuation) -->
+  <line x1="570" y1="42" x2="570" y2="82" stroke="#10B981" stroke-width="1.4" />
+  <rect x="565" y="46" width="10" height="28" rx="1.5" fill="#10B981" />
+
+  <!-- Candle 8 (High Expansion) -->
+  <line x1="605" y1="36" x2="605" y2="76" stroke="#10B981" stroke-width="1.4" />
+  <rect x="600" y="40" width="10" height="30" rx="1.5" fill="#10B981" filter="drop-shadow(0 0 8px rgba(16,185,129,0.5))" />
+
+  <!-- Candle 9 -->
+  <line x1="640" y1="32" x2="640" y2="68" stroke="#10B981" stroke-width="1.4" />
+  <rect x="635" y="35" width="10" height="24" rx="1.5" fill="#10B981" />
+
+  <!-- Candle 10 (Trend runner) -->
+  <line x1="675" y1="28" x2="675" y2="62" stroke="#10B981" stroke-width="1.4" />
+  <rect x="670" y="32" width="10" height="22" rx="1.5" fill="#10B981" />
+
+  <!-- Left Header & Branding Block -->
+  <g transform="translate(48, 52)">
+    <!-- Mathematical Sigma Monogram Box -->
+    <rect x="0" y="0" width="56" height="56" rx="12" fill="#111318" stroke="rgba(255, 255, 255, 0.12)" stroke-width="1.2" />
+    <text x="28" y="38" font-family="'Geist Mono', monospace, 'Segoe UI Symbol', sans-serif" font-size="28" font-weight="900" fill="#10B981" text-anchor="middle">∑</text>
+
+    <!-- Wordmark & Formula -->
+    <text x="74" y="30" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="30" font-weight="900" fill="#FFFFFF" letter-spacing="0.5">QUANT LAB</text>
+    <text x="74" y="52" font-family="'Geist Mono', monospace, Consolas" font-size="11" font-weight="500" fill="#A1A1AA" letter-spacing="2.5">DONCHIAN BREAKOUT · VOLATILITY SWEEP</text>
+  </g>
+
+  <!-- Lower Mathematical & Microstructure Legend -->
+  <g transform="translate(48, 172)" font-family="'Geist Mono', monospace, Consolas" font-size="10.5" fill="#71717A">
+    <text x="0" y="0">ALGORITHM : <tspan fill="#E4E4E7">TREND_FOLLOWING_V3</tspan></text>
+    <text x="0" y="18">RESOLUTION : <tspan fill="#E4E4E7">TICK &amp; HIGH-RES M1</tspan></text>
+  </g>
+
+  <g transform="translate(240, 172)" font-family="'Geist Mono', monospace, Consolas" font-size="10.5" fill="#71717A">
+    <text x="0" y="0">EDGE MODEL : <tspan fill="#10B981">ASYMMETRIC RISK/REWARD</tspan></text>
+    <text x="0" y="18">BACKTEST : <tspan fill="#E4E4E7">MONTE CARLO ROBUSTNESS</tspan></text>
+  </g>
+
+  <!-- Live Pulse Pill -->
+  <g transform="translate(620, 192)">
+    <rect x="0" y="-18" width="132" height="28" rx="14" fill="rgba(16, 185, 129, 0.08)" stroke="rgba(16, 185, 129, 0.28)" stroke-width="1" />
+    <circle cx="16" cy="-4" r="3" fill="#10B981" />
+    <text x="28" y="0" font-family="'Geist Mono', monospace, Consolas" font-size="10" font-weight="600" fill="#10B981" letter-spacing="1">SYSTEMATIC LAB</text>
+  </g>
+</svg>
