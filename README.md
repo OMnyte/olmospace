@@ -26,15 +26,21 @@
 * **Status:** Live & Operating | Modena [IT] | Remote
 * **Focus:** Studio di sistemi creativi, direzione artistica ed engine di produzione visiva potenziati da intelligenza artificiale per brand ad alto impatto (Reflect, Foundation, Operate).
 
-### 03 | QUANT LAB | Finanza Quantitativa & Algoritmi
+### 03 | NEVERHALT | Autonomous Agent Cloud Runtime
+* **Sito Live:** [neverhalt.app](https://neverhalt.app)
+* **Status:** Engineering & Prototyping | Cloudflare Edge & Dedicated Host
+* **Focus:** Hosting persistente ed orchestrazione 24/7 per agenti autonomi, bot Python, browser headless e server FastMCP.
+* *«Your agent never sleep. So you can.»*
+
+### 04 | QUANT LAB | Finanza Quantitativa & Algoritmi
 * **Status:** Active Research | Quantitative Unit
 * **Focus:** Ricerca quantitativa, microstruttura dei mercati finanziari, algoritmi di breakout/volatilità (Donchian sweeps, analisi frattale della liquidità, MQL5 & Python backtesting pipelines).
 
-### 04 | AI LAB & APPS | Intelligenza Applicata & Software
+### 05 | AI LAB & APPS | Intelligenza Applicata & Software
 * **Status:** Incubating Lab | Software Atelier
 * **Focus:** Sviluppo di agenti autonomi multi-step, framework cognitivi (MCP), generative UI e micro-applicazioni software ad hoc.
 
-### 05 | ROBLOX VENTURES | Mondi Virtuali & Spatial Gaming
+### 06 | ROBLOX VENTURES | Mondi Virtuali & Spatial Gaming
 * **Status:** Prototyping Lab | Interactive Environments
 * **Focus:** Esperienze virtuali interattive, retention loop, economie digitali e sistemi di gioco su motore Luau.
 

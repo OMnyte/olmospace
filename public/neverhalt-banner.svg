@@ -24,7 +24,7 @@
   <!-- Wordmark -->
   <g transform="translate(205, 108)">
     <text font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="44" font-weight="900" fill="#FFFFFF" letter-spacing="1">NEVERHALT</text>
-    <text y="32" font-family="'Geist Mono', monospace, Consolas" font-size="13" font-weight="500" fill="rgba(255, 255, 255, 0.45)" letter-spacing="3.5">AUTONOMOUS AGENT CLOUD RUNTIME</text>
+    <text y="32" font-family="'Geist Mono', monospace, Consolas" font-size="11.5" font-weight="600" fill="rgba(255, 255, 255, 0.65)" letter-spacing="2">YOUR AGENT NEVER SLEEP. SO YOU CAN.</text>
   </g>
 
   <!-- Live Pulse Pill -->

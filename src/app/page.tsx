@@ -88,16 +88,16 @@ const CHAMBERS: Chamber[] = [
     index: '03',
     id: 'neverhalt',
     name: 'NEVERHALT',
-    domain: 'neverhalt.pages.dev',
-    url: 'https://neverhalt.pages.dev',
+    domain: 'neverhalt.app',
+    url: 'https://neverhalt.app',
     bannerImage: '/neverhalt-banner.svg',
     bannerAspect: 'aspect-[3.2/1]',
     bannerBg: 'bg-[#08090C] border-zinc-900',
-    tagline: 'Autonomous Agent Hosting & 24/7 Cloud Runtime',
+    tagline: 'Your agent never sleep. So you can.',
     category: 'Cloud Runtime & AI Infrastructure',
     status: 'Ingegneria & Prototipazione',
     location: 'Cloudflare Edge & Dedicated Host',
-    thesis: '«Il serverless convenzionale va in timeout: gli agenti richiedono runtime continui e volumi persistenti.»',
+    thesis: '«Your agent never sleep. So you can.»',
     description:
       'Piattaforma cloud specializzata nell’hosting e orchestrazione continua di agenti autonomi, bot Python 24/7 e server FastMCP. Risolve i limiti del serverless tradizionale integrando volumi persistenti per database locali (SQLite/Parquet), runtime Playwright e Chromium headless preconfigurati e protocollo prompt-to-deploy.',
     pillars: [
@@ -308,12 +308,12 @@ export default function OlmospaceDashboard() {
                   mirrorstudio.it ↗
                 </a>
                 <a
-                  href="https://neverhalt.pages.dev"
+                  href="https://neverhalt.app"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="hover:text-zinc-950 transition-colors"
                 >
-                  neverhalt.pages.dev ↗
+                  neverhalt.app ↗
                 </a>
                 <a
                   href="https://www.linkedin.com/in/olmomarchi/"
@@ -983,12 +983,12 @@ export default function OlmospaceDashboard() {
               mirrorstudio.it ↗
             </a>
             <a
-              href="https://neverhalt.pages.dev"
+              href="https://neverhalt.app"
               target="_blank"
               rel="noopener noreferrer"
               className="hover:text-zinc-950 transition-colors"
             >
-              neverhalt.pages.dev ↗
+              neverhalt.app ↗
             </a>
             <a
               href="https://www.linkedin.com/in/olmomarchi/"
