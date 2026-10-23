@@ -82,6 +82,29 @@ const CHAMBERS: Chamber[] = [
   },
   {
     index: '03',
+    id: 'neverhalt',
+    name: 'NEVERHALT',
+    domain: 'neverhalt.run',
+    url: 'https://neverhalt.run',
+    bannerImage: '/neverhalt-banner.svg',
+    bannerAspect: 'aspect-[3.2/1]',
+    bannerBg: 'bg-[#08090C] border-zinc-900',
+    tagline: 'Autonomous Agent Hosting & 24/7 Cloud Runtime',
+    category: 'Cloud Runtime & AI Infrastructure',
+    status: 'Ingegneria & Prototipazione',
+    location: 'Cloudflare Edge & Dedicated Host',
+    thesis: '«Il serverless convenzionale va in timeout: gli agenti richiedono runtime continui e volumi persistenti.»',
+    description:
+      'Piattaforma cloud specializzata nell’hosting e orchestrazione continua di agenti autonomi, bot Python 24/7 e server FastMCP. Risolve i limiti del serverless tradizionale integrando volumi persistenti per database locali (SQLite/Parquet), runtime Playwright e Chromium headless preconfigurati e protocollo prompt-to-deploy.',
+    pillars: [
+      'Control plane dual-mode (Docker orchestrator & micro-subprocesses)',
+      'Supporto nativo a browser headless (Playwright/Chromium) e server FastMCP',
+      'Persistenza automatica per database locali e daemon perenni'
+    ],
+    stack: ['Cloudflare D1 / Pages', 'FastAPI Control Plane', 'Docker Engine', 'FastMCP', 'Playwright', 'Python']
+  },
+  {
+    index: '04',
     id: 'quant-lab',
     name: 'QUANT LAB',
     tagline: 'Systematic Trading & Market Microstructure',
@@ -99,7 +122,7 @@ const CHAMBERS: Chamber[] = [
     stack: ['Python', 'MQL5 / MetaTrader', 'Data Analysis', 'Time Series', 'Systematic Trading']
   },
   {
-    index: '04',
+    index: '05',
     id: 'ai-lab',
     name: 'AI LAB & APPS',
     tagline: 'Autonomous Cognitive Agents & Custom Tooling',
@@ -117,7 +140,7 @@ const CHAMBERS: Chamber[] = [
     stack: ['Next.js / React', 'TypeScript', 'MCP Protocol', 'Agentic Workflows', 'Tailwind CSS']
   },
   {
-    index: '05',
+    index: '06',
     id: 'roblox-ventures',
     name: 'ROBLOX VENTURES',
     tagline: 'Virtual Worlds & Gameplay Mechanics',
@@ -303,6 +326,14 @@ export default function OlmospaceDashboard() {
                   mirrorstudio.it ↗
                 </a>
                 <a
+                  href="https://neverhalt.run"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-zinc-950 transition-colors"
+                >
+                  neverhalt.run ↗
+                </a>
+                <a
                   href="https://www.linkedin.com/in/olmomarchi/"
                   target="_blank"
                   rel="noopener noreferrer"
@@ -331,7 +362,7 @@ export default function OlmospaceDashboard() {
                   Indice Ecosistema
                 </span>
                 <h2 className="text-lg font-normal tracking-tight text-zinc-900">
-                  Le 5 Camere del Laboratorio
+                  Le 6 Camere del Laboratorio
                 </h2>
               </div>
 
@@ -530,6 +561,14 @@ export default function OlmospaceDashboard() {
               className="hover:text-zinc-950 transition-colors"
             >
               mirrorstudio.it ↗
+            </a>
+            <a
+              href="https://neverhalt.run"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-zinc-950 transition-colors"
+            >
+              neverhalt.run ↗
             </a>
             <a
               href="https://www.linkedin.com/in/olmomarchi/"
