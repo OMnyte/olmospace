@@ -5,9 +5,6 @@ import Image from 'next/image';
 import {
   ArrowUpRight,
   Clock,
-  Check,
-  Copy,
-  Mail,
   MapPin,
   ExternalLink,
   Layers,
@@ -173,9 +170,7 @@ export default function OlmospaceDashboard() {
   const [activeTab, setActiveTab] = useState<string>('all');
   const [viewMode, setViewMode] = useState<ViewMode>('grid');
   const [carouselIndex, setCarouselIndex] = useState<number>(0);
-  const [copied, setCopied] = useState<boolean>(false);
   const [time, setTime] = useState<string>('');
-  const email = 'OMnyte@users.noreply.github.com';
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -211,12 +206,6 @@ export default function OlmospaceDashboard() {
     return () => clearInterval(interval);
   }, []);
 
-  const handleCopy = () => {
-    navigator.clipboard.writeText(email);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2200);
-  };
-
   const displayedChambers =
     activeTab === 'all'
       ? CHAMBERS
@@ -244,13 +233,6 @@ export default function OlmospaceDashboard() {
               <span className="text-zinc-800 font-medium">{time || '20:00:00'}</span>
               <span className="text-zinc-400 hidden xs:inline">| CET</span>
             </div>
-
-            <a
-              href={`mailto:${email}`}
-              className="text-zinc-900 font-medium hover:underline underline-offset-4 hidden sm:inline"
-            >
-              {email}
-            </a>
           </div>
         </div>
       </header>
@@ -305,34 +287,6 @@ export default function OlmospaceDashboard() {
                   <span>Location</span>
                   <span className="text-zinc-800 font-medium">Modena</span>
                 </div>
-              </div>
-
-              {/* Email Contact Actions */}
-              <div className="mt-6 pt-5 border-t border-zinc-100 space-y-2">
-                <a
-                  href={`mailto:${email}`}
-                  className="w-full py-2.5 px-4 rounded-lg bg-zinc-950 text-white text-xs font-mono font-medium hover:bg-zinc-800 transition-colors flex items-center justify-center gap-2"
-                >
-                  <Mail className="w-3.5 h-3.5" />
-                  <span>Invia Mail</span>
-                </a>
-
-                <button
-                  onClick={handleCopy}
-                  className="w-full py-2 px-3 rounded-lg border border-zinc-200 text-zinc-700 text-xs font-mono hover:border-zinc-900 transition-colors flex items-center justify-center gap-2 bg-zinc-50"
-                >
-                  {copied ? (
-                    <>
-                      <Check className="w-3.5 h-3.5 text-emerald-600" />
-                      <span className="text-emerald-700 font-medium">Email Copiata</span>
-                    </>
-                  ) : (
-                    <>
-                      <Copy className="w-3.5 h-3.5 text-zinc-400" />
-                      <span>{email}</span>
-                    </>
-                  )}
-                </button>
               </div>
 
               {/* External Links */}

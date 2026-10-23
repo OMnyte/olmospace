@@ -8,7 +8,7 @@
 `olmospace` racchiude l'ecosistema di progetti, esplorazioni e laboratori fondati e guidati da **Olmo Marchi**: dall'orologeria concettuale svizzera ai sistemi di produzione visiva con intelligenza artificiale, fino alla finanza quantitativa sistematica e ai mondi virtuali.
 
 * 🌐 **Sito Live:** [olmospace.vercel.app](https://olmospace.vercel.app)
-* ✉️ **Contatto Diretto:** [OMnyte@users.noreply.github.com](mailto:OMnyte@users.noreply.github.com)
+* 🏛️ **Atelier & Progetti:** [craved.ch](https://craved.ch)
 * 💼 **LinkedIn:** [linkedin.com/in/olmomarchi](https://www.linkedin.com/in/olmomarchi/)
 
 ---
@@ -23,7 +23,7 @@
 
 ### 02 | MIRR/OR STUDIO | Creative System & Art Direction
 * **Sito Live:** [mirrorstudio.it](https://mirrorstudio.it)
-* **Status:** Live & Operating | Milano [IT] | Remote
+* **Status:** Live & Operating | Modena [IT] | Remote
 * **Focus:** Studio di sistemi creativi, direzione artistica ed engine di produzione visiva potenziati da intelligenza artificiale per brand ad alto impatto (Reflect, Foundation, Operate).
 
 ### 03 | QUANT LAB | Finanza Quantitativa & Algoritmi
@@ -65,4 +65,4 @@ npm run build
 
 ---
 
-© 2026 Olmo Marchi | [OMnyte@users.noreply.github.com](mailto:OMnyte@users.noreply.github.com)
+© 2026 Olmo Marchi | [olmospace.vercel.app](https://olmospace.vercel.app)
