@@ -11,8 +11,15 @@ import {
   MapPin,
   ExternalLink,
   Layers,
-  Circle
+  Circle,
+  LayoutGrid,
+  BookOpen,
+  List,
+  ChevronLeft,
+  ChevronRight
 } from 'lucide-react';
+
+type ViewMode = 'grid' | 'carousel' | 'dossier';
 
 interface Chamber {
   index: string;
@@ -164,9 +171,27 @@ const CHAMBERS: Chamber[] = [
 
 export default function OlmospaceDashboard() {
   const [activeTab, setActiveTab] = useState<string>('all');
+  const [viewMode, setViewMode] = useState<ViewMode>('grid');
+  const [carouselIndex, setCarouselIndex] = useState<number>(0);
   const [copied, setCopied] = useState<boolean>(false);
   const [time, setTime] = useState<string>('');
   const email = 'OMnyte@users.noreply.github.com';
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (viewMode !== 'carousel') return;
+      if (e.key === 'ArrowRight') {
+        setCarouselIndex((prev) => (prev + 1) % CHAMBERS.length);
+      } else if (e.key === 'ArrowLeft') {
+        setCarouselIndex((prev) => (prev - 1 + CHAMBERS.length) % CHAMBERS.length);
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [viewMode]);
+
+  const goToNext = () => setCarouselIndex((prev) => (prev + 1) % CHAMBERS.length);
+  const goToPrev = () => setCarouselIndex((prev) => (prev - 1 + CHAMBERS.length) % CHAMBERS.length);
 
   useEffect(() => {
     const updateTime = () => {
@@ -358,200 +383,623 @@ export default function OlmospaceDashboard() {
 
           {/* Right Column | Widescreen Chambers & Labs Workspace */}
           <section className="lg:col-span-8 space-y-6">
-            {/* Filter Bar */}
-            <div className="p-4 sm:p-5 rounded-2xl border border-zinc-200 bg-white shadow-sm flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-              <div>
-                <span className="text-[10px] font-mono uppercase tracking-[0.2em] text-zinc-400 block">
-                  Indice Ecosistema
-                </span>
-                <h2 className="text-lg font-normal tracking-tight text-zinc-900">
-                  Le 6 Camere del Laboratorio
-                </h2>
+            {/* Filter & View Mode Bar */}
+            <div className="p-4 sm:p-5 rounded-2xl border border-zinc-200 bg-white shadow-sm space-y-4">
+              {/* Top Row: Title & View Segmented Switcher */}
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                <div>
+                  <span className="text-[10px] font-mono uppercase tracking-[0.2em] text-zinc-400 block">
+                    Indice Ecosistema
+                  </span>
+                  <h2 className="text-lg font-normal tracking-tight text-zinc-900">
+                    Le 6 Camere del Laboratorio
+                  </h2>
+                </div>
+
+                {/* View Mode Segmented Controls */}
+                <div className="flex items-center gap-1 p-1 bg-zinc-100 rounded-xl border border-zinc-200 self-start sm:self-auto">
+                  <button
+                    onClick={() => setViewMode('grid')}
+                    className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-mono transition-all ${
+                      viewMode === 'grid'
+                        ? 'bg-zinc-950 text-white font-medium shadow-xs'
+                        : 'text-zinc-600 hover:text-zinc-950 hover:bg-zinc-200/60'
+                    }`}
+                    title="Vista Griglia (Bento Grid)"
+                  >
+                    <LayoutGrid className="w-3.5 h-3.5" />
+                    <span>Griglia</span>
+                  </button>
+
+                  <button
+                    onClick={() => setViewMode('carousel')}
+                    className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-mono transition-all ${
+                      viewMode === 'carousel'
+                        ? 'bg-zinc-950 text-white font-medium shadow-xs'
+                        : 'text-zinc-600 hover:text-zinc-950 hover:bg-zinc-200/60'
+                    }`}
+                    title="Vista Sfoglia (Focus / Magazine)"
+                  >
+                    <BookOpen className="w-3.5 h-3.5" />
+                    <span>Sfoglia</span>
+                  </button>
+
+                  <button
+                    onClick={() => setViewMode('dossier')}
+                    className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-mono transition-all ${
+                      viewMode === 'dossier'
+                        ? 'bg-zinc-950 text-white font-medium shadow-xs'
+                        : 'text-zinc-600 hover:text-zinc-950 hover:bg-zinc-200/60'
+                    }`}
+                    title="Vista Dossier (Lista Completa)"
+                  >
+                    <List className="w-3.5 h-3.5" />
+                    <span>Dossier</span>
+                  </button>
+                </div>
               </div>
 
-              {/* Tabs Switcher */}
-              <div className="flex items-center gap-1 overflow-x-auto pb-1 sm:pb-0 scrollbar-none">
-                <button
-                  onClick={() => setActiveTab('all')}
-                  className={`px-3 py-1.5 rounded-lg text-xs font-mono whitespace-nowrap transition-all ${
-                    activeTab === 'all'
-                      ? 'bg-zinc-950 text-white font-medium'
-                      : 'text-zinc-600 hover:text-zinc-950 hover:bg-zinc-100'
-                  }`}
-                >
-                  [ TUTTI ]
-                </button>
+              {/* Bottom Row: Tab Filters */}
+              <div className="pt-3 border-t border-zinc-100 flex items-center justify-between gap-2 overflow-x-auto pb-1 sm:pb-0 scrollbar-none">
+                <div className="flex items-center gap-1">
+                  <button
+                    onClick={() => setActiveTab('all')}
+                    className={`px-3 py-1 rounded-lg text-xs font-mono whitespace-nowrap transition-all ${
+                      activeTab === 'all'
+                        ? 'bg-zinc-950 text-white font-medium'
+                        : 'text-zinc-600 hover:text-zinc-950 hover:bg-zinc-100'
+                    }`}
+                  >
+                    [ TUTTI ]
+                  </button>
 
-                {CHAMBERS.map((chamber) => {
-                  const isActive = activeTab === chamber.id;
-                  return (
-                    <button
-                      key={chamber.id}
-                      onClick={() => setActiveTab(chamber.id)}
-                      className={`px-3 py-1.5 rounded-lg text-xs font-mono whitespace-nowrap transition-all flex items-center gap-1.5 ${
-                        isActive
-                          ? 'bg-zinc-950 text-white font-medium shadow-sm'
-                          : 'text-zinc-600 hover:text-zinc-950 hover:bg-zinc-100'
-                      }`}
-                    >
-                      <span className={isActive ? 'text-zinc-400' : 'text-zinc-400'}>
-                        {chamber.index}
-                      </span>
-                      <span>{chamber.name}</span>
-                    </button>
-                  );
-                })}
+                  {CHAMBERS.map((chamber, idx) => {
+                    const isActive = viewMode === 'carousel' ? carouselIndex === idx : activeTab === chamber.id;
+                    return (
+                      <button
+                        key={chamber.id}
+                        onClick={() => {
+                          if (viewMode === 'carousel') {
+                            setCarouselIndex(idx);
+                          } else {
+                            setActiveTab(chamber.id);
+                          }
+                        }}
+                        className={`px-2.5 py-1 rounded-lg text-xs font-mono whitespace-nowrap transition-all flex items-center gap-1.5 ${
+                          isActive
+                            ? 'bg-zinc-950 text-white font-medium shadow-xs'
+                            : 'text-zinc-600 hover:text-zinc-950 hover:bg-zinc-100'
+                        }`}
+                      >
+                        <span className="text-zinc-400">{chamber.index}</span>
+                        <span>{chamber.name}</span>
+                      </button>
+                    );
+                  })}
+                </div>
+
+                {viewMode === 'carousel' && (
+                  <span className="hidden md:inline text-[11px] font-mono text-zinc-400 whitespace-nowrap">
+                    Tasti ← →
+                  </span>
+                )}
               </div>
             </div>
 
-            {/* Chambers Slates (Expansive & Distinct) */}
-            <div className="space-y-6">
-              {displayedChambers.map((chamber) => (
-                <article
-                  key={chamber.id}
-                  className="p-6 sm:p-8 rounded-2xl border border-zinc-200 bg-white shadow-sm hover:border-zinc-400 transition-all duration-200"
-                >
-                  {/* Header Strip with pipe separators */}
-                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-5 border-b border-zinc-100">
-                    <div className="flex items-center gap-2.5 text-xs font-mono">
-                      <span className="px-2 py-0.5 rounded bg-zinc-100 text-zinc-800 font-medium border border-zinc-200">
-                        {chamber.index}
-                      </span>
-                      <span className="text-zinc-300">|</span>
-                      <span className="uppercase tracking-wider text-zinc-600 font-medium">
-                        {chamber.category}
-                      </span>
-                    </div>
-
-                    <div className="flex items-center gap-2 text-xs font-mono text-zinc-500">
-                      <span>{chamber.location}</span>
-                      <span className="text-zinc-300">|</span>
-                      <span className="px-2.5 py-0.5 rounded-full border border-zinc-200 text-zinc-800 bg-zinc-50 font-medium">
-                        {chamber.status}
-                      </span>
-                    </div>
-                  </div>
-
-                  {/* Body Content */}
-                  <div className="grid grid-cols-1 md:grid-cols-12 gap-6 pt-6">
-                    {/* Left Sub-column */}
-                    <div className="md:col-span-5 flex flex-col justify-between">
-                      <div>
-                        {chamber.bannerImage && (
-                          chamber.url ? (
-                            <a
-                              href={chamber.url}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className={`group relative block w-full ${chamber.bannerAspect || 'aspect-[3.6/1]'} rounded-xl overflow-hidden mb-4 border ${chamber.bannerBg || 'bg-white border-zinc-200'} hover:border-zinc-500 transition-all shadow-xs`}
-                              title={`Visita ${chamber.domain}`}
-                            >
-                              <Image
-                                src={chamber.bannerImage}
-                                alt={chamber.name}
-                                fill
-                                className={`${chamber.id === 'craved' ? 'object-cover' : 'object-contain p-2 sm:p-3'} group-hover:scale-[1.02] transition-transform duration-300`}
-                              />
-                              {chamber.domain && (
-                                <div className="absolute top-2.5 right-2.5 text-zinc-900 bg-white/95 backdrop-blur-xs rounded-md px-2 py-0.5 text-[10px] font-mono shadow-xs flex items-center gap-1">
-                                  <span>{chamber.domain}</span>
-                                  <ArrowUpRight className="w-3 h-3 text-zinc-500" />
-                                </div>
-                              )}
-                            </a>
-                          ) : (
-                            <div
-                              className={`relative block w-full ${chamber.bannerAspect || 'aspect-[3.6/1]'} rounded-xl overflow-hidden mb-4 border ${chamber.bannerBg || 'bg-white border-zinc-200'} shadow-xs`}
-                            >
-                              <Image
-                                src={chamber.bannerImage}
-                                alt={chamber.name}
-                                fill
-                                className="object-contain p-2 sm:p-3"
-                              />
-                            </div>
-                          )
-                        )}
-
-                        <div className="flex items-baseline justify-between gap-2">
-                          <h3 className="text-2xl font-normal tracking-tight text-zinc-950">
-                            {chamber.name}
-                          </h3>
-                          {chamber.domain && (
-                            <a
-                              href={chamber.url}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="text-xs font-mono text-zinc-500 hover:text-zinc-900 transition-colors inline-flex items-center gap-1"
-                            >
-                              <span>{chamber.domain}</span>
-                              <ArrowUpRight className="w-3 h-3 text-zinc-400" />
-                            </a>
-                          )}
-                        </div>
-
-                        <div className="mt-4 p-3.5 rounded-xl border border-zinc-100 bg-[#fafafa]">
-                          <span className="text-[10px] font-mono uppercase tracking-wider text-zinc-400 block mb-1">
-                            Tesi & Filosofia
-                          </span>
-                          <p className="text-xs sm:text-sm font-medium text-zinc-800 italic leading-snug">
-                            {chamber.thesis}
-                          </p>
-                        </div>
+            {/* VIEW MODE 1: SFOGLIA / FOCUS CAROUSEL */}
+            {viewMode === 'carousel' && (() => {
+              const currentChamber = CHAMBERS[carouselIndex];
+              return (
+                <div className="space-y-4">
+                  {/* Active Slide Card */}
+                  <article className="p-6 sm:p-8 rounded-2xl border border-zinc-200 bg-white shadow-sm transition-all duration-300">
+                    {/* Carousel Header Controls */}
+                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-5 border-b border-zinc-100">
+                      <div className="flex items-center gap-2.5 text-xs font-mono">
+                        <span className="px-2.5 py-1 rounded bg-zinc-950 text-white font-semibold">
+                          {currentChamber.index} / 06
+                        </span>
+                        <span className="text-zinc-300">|</span>
+                        <span className="uppercase tracking-wider text-zinc-700 font-medium">
+                          {currentChamber.category}
+                        </span>
+                        <span className="text-zinc-300">|</span>
+                        <span className="px-2.5 py-0.5 rounded-full border border-zinc-200 text-zinc-700 bg-zinc-50 font-medium">
+                          {currentChamber.status}
+                        </span>
                       </div>
 
-                      {chamber.url && (
-                        <div className="mt-6">
+                      {/* Previous / Next buttons */}
+                      <div className="flex items-center gap-2">
+                        <button
+                          onClick={goToPrev}
+                          className="px-3 py-1.5 rounded-lg border border-zinc-200 text-zinc-700 hover:border-zinc-950 hover:text-zinc-950 transition-colors flex items-center gap-1 text-xs font-mono bg-zinc-50"
+                          title="Precedente (Freccia Sinistra)"
+                        >
+                          <ChevronLeft className="w-3.5 h-3.5" />
+                          <span>Precedente</span>
+                        </button>
+
+                        <button
+                          onClick={goToNext}
+                          className="px-3 py-1.5 rounded-lg bg-zinc-950 text-white hover:bg-zinc-800 transition-colors flex items-center gap-1 text-xs font-mono font-medium shadow-xs"
+                          title="Successivo (Freccia Destra)"
+                        >
+                          <span>Successivo</span>
+                          <ChevronRight className="w-3.5 h-3.5" />
+                        </button>
+                      </div>
+                    </div>
+
+                    {/* Banner Hero */}
+                    {currentChamber.bannerImage && (
+                      <div className="mt-6 mb-6">
+                        {currentChamber.url ? (
                           <a
-                            href={chamber.url}
+                            href={currentChamber.url}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg bg-zinc-900 text-white text-xs font-mono font-medium hover:bg-zinc-800 transition-colors w-full sm:w-auto justify-center shadow-xs"
+                            className={`group relative block w-full aspect-[2.8/1] sm:aspect-[3.2/1] rounded-xl overflow-hidden border ${currentChamber.bannerBg || 'bg-white border-zinc-200'} hover:border-zinc-500 transition-all shadow-xs`}
+                            title={`Visita ${currentChamber.domain}`}
                           >
-                            <span>Visita {chamber.domain}</span>
-                            <ArrowUpRight className="w-3.5 h-3.5" />
+                            <Image
+                              src={currentChamber.bannerImage}
+                              alt={currentChamber.name}
+                              fill
+                              className={`${currentChamber.id === 'craved' ? 'object-cover' : 'object-contain p-3 sm:p-4'} group-hover:scale-[1.015] transition-transform duration-300`}
+                            />
+                            {currentChamber.domain && (
+                              <div className="absolute top-3 right-3 text-zinc-900 bg-white/95 backdrop-blur-xs rounded-md px-2.5 py-1 text-xs font-mono shadow-xs flex items-center gap-1">
+                                <span>{currentChamber.domain}</span>
+                                <ArrowUpRight className="w-3.5 h-3.5 text-zinc-500" />
+                              </div>
+                            )}
                           </a>
-                        </div>
+                        ) : (
+                          <div
+                            className={`relative block w-full aspect-[2.8/1] sm:aspect-[3.2/1] rounded-xl overflow-hidden border ${currentChamber.bannerBg || 'bg-white border-zinc-200'} shadow-xs`}
+                          >
+                            <Image
+                              src={currentChamber.bannerImage}
+                              alt={currentChamber.name}
+                              fill
+                              className="object-contain p-3 sm:p-4"
+                            />
+                          </div>
+                        )}
+                      </div>
+                    )}
+
+                    {/* Title & Tagline */}
+                    <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-2 mb-4">
+                      <div>
+                        <h3 className="text-3xl font-normal tracking-tight text-zinc-950">
+                          {currentChamber.name}
+                        </h3>
+                        <p className="text-xs text-zinc-500 font-mono mt-0.5">
+                          {currentChamber.tagline}
+                        </p>
+                      </div>
+
+                      {currentChamber.domain && (
+                        <a
+                          href={currentChamber.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-xs font-mono text-zinc-600 hover:text-zinc-950 transition-colors inline-flex items-center gap-1"
+                        >
+                          <span>{currentChamber.domain}</span>
+                          <ArrowUpRight className="w-3.5 h-3.5" />
+                        </a>
                       )}
                     </div>
 
-                    {/* Right Sub-column */}
-                    <div className="md:col-span-7 flex flex-col justify-between border-t md:border-t-0 md:border-l border-zinc-100 pt-5 md:pt-0 md:pl-6">
-                      <div>
-                        <p className="text-xs sm:text-sm text-zinc-600 leading-relaxed font-light">
-                          {chamber.description}
+                    {/* Thesis */}
+                    <div className="p-4 rounded-xl border border-zinc-100 bg-[#fafafa] mb-6">
+                      <span className="text-[10px] font-mono uppercase tracking-wider text-zinc-400 block mb-1">
+                        Tesi & Filosofia
+                      </span>
+                      <p className="text-sm font-medium text-zinc-800 italic leading-relaxed">
+                        {currentChamber.thesis}
+                      </p>
+                    </div>
+
+                    {/* Split Details */}
+                    <div className="grid grid-cols-1 md:grid-cols-12 gap-6 pt-4 border-t border-zinc-100">
+                      <div className="md:col-span-7">
+                        <span className="text-[10px] font-mono uppercase tracking-wider text-zinc-400 block mb-2">
+                          Descrizione
+                        </span>
+                        <p className="text-sm text-zinc-600 leading-relaxed font-light">
+                          {currentChamber.description}
                         </p>
 
-                        <div className="mt-5">
+                        {currentChamber.url && (
+                          <div className="mt-6">
+                            <a
+                              href={currentChamber.url}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-zinc-900 text-white text-xs font-mono font-medium hover:bg-zinc-800 transition-colors shadow-xs"
+                            >
+                              <span>Visita {currentChamber.domain}</span>
+                              <ArrowUpRight className="w-3.5 h-3.5" />
+                            </a>
+                          </div>
+                        )}
+                      </div>
+
+                      <div className="md:col-span-5 space-y-5 md:border-l md:border-zinc-100 md:pl-6">
+                        <div>
                           <span className="text-[10px] font-mono uppercase tracking-wider text-zinc-400 block mb-2">
                             Punti di Rilievo
                           </span>
-                          <ul className="space-y-1.5 text-xs text-zinc-600">
-                            {chamber.pillars.map((pillar, idx) => (
+                          <ul className="space-y-2 text-xs text-zinc-600">
+                            {currentChamber.pillars.map((pillar, idx) => (
                               <li key={idx} className="flex items-start gap-2">
-                                <span className="text-zinc-400 mt-0.5">|</span>
+                                <span className="text-zinc-400 mt-0.5 font-bold">|</span>
                                 <span>{pillar}</span>
                               </li>
                             ))}
                           </ul>
                         </div>
-                      </div>
 
-                      <div className="mt-6 pt-4 border-t border-zinc-100 flex flex-wrap gap-1.5">
-                        {chamber.stack.map((item, idx) => (
-                          <span
-                            key={idx}
-                            className="text-[10px] font-mono px-2 py-0.5 rounded border border-zinc-200 bg-zinc-50 text-zinc-600"
-                          >
-                            {item}
+                        <div className="pt-4 border-t border-zinc-100">
+                          <span className="text-[10px] font-mono uppercase tracking-wider text-zinc-400 block mb-2">
+                            Stack & Metodologie
                           </span>
-                        ))}
+                          <div className="flex flex-wrap gap-1.5">
+                            {currentChamber.stack.map((item, idx) => (
+                              <span
+                                key={idx}
+                                className="text-[10px] font-mono px-2 py-0.5 rounded border border-zinc-200 bg-zinc-50 text-zinc-600"
+                              >
+                                {item}
+                              </span>
+                            ))}
+                          </div>
+                        </div>
                       </div>
                     </div>
+                  </article>
+
+                  {/* Thumbnail Jump Strip */}
+                  <div className="p-3 rounded-2xl border border-zinc-200 bg-white shadow-xs">
+                    <div className="flex items-center justify-between text-[11px] font-mono text-zinc-400 px-2 pb-2">
+                      <span>Sfoglia Tutte le Camere</span>
+                      <span>Seleziona un progetto</span>
+                    </div>
+                    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-2">
+                      {CHAMBERS.map((c, idx) => {
+                        const isCurrent = carouselIndex === idx;
+                        return (
+                          <button
+                            key={c.id}
+                            onClick={() => setCarouselIndex(idx)}
+                            className={`p-2.5 rounded-xl border text-left transition-all ${
+                              isCurrent
+                                ? 'border-zinc-950 bg-zinc-950 text-white shadow-xs'
+                                : 'border-zinc-200 bg-zinc-50 text-zinc-700 hover:border-zinc-400 hover:bg-white'
+                            }`}
+                          >
+                            <span className="text-[10px] font-mono block text-zinc-400">
+                              {c.index}
+                            </span>
+                            <span className="text-xs font-medium block truncate mt-0.5">
+                              {c.name}
+                            </span>
+                          </button>
+                        );
+                      })}
+                    </div>
                   </div>
-                </article>
-              ))}
-            </div>
+                </div>
+              );
+            })()}
+
+            {/* VIEW MODE 2: BENTO GRIGLIA */}
+            {viewMode === 'grid' && (
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                {displayedChambers.map((chamber) => (
+                  <article
+                    key={chamber.id}
+                    className="p-5 sm:p-6 rounded-2xl border border-zinc-200 bg-white shadow-xs hover:border-zinc-400 hover:shadow-sm transition-all duration-200 flex flex-col justify-between"
+                  >
+                    <div>
+                      {/* Top meta strip */}
+                      <div className="flex items-center justify-between text-xs font-mono pb-3 mb-4 border-b border-zinc-100">
+                        <div className="flex items-center gap-2">
+                          <span className="px-2 py-0.5 rounded bg-zinc-100 text-zinc-800 font-semibold border border-zinc-200">
+                            {chamber.index}
+                          </span>
+                          <span className="text-zinc-300">|</span>
+                          <span className="text-[11px] uppercase tracking-wider text-zinc-600 font-medium truncate max-w-[130px]">
+                            {chamber.category}
+                          </span>
+                        </div>
+                        <span className="text-[10px] px-2 py-0.5 rounded-full border border-zinc-200 text-zinc-700 bg-zinc-50 font-medium whitespace-nowrap">
+                          {chamber.status}
+                        </span>
+                      </div>
+
+                      {/* Visual Banner */}
+                      {chamber.bannerImage && (
+                        chamber.url ? (
+                          <a
+                            href={chamber.url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className={`group relative block w-full aspect-[2.6/1] rounded-xl overflow-hidden mb-4 border ${chamber.bannerBg || 'bg-white border-zinc-200'} hover:border-zinc-500 transition-all shadow-xs`}
+                            title={`Visita ${chamber.domain}`}
+                          >
+                            <Image
+                              src={chamber.bannerImage}
+                              alt={chamber.name}
+                              fill
+                              className={`${chamber.id === 'craved' ? 'object-cover' : 'object-contain p-2.5'} group-hover:scale-[1.02] transition-transform duration-300`}
+                            />
+                            {chamber.domain && (
+                              <div className="absolute top-2 right-2 text-zinc-900 bg-white/95 backdrop-blur-xs rounded px-1.5 py-0.5 text-[9px] font-mono shadow-xs flex items-center gap-0.5">
+                                <span>{chamber.domain}</span>
+                                <ArrowUpRight className="w-2.5 h-2.5 text-zinc-500" />
+                              </div>
+                            )}
+                          </a>
+                        ) : (
+                          <div
+                            className={`relative block w-full aspect-[2.6/1] rounded-xl overflow-hidden mb-4 border ${chamber.bannerBg || 'bg-white border-zinc-200'} shadow-xs`}
+                          >
+                            <Image
+                              src={chamber.bannerImage}
+                              alt={chamber.name}
+                              fill
+                              className="object-contain p-2.5"
+                            />
+                          </div>
+                        )
+                      )}
+
+                      {/* Title & Domain */}
+                      <div className="flex items-baseline justify-between gap-2 mb-2">
+                        <h3 className="text-xl font-normal tracking-tight text-zinc-950">
+                          {chamber.name}
+                        </h3>
+                        {chamber.domain && (
+                          <a
+                            href={chamber.url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-xs font-mono text-zinc-500 hover:text-zinc-950 transition-colors inline-flex items-center gap-0.5"
+                          >
+                            <span>{chamber.domain}</span>
+                            <ArrowUpRight className="w-3 h-3" />
+                          </a>
+                        )}
+                      </div>
+
+                      {/* Thesis callout */}
+                      <p className="text-xs font-medium text-zinc-700 italic bg-[#fafafa] p-2.5 rounded-lg border border-zinc-100 mb-3 leading-snug">
+                        {chamber.thesis}
+                      </p>
+
+                      {/* Description */}
+                      <p className="text-xs text-zinc-600 leading-relaxed font-light line-clamp-3 mb-4">
+                        {chamber.description}
+                      </p>
+                    </div>
+
+                    <div>
+                      {/* Key Pillars */}
+                      <div className="space-y-1 mb-4 pt-3 border-t border-zinc-100">
+                        {chamber.pillars.slice(0, 2).map((pillar, idx) => (
+                          <div key={idx} className="flex items-start gap-1.5 text-[11px] text-zinc-600">
+                            <span className="text-zinc-400 mt-0.5">|</span>
+                            <span className="line-clamp-1">{pillar}</span>
+                          </div>
+                        ))}
+                      </div>
+
+                      {/* Stack Tags */}
+                      <div className="flex flex-wrap gap-1 mb-4">
+                        {chamber.stack.slice(0, 4).map((tech, idx) => (
+                          <span
+                            key={idx}
+                            className="text-[9px] font-mono px-1.5 py-0.5 rounded border border-zinc-200 bg-zinc-50 text-zinc-600"
+                          >
+                            {tech}
+                          </span>
+                        ))}
+                        {chamber.stack.length > 4 && (
+                          <span className="text-[9px] font-mono px-1.5 py-0.5 rounded text-zinc-400">
+                            +{chamber.stack.length - 4}
+                          </span>
+                        )}
+                      </div>
+
+                      {/* Bottom Action */}
+                      <div className="flex items-center gap-2">
+                        {chamber.url && (
+                          <a
+                            href={chamber.url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="flex-1 py-2 px-3 rounded-lg bg-zinc-900 text-white text-xs font-mono font-medium hover:bg-zinc-800 transition-colors flex items-center justify-center gap-1.5"
+                          >
+                            <span>Visita {chamber.domain}</span>
+                            <ArrowUpRight className="w-3 h-3" />
+                          </a>
+                        )}
+                        <button
+                          onClick={() => {
+                            const idx = CHAMBERS.findIndex((c) => c.id === chamber.id);
+                            if (idx !== -1) {
+                              setCarouselIndex(idx);
+                              setViewMode('carousel');
+                            }
+                          }}
+                          className={`${chamber.url ? 'px-3' : 'w-full'} py-2 rounded-lg border border-zinc-200 text-zinc-700 text-xs font-mono font-medium hover:border-zinc-950 transition-colors flex items-center justify-center gap-1.5 bg-zinc-50`}
+                          title="Sfoglia a schermo intero"
+                        >
+                          <span>Sfoglia</span>
+                          <BookOpen className="w-3 h-3 text-zinc-400" />
+                        </button>
+                      </div>
+                    </div>
+                  </article>
+                ))}
+              </div>
+            )}
+
+            {/* VIEW MODE 3: DOSSIER COMPLETO (SLATES VERTICALI) */}
+            {viewMode === 'dossier' && (
+              <div className="space-y-6">
+                {displayedChambers.map((chamber) => (
+                  <article
+                    key={chamber.id}
+                    className="p-6 sm:p-8 rounded-2xl border border-zinc-200 bg-white shadow-sm hover:border-zinc-400 transition-all duration-200"
+                  >
+                    {/* Header Strip with pipe separators */}
+                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-5 border-b border-zinc-100">
+                      <div className="flex items-center gap-2.5 text-xs font-mono">
+                        <span className="px-2 py-0.5 rounded bg-zinc-100 text-zinc-800 font-medium border border-zinc-200">
+                          {chamber.index}
+                        </span>
+                        <span className="text-zinc-300">|</span>
+                        <span className="uppercase tracking-wider text-zinc-600 font-medium">
+                          {chamber.category}
+                        </span>
+                      </div>
+
+                      <div className="flex items-center gap-2 text-xs font-mono text-zinc-500">
+                        <span>{chamber.location}</span>
+                        <span className="text-zinc-300">|</span>
+                        <span className="px-2.5 py-0.5 rounded-full border border-zinc-200 text-zinc-800 bg-zinc-50 font-medium">
+                          {chamber.status}
+                        </span>
+                      </div>
+                    </div>
+
+                    {/* Body Content */}
+                    <div className="grid grid-cols-1 md:grid-cols-12 gap-6 pt-6">
+                      {/* Left Sub-column */}
+                      <div className="md:col-span-5 flex flex-col justify-between">
+                        <div>
+                          {chamber.bannerImage && (
+                            chamber.url ? (
+                              <a
+                                href={chamber.url}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className={`group relative block w-full ${chamber.bannerAspect || 'aspect-[3.6/1]'} rounded-xl overflow-hidden mb-4 border ${chamber.bannerBg || 'bg-white border-zinc-200'} hover:border-zinc-500 transition-all shadow-xs`}
+                                title={`Visita ${chamber.domain}`}
+                              >
+                                <Image
+                                  src={chamber.bannerImage}
+                                  alt={chamber.name}
+                                  fill
+                                  className={`${chamber.id === 'craved' ? 'object-cover' : 'object-contain p-2 sm:p-3'} group-hover:scale-[1.02] transition-transform duration-300`}
+                                />
+                                {chamber.domain && (
+                                  <div className="absolute top-2.5 right-2.5 text-zinc-900 bg-white/95 backdrop-blur-xs rounded-md px-2 py-0.5 text-[10px] font-mono shadow-xs flex items-center gap-1">
+                                    <span>{chamber.domain}</span>
+                                    <ArrowUpRight className="w-3 h-3 text-zinc-500" />
+                                  </div>
+                                )}
+                              </a>
+                            ) : (
+                              <div
+                                className={`relative block w-full ${chamber.bannerAspect || 'aspect-[3.6/1]'} rounded-xl overflow-hidden mb-4 border ${chamber.bannerBg || 'bg-white border-zinc-200'} shadow-xs`}
+                              >
+                                <Image
+                                  src={chamber.bannerImage}
+                                  alt={chamber.name}
+                                  fill
+                                  className="object-contain p-2 sm:p-3"
+                                />
+                              </div>
+                            )
+                          )}
+
+                          <div className="flex items-baseline justify-between gap-2">
+                            <h3 className="text-2xl font-normal tracking-tight text-zinc-950">
+                              {chamber.name}
+                            </h3>
+                            {chamber.domain && (
+                              <a
+                                href={chamber.url}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="text-xs font-mono text-zinc-500 hover:text-zinc-900 transition-colors inline-flex items-center gap-1"
+                              >
+                                <span>{chamber.domain}</span>
+                                <ArrowUpRight className="w-3 h-3 text-zinc-400" />
+                              </a>
+                            )}
+                          </div>
+
+                          <div className="mt-4 p-3.5 rounded-xl border border-zinc-100 bg-[#fafafa]">
+                            <span className="text-[10px] font-mono uppercase tracking-wider text-zinc-400 block mb-1">
+                              Tesi & Filosofia
+                            </span>
+                            <p className="text-xs sm:text-sm font-medium text-zinc-800 italic leading-snug">
+                              {chamber.thesis}
+                            </p>
+                          </div>
+                        </div>
+
+                        {chamber.url && (
+                          <div className="mt-6">
+                            <a
+                              href={chamber.url}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg bg-zinc-900 text-white text-xs font-mono font-medium hover:bg-zinc-800 transition-colors w-full sm:w-auto justify-center shadow-xs"
+                            >
+                              <span>Visita {chamber.domain}</span>
+                              <ArrowUpRight className="w-3.5 h-3.5" />
+                            </a>
+                          </div>
+                        )}
+                      </div>
+
+                      {/* Right Sub-column */}
+                      <div className="md:col-span-7 flex flex-col justify-between border-t md:border-t-0 md:border-l border-zinc-100 pt-5 md:pt-0 md:pl-6">
+                        <div>
+                          <p className="text-xs sm:text-sm text-zinc-600 leading-relaxed font-light">
+                            {chamber.description}
+                          </p>
+
+                          <div className="mt-5">
+                            <span className="text-[10px] font-mono uppercase tracking-wider text-zinc-400 block mb-2">
+                              Punti di Rilievo
+                            </span>
+                            <ul className="space-y-1.5 text-xs text-zinc-600">
+                              {chamber.pillars.map((pillar, idx) => (
+                                <li key={idx} className="flex items-start gap-2">
+                                  <span className="text-zinc-400 mt-0.5">|</span>
+                                  <span>{pillar}</span>
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
+                        </div>
+
+                        <div className="mt-6 pt-4 border-t border-zinc-100 flex flex-wrap gap-1.5">
+                          {chamber.stack.map((item, idx) => (
+                            <span
+                              key={idx}
+                              className="text-[10px] font-mono px-2 py-0.5 rounded border border-zinc-200 bg-zinc-50 text-zinc-600"
+                            >
+                              {item}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+                  </article>
+                ))}
+              </div>
+            )}
           </section>
         </div>
       </main>
