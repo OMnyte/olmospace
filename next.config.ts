@@ -1,5 +1,23 @@
 import type { NextConfig } from "next";
 
+const isDev = process.env.NODE_ENV === "development";
+
+// Static site, no third-party scripts: everything is same-origin.
+// 'unsafe-inline' on scripts is required by Next without nonces (nonces would force dynamic rendering).
+const cspHeader = `
+  default-src 'self';
+  script-src 'self' 'unsafe-inline'${isDev ? " 'unsafe-eval'" : ""};
+  style-src 'self' 'unsafe-inline';
+  img-src 'self' blob: data:;
+  font-src 'self';
+  connect-src 'self';
+  object-src 'none';
+  base-uri 'self';
+  form-action 'self';
+  frame-ancestors 'none';
+  upgrade-insecure-requests;
+`;
+
 const nextConfig: NextConfig = {
   poweredByHeader: false,
   cacheComponents: true,
@@ -18,12 +36,16 @@ const nextConfig: NextConfig = {
         source: "/(.*)",
         headers: [
           {
+            key: "Content-Security-Policy",
+            value: cspHeader.replace(/\s{2,}/g, " ").trim(),
+          },
+          {
             key: "X-Content-Type-Options",
             value: "nosniff",
           },
           {
             key: "X-Frame-Options",
-            value: "SAMEORIGIN",
+            value: "DENY",
           },
           {
             key: "Referrer-Policy",
@@ -31,7 +53,7 @@ const nextConfig: NextConfig = {
           },
           {
             key: "Permissions-Policy",
-            value: "camera=(), microphone=(), geolocation=()",
+            value: "camera=(), microphone=(), geolocation=(), payment=(), usb=(), browsing-topics=()",
           },
         ],
       },
