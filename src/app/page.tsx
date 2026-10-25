@@ -5,6 +5,10 @@ import Image from 'next/image';
 import {
   ArrowUpRight,
   Clock,
+  MapPin,
+  ExternalLink,
+  Layers,
+  Circle,
   LayoutGrid,
   BookOpen,
   List,
@@ -27,15 +31,10 @@ interface Chamber {
   category: string;
   status: string;
   location: string;
-  proof: string;
+  thesis: string;
   description: string;
+  pillars: string[];
   stack: string[];
-}
-
-interface Milestone {
-  period: string;
-  title: string;
-  detail?: string;
 }
 
 const CHAMBERS: Chamber[] = [
@@ -50,12 +49,17 @@ const CHAMBERS: Chamber[] = [
     bannerBg: 'bg-black border-zinc-900',
     tagline: 'Time doesn’t tick. It flows.',
     category: 'Orologeria Concettuale',
-    status: 'In sviluppo',
-    location: 'Modena [IT] | Dal 2025',
-    proof: 'Marchio registrato EUIPO · Design registrato WIPO',
+    status: 'In Sviluppo & Design',
+    location: 'Modena [IT] | Ambizione CH',
+    thesis: '«La precisione è risolta. L’esperienza no.»',
     description:
-      'Progetto indipendente di orologeria concettuale. Un orologio che fa sentire il tempo che scorre invece di scandirlo: cassa scultorea, architettura a clessidra e standard costruttivi svizzeri.',
-    stack: ['Industrial Design', '3D Prototyping', 'Brand Identity', 'Proprietà Intellettuale']
+      'Progetto indipendente di orologeria concettuale nato da una frattura: un mondo che misura il tempo in modo ossessivo ma fatica a viverlo. Con standard e ambizione costruttiva svizzera, CRAVED esplora la percezione della durata attraverso forme scultoree, architettura fluida a clessidra e un superamento dell’orologeria tradizionale di status.',
+    pillars: [
+      'Studio e modellazione della cassa (Inaugural Series & Sculpted Tonneau)',
+      'Architettura Flow: dare forma fisica e continua alla durata',
+      'Fusione tra fisica classica, percezione del tempo e design industriale'
+    ],
+    stack: ['Conceptual Horology', 'Industrial Design', '3D Prototyping', 'Horological Architecture']
   },
   {
     index: '02',
@@ -66,14 +70,19 @@ const CHAMBERS: Chamber[] = [
     bannerImage: '/mirror-logo.png',
     bannerAspect: 'aspect-[3.2/1]',
     bannerBg: 'bg-white border-zinc-200',
-    tagline: 'Creative systems & AI production',
-    category: 'Studio Creativo',
-    status: 'Attivo',
-    location: 'Modena [IT] | Dal 2026',
-    proof: 'Studio attivo dal 2026 · Sito live mirrorstudio.it',
+    tagline: 'AI Production Engines & Structured Creative Systems',
+    category: 'Creative Systems & Art Direction',
+    status: 'Attivo | In Produzione',
+    location: 'Modena [IT] | Remote',
+    thesis: '«Sistematizzare la produzione visiva senza compromessi sull’identità artistica.»',
     description:
-      'Studio creativo che progetta identità visive, contenuti e produzione con strumenti di AI generativa, per brand e progetti imprenditoriali.',
-    stack: ['Generative AI', 'Art Direction', 'Brand Identity', 'Content Production']
+      'Studio creativo basato a Modena dedicato alla progettazione di sistemi visivi e flussi di produzione basati su intelligenza artificiale. Aiutiamo brand e progetti a strutturare pipeline visive scalabili ed editoriali (fasi di ideazione, test di consistenza e produzione output), ottimizzando tempi e vincoli delle produzioni tradizionali.',
+    pillars: [
+      'Pipeline generative strutturate per visual editoriali ad alta definizione',
+      'Direzione artistica coerente su cataloghi, lookbook e campagne',
+      'Ottimizzazione dei flussi creativi digitali'
+    ],
+    stack: ['Generative AI', 'Art Direction', 'Visual Workflows', 'Brand Identity', 'Synthetic Media']
   },
   {
     index: '03',
@@ -85,13 +94,18 @@ const CHAMBERS: Chamber[] = [
     bannerAspect: 'aspect-[3.2/1]',
     bannerBg: 'bg-[#08090C] border-zinc-900',
     tagline: 'Your agent never sleep. So you can.',
-    category: 'Cloud per Agenti AI',
-    status: 'In sviluppo',
-    location: 'Cloud | Dal 2026',
-    proof: 'Piattaforma online su neverhalt.app · In sviluppo attivo',
+    category: 'Cloud Runtime & AI Infrastructure',
+    status: 'Ingegneria & Prototipazione',
+    location: 'Cloudflare Edge & Dedicated Host',
+    thesis: '«Your agent never sleep. So you can.»',
     description:
-      'Hosting 24/7 per agenti AI, bot Python e server MCP: processi sempre accesi, storage persistente e browser headless pronti all’uso, senza dover gestire un server.',
-    stack: ['Cloudflare', 'FastAPI', 'Docker', 'FastMCP', 'Playwright', 'Python']
+      'Piattaforma cloud specializzata nell’hosting e orchestrazione continua di agenti autonomi, bot Python 24/7 e server FastMCP. Risolve i limiti del serverless tradizionale integrando volumi persistenti per database locali (SQLite/Parquet), runtime Playwright e Chromium headless preconfigurati e protocollo prompt-to-deploy.',
+    pillars: [
+      'Control plane dual-mode (Docker orchestrator & micro-subprocesses)',
+      'Supporto nativo a browser headless (Playwright/Chromium) e server FastMCP',
+      'Persistenza automatica per database locali e daemon perenni'
+    ],
+    stack: ['Cloudflare D1 / Pages', 'FastAPI Control Plane', 'Docker Engine', 'FastMCP', 'Playwright', 'Python']
   },
   {
     index: '04',
@@ -100,55 +114,56 @@ const CHAMBERS: Chamber[] = [
     bannerImage: '/quant-banner.svg',
     bannerAspect: 'aspect-[3.2/1]',
     bannerBg: 'bg-[#090A0D] border-zinc-900',
-    tagline: 'Systematic Trading Research',
-    category: 'Finanza Quantitativa',
-    status: 'Ricerca personale',
-    location: 'Ricerca personale',
-    proof: 'Backtest e forward test con costi misurati sui tick reali',
+    tagline: 'Systematic Trading & Market Microstructure',
+    category: 'Finanza Quantitativa & Algoritmi',
+    status: 'Ricerca Personale',
+    location: 'Quantitative Research Unit',
+    thesis: '«Rigore statistico per eliminare il bias discrezionale.»',
     description:
-      'Ricerca personale sui mercati: strategie sistematiche trend-following, analisi della volatilità e gestione del rischio, con un journaling strutturato di ogni test.',
-    stack: ['Python', 'MQL5 / MetaTrader', 'Time Series', 'Backtesting']
+      'Spazio di studio e ricerca personale sulla modellazione quantitativa dei mercati finanziari. Focus sullo sviluppo di strategie sistematiche trend-following (come breakout di Donchian), analisi statistica della volatilità e backtesting rigoroso con parametri di rischio controllati.',
+    pillars: [
+      'Sviluppo e backtesting di strategie breakout su serie storiche ad alta risoluzione',
+      'Analisi quantitativa dei drawdown e sizing controllato delle posizioni',
+      'Scripting di automazione e modellazione dati in Python e MQL5'
+    ],
+    stack: ['Python', 'MQL5 / MetaTrader', 'Data Analysis', 'Time Series', 'Systematic Trading']
   },
   {
     index: '05',
     id: 'ai-lab',
     name: 'AI LAB & APPS',
-    tagline: 'Agents & Custom Tooling',
-    category: 'Software & Agenti AI',
-    status: 'Uso interno',
+    tagline: 'Autonomous Cognitive Agents & Custom Tooling',
+    category: 'Sviluppo Software & Agenti AI',
+    status: 'Sperimentazione Attiva',
     location: 'Software Lab',
-    proof: 'Strumenti che uso ogni giorno per lavorare su tutti i progetti',
+    thesis: '«Software agile costruito su misura per risolvere problemi reali.»',
     description:
-      'Agenti, server MCP e piccole app costruite su misura per automatizzare ricerca, sviluppo e produzione.',
-    stack: ['Next.js / React', 'TypeScript', 'MCP', 'Python']
+      'Laboratorio di sviluppo per esplorare l’integrazione pratica dell’intelligenza artificiale nei flussi quotidiani. Creazione di agenti autonomi mirati, implementazioni del Model Context Protocol (MCP) e interfacce web minimali costruite con Next.js e TypeScript.',
+    pillars: [
+      'Configurazione e testing di agenti autonomi con integrazione MCP',
+      'Architetture web moderne, veloci e minimali (Next.js / Tailwind)',
+      'Tooling interno per automatizzare workflow di ricerca e sviluppo'
+    ],
+    stack: ['Next.js / React', 'TypeScript', 'MCP Protocol', 'Agentic Workflows', 'Tailwind CSS']
   },
   {
     index: '06',
     id: 'roblox-ventures',
     name: 'ROBLOX VENTURES',
-    tagline: 'Virtual Worlds & Gameplay',
-    category: 'Sviluppo Giochi',
-    status: 'Prototipi',
+    tagline: 'Virtual Worlds & Gameplay Mechanics',
+    category: 'Sviluppo Giochi & Ambienti 3D',
+    status: 'Prototipazione',
     location: 'Interactive Dev',
-    proof: 'Prototipi in sviluppo, non ancora pubblicati',
+    thesis: '«Meccaniche di gioco accessibili e sistemi di interazione immediati.»',
     description:
-      'Giochi e meccaniche multiplayer per Roblox: scripting Luau client-server, loop di gameplay e sistemi di progressione.',
-    stack: ['Luau', 'Roblox Studio', 'Level Design', 'Multiplayer']
+      'Progettazione e sperimentazione di titoli e meccaniche di gioco per la piattaforma Roblox. Focus sullo sviluppo client-server in Luau, level design 3D, sistemi di progressione e prototipazione rapida di esperienze multiplayer per testare engagement e dinamiche di gioco.',
+    pillars: [
+      'Scripting in Luau con architettura modulare client-server',
+      'Prototipazione rapida di loop di gameplay e progressione utente',
+      'Studio del feedback dei giocatori e ottimizzazione delle performance'
+    ],
+    stack: ['Luau Engine', 'Roblox Studio', '3D Level Design', 'Game Logic', 'Multiplayer Mechanics']
   }
-];
-
-const MILESTONES: Milestone[] = [
-  { period: '2026', title: 'Fondo MIRR/OR STUDIO e avvio NEVERHALT', detail: 'Studio creativo e piattaforma cloud per agenti AI.' },
-  { period: '2025 – oggi', title: 'Fisica | UNIMORE', detail: 'Laurea triennale in corso.' },
-  { period: '2025', title: 'Fondo CRAVED', detail: 'Marchio registrato EUIPO, design registrato WIPO.' },
-  { period: '2025', title: 'Real Estate Associate | Coldwell Banker Modena' },
-  { period: '2022 – 2025', title: 'Lavoro in cantiere e come cameriere' },
-  { period: '2021 – 2023', title: 'Web copywriter & marketing', detail: 'Siti, contenuti e campagne advertising per piccole attività locali.' }
-];
-
-const OFF_WORK: Milestone[] = [
-  { period: 'Scacchi', title: 'Tornei regionali e nazionali' },
-  { period: 'Basket', title: 'Ex giocatore agonista' }
 ];
 
 export default function OlmospaceDashboard() {
@@ -156,7 +171,6 @@ export default function OlmospaceDashboard() {
   const [viewMode, setViewMode] = useState<ViewMode>('grid');
   const [carouselIndex, setCarouselIndex] = useState<number>(0);
   const [time, setTime] = useState<string>('');
-  const [zone, setZone] = useState<string>('');
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -185,12 +199,6 @@ export default function OlmospaceDashboard() {
           second: '2-digit',
           hour12: false,
         }).format(now)
-      );
-      // CET in winter, CEST in summer
-      setZone(
-        new Intl.DateTimeFormat('en-GB', { timeZone: 'Europe/Zurich', timeZoneName: 'short' })
-          .formatToParts(now)
-          .find((p) => p.type === 'timeZoneName')?.value ?? ''
       );
     };
     updateTime();
@@ -222,8 +230,8 @@ export default function OlmospaceDashboard() {
             <div className="flex items-center gap-2 px-2.5 py-1 rounded bg-zinc-100 border border-zinc-200">
               <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
               <Clock className="w-3.5 h-3.5 text-zinc-400" />
-              <span className="text-zinc-800 font-medium tabular-nums">{time || '--:--:--'}</span>
-              <span className="text-zinc-500 hidden sm:inline">| Modena {zone}</span>
+              <span className="text-zinc-800 font-medium">{time || '20:00:00'}</span>
+              <span className="text-zinc-400 hidden xs:inline">| CET</span>
             </div>
           </div>
         </div>
@@ -232,8 +240,8 @@ export default function OlmospaceDashboard() {
       {/* Expanded Widescreen Dashboard Body */}
       <main className="max-w-[1440px] w-full mx-auto px-4 sm:px-6 lg:px-10 py-6 sm:py-10 flex-1">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-start">
-          {/* Left Column | Profile & Contact (not sticky: taller than most viewports) */}
-          <aside className="lg:col-span-4 space-y-6">
+          {/* Left Column | Profile & Dossier (Sticky on Desktop) */}
+          <aside className="lg:col-span-4 lg:sticky lg:top-24 space-y-6">
             {/* Identity Card */}
             <div className="p-6 rounded-2xl border border-zinc-200 bg-white shadow-sm">
               {/* Photo */}
@@ -249,20 +257,20 @@ export default function OlmospaceDashboard() {
 
               {/* Name & Title */}
               <div className="space-y-1 pb-4 border-b border-zinc-100">
-                <span className="text-[11px] font-mono uppercase tracking-[0.2em] text-zinc-500 block">
-                  Studente | Founder
+                <span className="text-[10px] font-mono uppercase tracking-[0.2em] text-zinc-400 block">
+                  Fondatore | Ricercatore
                 </span>
                 <h1 className="text-2xl font-normal tracking-tight text-zinc-950">
                   Olmo Marchi
                 </h1>
-                <p className="text-sm text-zinc-700 italic">
-                  Curioso per natura, concreto per scelta.
+                <p className="text-xs text-zinc-500 font-mono">
+                  Conceptual Design | Systems | Quantitative Research
                 </p>
               </div>
 
-              {/* Bio */}
-              <p className="text-sm text-zinc-600 leading-relaxed mt-4">
-                Studio Fisica a UNIMORE e costruisco progetti tra design, intelligenza artificiale e finanza quantitativa. Lavoro dal 2021: prima siti e campagne per piccole attività, poi cantiere, sala e immobiliare, oggi i miei progetti.
+              {/* Bio / Manifesto */}
+              <p className="text-xs sm:text-sm text-zinc-600 leading-relaxed font-light mt-4">
+                Classe 2006, frequento la facoltà di Fisica presso l’Università degli Studi di Modena e Reggio Emilia (UNIMORE). Sviluppo progetti all’intersezione tra materia (orologeria concettuale), intelligenza artificiale, finanza quantitativa ed ambienti virtuali.
               </p>
 
               {/* Dossier Structured Metadata */}
@@ -276,33 +284,13 @@ export default function OlmospaceDashboard() {
                   <span className="text-zinc-800 font-medium">Fisica | UNIMORE</span>
                 </div>
                 <div className="flex items-center justify-between text-zinc-500">
-                  <span>Base</span>
-                  <span className="text-zinc-800 font-medium">Modena | Emilia</span>
+                  <span>Location</span>
+                  <span className="text-zinc-800 font-medium">Modena</span>
                 </div>
-                <div className="flex items-center justify-between text-zinc-500">
-                  <span>Lingue</span>
-                  <span className="text-zinc-800 font-medium">Italiano | Inglese</span>
-                </div>
-              </div>
-
-              {/* Contact */}
-              <div className="mt-5 pt-4 border-t border-zinc-100">
-                <a
-                  href="https://www.linkedin.com/in/olmomarchi/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-full inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg bg-zinc-950 text-white text-xs font-mono font-medium hover:bg-zinc-800 transition-colors"
-                >
-                  <span>Contattami su LinkedIn</span>
-                  <ArrowUpRight className="w-3.5 h-3.5" />
-                </a>
-                <p className="mt-2 text-[11px] text-zinc-500 leading-snug">
-                  Per CRAVED, MIRR/OR o NEVERHALT scrivi dal sito del progetto.
-                </p>
               </div>
 
               {/* External Links */}
-              <div className="mt-4 pt-4 border-t border-zinc-100 flex flex-wrap items-center justify-between gap-3 text-xs font-mono text-zinc-500">
+              <div className="mt-5 pt-4 border-t border-zinc-100 flex flex-wrap items-center justify-between gap-3 text-xs font-mono text-zinc-500">
                 <a
                   href="https://craved.ch"
                   target="_blank"
@@ -354,11 +342,11 @@ export default function OlmospaceDashboard() {
               {/* Top Row: Title & View Segmented Switcher */}
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                 <div>
-                  <span className="text-[11px] font-mono uppercase tracking-[0.2em] text-zinc-500 block">
-                    Cosa sto costruendo
+                  <span className="text-[10px] font-mono uppercase tracking-[0.2em] text-zinc-400 block">
+                    Indice Ecosistema
                   </span>
                   <h2 className="text-lg font-normal tracking-tight text-zinc-900">
-                    Progetti
+                    Le 6 Camere del Laboratorio
                   </h2>
                 </div>
 
@@ -463,7 +451,7 @@ export default function OlmospaceDashboard() {
                     <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-5 border-b border-zinc-100">
                       <div className="flex items-center gap-2.5 text-xs font-mono">
                         <span className="px-2.5 py-1 rounded bg-zinc-950 text-white font-semibold">
-                          {currentChamber.index} / {String(CHAMBERS.length).padStart(2, '0')}
+                          {currentChamber.index} / 06
                         </span>
                         <span className="text-zinc-300">|</span>
                         <span className="uppercase tracking-wider text-zinc-700 font-medium">
@@ -560,13 +548,13 @@ export default function OlmospaceDashboard() {
                       )}
                     </div>
 
-                    {/* Proof */}
+                    {/* Thesis */}
                     <div className="p-4 rounded-xl border border-zinc-100 bg-[#fafafa] mb-6">
-                      <span className="text-[11px] font-mono uppercase tracking-wider text-zinc-500 block mb-1">
-                        Fatti
+                      <span className="text-[10px] font-mono uppercase tracking-wider text-zinc-400 block mb-1">
+                        Tesi & Filosofia
                       </span>
-                      <p className="text-sm font-medium text-zinc-800 leading-relaxed">
-                        {currentChamber.proof}
+                      <p className="text-sm font-medium text-zinc-800 italic leading-relaxed">
+                        {currentChamber.thesis}
                       </p>
                     </div>
 
@@ -597,8 +585,22 @@ export default function OlmospaceDashboard() {
 
                       <div className="md:col-span-5 space-y-5 md:border-l md:border-zinc-100 md:pl-6">
                         <div>
-                          <span className="text-[11px] font-mono uppercase tracking-wider text-zinc-500 block mb-2">
-                            Strumenti
+                          <span className="text-[10px] font-mono uppercase tracking-wider text-zinc-400 block mb-2">
+                            Punti di Rilievo
+                          </span>
+                          <ul className="space-y-2 text-xs text-zinc-600">
+                            {currentChamber.pillars.map((pillar, idx) => (
+                              <li key={idx} className="flex items-start gap-2">
+                                <span className="text-zinc-400 mt-0.5 font-bold">|</span>
+                                <span>{pillar}</span>
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+
+                        <div className="pt-4 border-t border-zinc-100">
+                          <span className="text-[10px] font-mono uppercase tracking-wider text-zinc-400 block mb-2">
+                            Stack & Metodologie
                           </span>
                           <div className="flex flex-wrap gap-1.5">
                             {currentChamber.stack.map((item, idx) => (
@@ -618,7 +620,7 @@ export default function OlmospaceDashboard() {
                   {/* Thumbnail Jump Strip */}
                   <div className="p-3 rounded-2xl border border-zinc-200 bg-white shadow-xs">
                     <div className="flex items-center justify-between text-[11px] font-mono text-zinc-400 px-2 pb-2">
-                      <span>Tutti i progetti</span>
+                      <span>Sfoglia Tutte le Camere</span>
                       <span>Seleziona un progetto</span>
                     </div>
                     <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-2">
@@ -729,30 +731,40 @@ export default function OlmospaceDashboard() {
                         )}
                       </div>
 
-                      {/* Proof callout */}
-                      <p className="text-xs font-medium text-zinc-800 bg-[#fafafa] p-2.5 rounded-lg border border-zinc-100 mb-3 leading-snug">
-                        {chamber.proof}
+                      {/* Thesis callout */}
+                      <p className="text-xs font-medium text-zinc-700 italic bg-[#fafafa] p-2.5 rounded-lg border border-zinc-100 mb-3 leading-snug">
+                        {chamber.thesis}
                       </p>
 
                       {/* Description */}
-                      <p className="text-[13px] text-zinc-600 leading-relaxed line-clamp-4 mb-4">
+                      <p className="text-xs text-zinc-600 leading-relaxed font-light line-clamp-3 mb-4">
                         {chamber.description}
                       </p>
                     </div>
 
                     <div>
+                      {/* Key Pillars */}
+                      <div className="space-y-1 mb-4 pt-3 border-t border-zinc-100">
+                        {chamber.pillars.slice(0, 2).map((pillar, idx) => (
+                          <div key={idx} className="flex items-start gap-1.5 text-[11px] text-zinc-600">
+                            <span className="text-zinc-400 mt-0.5">|</span>
+                            <span className="line-clamp-1">{pillar}</span>
+                          </div>
+                        ))}
+                      </div>
+
                       {/* Stack Tags */}
-                      <div className="flex flex-wrap gap-1 mb-4 pt-3 border-t border-zinc-100">
+                      <div className="flex flex-wrap gap-1 mb-4">
                         {chamber.stack.slice(0, 4).map((tech, idx) => (
                           <span
                             key={idx}
-                            className="text-[10px] font-mono px-1.5 py-0.5 rounded border border-zinc-200 bg-zinc-50 text-zinc-600"
+                            className="text-[9px] font-mono px-1.5 py-0.5 rounded border border-zinc-200 bg-zinc-50 text-zinc-600"
                           >
                             {tech}
                           </span>
                         ))}
                         {chamber.stack.length > 4 && (
-                          <span className="text-[10px] font-mono px-1.5 py-0.5 rounded text-zinc-500">
+                          <span className="text-[9px] font-mono px-1.5 py-0.5 rounded text-zinc-400">
                             +{chamber.stack.length - 4}
                           </span>
                         )}
@@ -880,11 +892,11 @@ export default function OlmospaceDashboard() {
                           </div>
 
                           <div className="mt-4 p-3.5 rounded-xl border border-zinc-100 bg-[#fafafa]">
-                            <span className="text-[11px] font-mono uppercase tracking-wider text-zinc-500 block mb-1">
-                              Fatti
+                            <span className="text-[10px] font-mono uppercase tracking-wider text-zinc-400 block mb-1">
+                              Tesi & Filosofia
                             </span>
-                            <p className="text-xs sm:text-sm font-medium text-zinc-800 leading-snug">
-                              {chamber.proof}
+                            <p className="text-xs sm:text-sm font-medium text-zinc-800 italic leading-snug">
+                              {chamber.thesis}
                             </p>
                           </div>
                         </div>
@@ -907,9 +919,23 @@ export default function OlmospaceDashboard() {
                       {/* Right Sub-column */}
                       <div className="md:col-span-7 flex flex-col justify-between border-t md:border-t-0 md:border-l border-zinc-100 pt-5 md:pt-0 md:pl-6">
                         <div>
-                          <p className="text-sm text-zinc-600 leading-relaxed">
+                          <p className="text-xs sm:text-sm text-zinc-600 leading-relaxed font-light">
                             {chamber.description}
                           </p>
+
+                          <div className="mt-5">
+                            <span className="text-[10px] font-mono uppercase tracking-wider text-zinc-400 block mb-2">
+                              Punti di Rilievo
+                            </span>
+                            <ul className="space-y-1.5 text-xs text-zinc-600">
+                              {chamber.pillars.map((pillar, idx) => (
+                                <li key={idx} className="flex items-start gap-2">
+                                  <span className="text-zinc-400 mt-0.5">|</span>
+                                  <span>{pillar}</span>
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
                         </div>
 
                         <div className="mt-6 pt-4 border-t border-zinc-100 flex flex-wrap gap-1.5">
@@ -928,43 +954,6 @@ export default function OlmospaceDashboard() {
                 ))}
               </div>
             )}
-
-            {/* Percorso */}
-            <div className="p-6 sm:p-8 rounded-2xl border border-zinc-200 bg-white shadow-sm">
-              <span className="text-[11px] font-mono uppercase tracking-[0.2em] text-zinc-500 block">
-                Da dove arrivo
-              </span>
-              <h2 className="text-lg font-normal tracking-tight text-zinc-900">
-                Percorso
-              </h2>
-
-              <div className="grid grid-cols-1 md:grid-cols-12 gap-6 mt-5">
-                <ol className="md:col-span-8 border-l border-zinc-200 space-y-4">
-                  {MILESTONES.map((m, idx) => (
-                    <li key={idx} className="relative pl-5">
-                      <span className="absolute -left-[4.5px] top-1.5 w-2 h-2 rounded-full bg-zinc-950" />
-                      <span className="text-[11px] font-mono text-zinc-500 block">{m.period}</span>
-                      <p className="text-sm text-zinc-900">{m.title}</p>
-                      {m.detail && <p className="text-xs text-zinc-500 mt-0.5">{m.detail}</p>}
-                    </li>
-                  ))}
-                </ol>
-
-                <div className="md:col-span-4 pt-5 md:pt-0 border-t md:border-t-0 md:border-l border-zinc-100 md:pl-6">
-                  <span className="text-[11px] font-mono uppercase tracking-wider text-zinc-500 block mb-3">
-                    Fuori dal lavoro
-                  </span>
-                  <ul className="space-y-3">
-                    {OFF_WORK.map((o) => (
-                      <li key={o.period}>
-                        <p className="text-sm text-zinc-900">{o.period}</p>
-                        <p className="text-xs text-zinc-500">{o.title}</p>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </div>
-            </div>
           </section>
         </div>
       </main>
@@ -976,7 +965,7 @@ export default function OlmospaceDashboard() {
             <span className="font-medium text-zinc-900">OLMOSPACE</span> | Personal Atelier of Olmo Marchi | © 2026
           </div>
 
-          <div className="flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-zinc-600">
+          <div className="flex items-center gap-5 text-zinc-600">
             <a
               href="https://craved.ch"
               target="_blank"
