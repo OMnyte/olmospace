@@ -30,7 +30,7 @@
 * **Sito Live:** [neverhalt.app](https://neverhalt.app)
 * **Status:** Engineering & Prototyping | Cloudflare Edge & Dedicated Host
 * **Focus:** Hosting persistente ed orchestrazione 24/7 per agenti autonomi, bot Python, browser headless e server FastMCP.
-* *«Your agent never sleep. So you can.»*
+* *«Your agents never sleep. So you can.»*
 
 ### 04 | QUANT LAB | Finanza Quantitativa & Algoritmi
 * **Status:** Active Research | Quantitative Unit
