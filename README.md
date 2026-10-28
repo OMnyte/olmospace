@@ -1,6 +1,6 @@
 # OLMOSPACE
 
-> **Personal Laboratory, Atelier & Research Chambers | Olmo Marchi**
+> **Personal Laboratory & Research Chambers | Olmo Marchi**
 
 [![Production Status](https://img.shields.io/badge/Deployment-Live%20on%20Vercel-black?style=flat-square&logo=vercel)](https://olmospace.vercel.app)
 [![Live Site](https://img.shields.io/badge/Website-olmospace.vercel.app-black?style=flat-square)](https://olmospace.vercel.app)
@@ -8,7 +8,7 @@
 `olmospace` racchiude l'ecosistema di progetti, esplorazioni e laboratori fondati e guidati da **Olmo Marchi**: dall'orologeria concettuale svizzera ai sistemi di produzione visiva con intelligenza artificiale, fino alla finanza quantitativa sistematica e ai mondi virtuali.
 
 * 🌐 **Sito Live:** [olmospace.vercel.app](https://olmospace.vercel.app)
-* 🏛️ **Atelier & Progetti:** [craved.ch](https://craved.ch)
+* 🏛️ **Progetti & Design:** [craved.ch](https://craved.ch)
 * 💼 **LinkedIn:** [linkedin.com/in/olmomarchi](https://www.linkedin.com/in/olmomarchi/)
 
 ---
@@ -37,7 +37,7 @@
 * **Focus:** Ricerca quantitativa, microstruttura dei mercati finanziari, algoritmi di breakout/volatilità (Donchian sweeps, analisi frattale della liquidità, MQL5 & Python backtesting pipelines).
 
 ### 05 | AI LAB & APPS | Intelligenza Applicata & Software
-* **Status:** Incubating Lab | Software Atelier
+* **Status:** Incubating Lab | Software Lab
 * **Focus:** Sviluppo di agenti autonomi multi-step, framework cognitivi (MCP), generative UI e micro-applicazioni software ad hoc.
 
 ### 06 | ROBLOX VENTURES | Mondi Virtuali & Spatial Gaming

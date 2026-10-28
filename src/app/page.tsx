@@ -962,7 +962,7 @@ export default function OlmospaceDashboard() {
       <footer className="border-t border-zinc-200 py-6 bg-white mt-12">
         <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-10 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-mono text-zinc-500">
           <div>
-            <span className="font-medium text-zinc-900">OLMOSPACE</span> | Personal Atelier of Olmo Marchi | © 2026
+            <span className="font-medium text-zinc-900">OLMOSPACE</span> | Personal Lab of Olmo Marchi | © 2026
           </div>
 
           <div className="flex items-center gap-5 text-zinc-600">
