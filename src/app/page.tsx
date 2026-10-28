@@ -91,7 +91,7 @@ const CHAMBERS: Chamber[] = [
     domain: 'neverhalt.app',
     url: 'https://neverhalt.app',
     bannerImage: '/neverhalt-banner.png',
-    bannerAspect: 'aspect-[3.75/1]',
+    bannerAspect: 'aspect-[2.6/1]',
     bannerBg: 'bg-[#05080C] border-zinc-900',
     tagline: 'Your agents never sleep. So you can.',
     category: 'Cloud Runtime & AI Infrastructure',
@@ -500,7 +500,7 @@ export default function OlmospaceDashboard() {
                               src={currentChamber.bannerImage}
                               alt={currentChamber.name}
                               fill
-                              className={`${currentChamber.id === 'craved' ? 'object-cover' : 'object-contain p-3 sm:p-4'} group-hover:scale-[1.015] transition-transform duration-300`}
+                              className={`${currentChamber.id === 'craved' || currentChamber.id === 'neverhalt' || currentChamber.id === 'quant-lab' ? 'object-cover' : 'object-contain p-3 sm:p-4'} group-hover:scale-[1.015] transition-transform duration-300`}
                             />
                             {currentChamber.domain && (
                               <div className="absolute top-3 right-3 text-zinc-900 bg-white/95 backdrop-blur-xs rounded-md px-2.5 py-1 text-xs font-mono shadow-xs flex items-center gap-1">
@@ -690,7 +690,7 @@ export default function OlmospaceDashboard() {
                               src={chamber.bannerImage}
                               alt={chamber.name}
                               fill
-                              className={`${chamber.id === 'craved' ? 'object-cover' : 'object-contain p-2.5'} group-hover:scale-[1.02] transition-transform duration-300`}
+                              className={`${chamber.id === 'craved' || chamber.id === 'neverhalt' || chamber.id === 'quant-lab' ? 'object-cover' : 'object-contain p-2.5'} group-hover:scale-[1.02] transition-transform duration-300`}
                             />
                             {chamber.domain && (
                               <div className="absolute top-2 right-2 text-zinc-900 bg-white/95 backdrop-blur-xs rounded px-1.5 py-0.5 text-[9px] font-mono shadow-xs flex items-center gap-0.5">
@@ -851,7 +851,7 @@ export default function OlmospaceDashboard() {
                                   src={chamber.bannerImage}
                                   alt={chamber.name}
                                   fill
-                                  className={`${chamber.id === 'craved' ? 'object-cover' : 'object-contain p-2 sm:p-3'} group-hover:scale-[1.02] transition-transform duration-300`}
+                                  className={`${chamber.id === 'craved' || chamber.id === 'neverhalt' || chamber.id === 'quant-lab' ? 'object-cover' : 'object-contain p-2 sm:p-3'} group-hover:scale-[1.02] transition-transform duration-300`}
                                 />
                                 {chamber.domain && (
                                   <div className="absolute top-2.5 right-2.5 text-zinc-900 bg-white/95 backdrop-blur-xs rounded-md px-2 py-0.5 text-[10px] font-mono shadow-xs flex items-center gap-1">
